@@ -1,5 +1,36 @@
 [
   {
+    "timestamp": "2026-03-08T13:26:28+00:00",
+    "crash_score": 58.0,
+    "indicator_values": {
+      "vix": 23.75,
+      "vol_regime": 23.75,
+      "credit_spread": 3.0,
+      "move": 81.26,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628900.0,
+      "global_liquidity": 0.82,
+      "usd_index": 99.23,
+      "hyg": 79.69,
+      "sp_breadth": 0.2947,
+      "nasdaq": 22387.68
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 1.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "HIGH RISK"
+  },
+  {
     "timestamp": "2026-03-09T15:04:35.316509+00:00",
     "crash_score": 65.0,
     "indicator_values": {
