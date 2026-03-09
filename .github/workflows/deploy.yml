@@ -8,7 +8,7 @@ on:
     - cron: "15 19 * * *"
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -40,6 +40,15 @@ jobs:
         run: |
           python macro_crash_radar_v3.py --csv radar_log.csv --auto-report --auto-html-report --tee-report
 
+      - name: Commit updated history files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add radar_log.csv crash_dashboard_history.json
+          git commit -m "Update radar history" || echo "No changes to commit"
+          git push
+      
+      
       - name: Check that index.html exists
         run: |
           test -f reports/index.html
