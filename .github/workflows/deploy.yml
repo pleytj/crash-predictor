@@ -35,6 +35,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run crash radar script
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: |
           python macro_crash_radar_v3.py --csv radar_log.csv --auto-report --auto-html-report --tee-report
 
