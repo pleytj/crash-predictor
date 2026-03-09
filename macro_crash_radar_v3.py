@@ -1343,6 +1343,43 @@ def build_clean_summary_line(compare_result: dict[str, Any], mode_label: str) ->
 
     return f"{line1} | {line2} | {line3}"
 
+
+def calculate_trend_from_snapshot(
+    current_snapshot: dict[str, Any],
+    baseline_snapshot: dict[str, Any] | None,
+) -> tuple[float | None, str, str]:
+    """
+    Compare current crash score vs baseline snapshot from JSON history.
+    Returns:
+    - trend_score: delta in crash score
+    - risk_trend: rising / rising fast / stable / falling / falling fast / unavailable
+    - explanation
+    """
+    if not baseline_snapshot:
+        return None, "unavailable", "No previous snapshot available in JSON history."
+
+    current_score = safe_float(current_snapshot.get("crash_score"))
+    baseline_score = safe_float(baseline_snapshot.get("crash_score"))
+    delta = current_score - baseline_score
+
+    if delta >= 8:
+        trend = "rising fast"
+        explanation = "Market risk is increasing quickly versus the previous stored snapshot."
+    elif delta >= 3:
+        trend = "rising"
+        explanation = "Market risk is increasing versus the previous stored snapshot."
+    elif delta <= -8:
+        trend = "falling fast"
+        explanation = "Market risk is improving quickly versus the previous stored snapshot."
+    elif delta <= -3:
+        trend = "falling"
+        explanation = "Market risk is easing versus the previous stored snapshot."
+    else:
+        trend = "stable"
+        explanation = "Market risk is broadly stable versus the previous stored snapshot."
+
+    return round(delta, 2), trend, explanation    
+
 def format_summary_text(compare_result: dict[str, Any], mode_label: str) -> dict[str, str]:
     score_now = safe_float(compare_result.get("score_current"))
     score_delta = compare_result.get("score_delta")
@@ -3294,7 +3331,7 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
 
     bond_regime, bond_regime_explanation, bond_regime_drivers = determine_bond_regime(indicators)
 
-    trend_score, risk_trend, trend_explanation = calculate_trend_from_csv(csv_path, prob)
+    # trend_score, risk_trend, trend_explanation = calculate_trend_from_csv(csv_path, prob)
 
     macro_regime, macro_regime_explanation, macro_regime_drivers = determine_macro_regime(indicators)
 
