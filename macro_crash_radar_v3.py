@@ -3331,7 +3331,7 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
 
     bond_regime, bond_regime_explanation, bond_regime_drivers = determine_bond_regime(indicators)
 
-    # trend_score, risk_trend, trend_explanation = calculate_trend_from_csv(csv_path, prob)
+    trend_score, risk_trend, trend_explanation = calculate_trend_from_csv(csv_path, prob)
 
     macro_regime, macro_regime_explanation, macro_regime_drivers = determine_macro_regime(indicators)
 
