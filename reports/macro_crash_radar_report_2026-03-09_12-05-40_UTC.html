@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Macro Crash Radar Report</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 24px;
+        color: #111827;
+        background: #f8fafc;
+        line-height: 1.4;
+    }
+    h1, h2, h3 {
+        margin: 0 0 10px 0;
+    }
+    h1 {
+        font-size: 28px;
+    }
+    h2 {
+        font-size: 20px;
+        margin-top: 0;
+    }
+    .meta {
+        color: #475569;
+        margin-bottom: 20px;
+    }
+    .card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .summary {
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+    th, td {
+        padding: 8px 10px;
+        border-bottom: 1px solid #e5e7eb;
+        vertical-align: top;
+        text-align: left;
+    }
+    th {
+        background: #f8fafc;
+    }
+    .mono {
+        font-family: Consolas, Menlo, Monaco, monospace;
+    }
+    .right {
+        text-align: right;
+    }
+    .muted {
+        color: #64748b;
+    }
+    ul {
+        margin: 8px 0 0 18px;
+    }
+    .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #e2e8f0;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        font-size: 13px;
+    }
+    .small {
+        font-size: 13px;
+        color: #475569;
+    }
+    @media (max-width: 1000px) {
+        .grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+
+    <h1>Macro Crash Radar V3</h1>
+    <div class="meta">UTC: 2026-03-09 12:05:40 UTC</div>
+
+    <section class="card">
+        <h2>Summary</h2>
+        <div class="summary">Crash risk is stable since previous run (58% vs 58%); regime unchanged (HIGH RISK); no material indicator shifts.</div>
+    </section>
+
+    <div class="grid">
+        <section class="card">
+            <h2>Top Risk Drivers</h2>
+            <div class="small">Ranked by current risk impact.</div>
+            <ul>
+                <li>HYG Trend (status: WARNING, weight: 1.7, contribution: 5.1)</li><li>VIX (status: WARNING, weight: 1.2, contribution: 2.4)</li><li>Vol Regime Shift (status: ELEVATED, weight: 1.0, contribution: 1.0)</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Risk Snapshot</h2>
+            <div class="pill">Total score: 12</div>
+            <div class="pill">Crash probability: 58%</div>
+            <div class="pill">Regime: HIGH RISK</div>
+            <div class="pill">Trend: stable</div>
+            <div class="pill">Crash setup: EARLY</div>
+            <div class="pill">Calm before storm: NO</div>
+        </section>
+    </div>
+
+    <div class="grid">
+        <section class="card">
+            <h2>Market Stress Dashboard</h2>
+            <table>
+                <thead>
+                    <tr><th>Indicator</th><th>System</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    
+            <tr>
+                <td>Volatility (VIX)</td>
+                <td>equity stress</td>
+                <td style="color:#d97706; font-weight:700;">WARNING</td>
+            </tr>
+            
+            <tr>
+                <td>Credit Stress (HY spreads)</td>
+                <td>credit market</td>
+                <td style="color:#15803d; font-weight:700;">OK</td>
+            </tr>
+            
+            <tr>
+                <td>Bond Stress (MOVE)</td>
+                <td>bond market</td>
+                <td style="color:#15803d; font-weight:700;">OK</td>
+            </tr>
+            
+            <tr>
+                <td>Liquidity (USD)</td>
+                <td>global liquidity</td>
+                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+            </tr>
+            
+            <tr>
+                <td>Risk Appetite (HYG)</td>
+                <td>risk appetite</td>
+                <td style="color:#d97706; font-weight:700;">WARNING</td>
+            </tr>
+            
+            <tr>
+                <td>Market Breadth</td>
+                <td>market structure</td>
+                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+            </tr>
+            
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card">
+            <h2>Macro Cycle Indicators</h2>
+            <table>
+                <thead>
+                    <tr><th>Indicator</th><th>System</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    
+            <tr>
+                <td>Global Liquidity</td>
+                <td>macro liquidity</td>
+                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+            </tr>
+            
+            <tr>
+                <td>Inflation Trend</td>
+                <td>price pressure</td>
+                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+            </tr>
+            
+            <tr>
+                <td>Oil Shock</td>
+                <td>energy shock</td>
+                <td style="color:#b91c1c; font-weight:700;">ALARM</td>
+            </tr>
+            
+            <tr>
+                <td>Dollar Strength</td>
+                <td>global funding</td>
+                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+            </tr>
+            
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <section class="card">
+        <h2>Structural Vulnerability</h2>
+        <div><strong>Status:</strong> ELEVATED</div>
+        <div><strong>Explanation:</strong> Structural vulnerability is elevated. The system may be more fragile if market stress increases.</div>
+        <div><strong>Drivers:</strong> credit system fragility</div>
+        <br>
+        <table>
+            <thead>
+                <tr><th>Indicator</th><th>System</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+                
+            <tr>
+                <td>Debt Burden</td>
+                <td>balance sheet risk</td>
+                <td style="color:#15803d; font-weight:700;">OK</td>
+            </tr>
+            
+            <tr>
+                <td>Valuation Stretch</td>
+                <td>asset pricing</td>
+                <td style="color:#15803d; font-weight:700;">OK</td>
+            </tr>
+            
+            <tr>
+                <td>Credit System Fragility</td>
+                <td>intermediation risk</td>
+                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+            </tr>
+            
+            </tbody>
+        </table>
+    </section>
+
+    <div class="grid">
+        <section class="card">
+            <h2>Crash Setup Detector</h2>
+            <div><strong>Level:</strong> EARLY</div>
+            <div><strong>Explanation:</strong> Early crash setup signal: volatility stress is visible and credit-sensitive markets are weakening, but broad credit stress is not yet confirmed.</div>
+            <div><strong>Present conditions:</strong> Credit-sensitive markets weakening; Volatility regime turning risk-off</div>
+            <div><strong>Missing conditions:</strong> No clear liquidity stress</div>
+        </section>
+
+        <section class="card">
+            <h2>System Interpretation</h2>
+            <div><strong>Market phase:</strong> Risk-off</div>
+            <div><strong>Bond regime:</strong> Bond Bullish</div>
+            <div><strong>Macro regime:</strong> Liquidity Tightening</div>
+            <br>
+            <div>Scenario C: Market stress is rising while structural vulnerability is already elevated. This is a more dangerous combination because stress is building on top of a weaker system.</div>
+        </section>
+    </div>
+
+    
+            <section class="card">
+                <h2>Core Market Stress (drives score)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicator</th>
+                            <th class="right">Value</th>
+                            <th class="right">Weight</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="mono">High Yield Credit Spread</td>
+                    <td class="mono right">3.00</td>
+                    <td class="mono right">1.8</td>
+                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
+                    <td>3.00% | 5d change -0.10 pp <span class="muted">(normal conditions)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">HYG Trend</td>
+                    <td class="mono right">79.69</td>
+                    <td class="mono right">1.7</td>
+                    <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
+                    <td>79.69 | MA20 80.67, MA50 80.80, MA200 80.50 <span class="muted">(clear market stress)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">MOVE</td>
+                    <td class="mono right">81.26</td>
+                    <td class="mono right">1.5</td>
+                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
+                    <td>81.26 | 5d change +10.7% <span class="muted">(normal conditions)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">VIX</td>
+                    <td class="mono right">23.75</td>
+                    <td class="mono right">1.2</td>
+                    <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
+                    <td>23.75 | 5d change +27.5% <span class="muted">(clear market stress)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Vol Regime Shift</td>
+                    <td class="mono right">23.75</td>
+                    <td class="mono right">1.0</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>VIX 23.75 | MA20 19.96, MA50 17.69 <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Yield Curve 2s10s</td>
+                    <td class="mono right">0.56</td>
+                    <td class="mono right">1.0</td>
+                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
+                    <td>10Y 4.13% - 2Y 3.57% = +0.56 pp <span class="muted">(normal conditions)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Global Liquidity</td>
+                    <td class="mono right">0.82</td>
+                    <td class="mono right">1.0</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>Fed ~12w +1.37% | M2 ~6m -0.55% <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">USD Index</td>
+                    <td class="mono right">99.25</td>
+                    <td class="mono right">0.7</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>99.25 | MA20 97.86, MA50 98.00, MA200 98.39 <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">S&amp;P Breadth</td>
+                    <td class="mono right">0.29</td>
+                    <td class="mono right">0.7</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>RSP/SPY 0.2947 | MA20 0.2956, MA50 0.2896, MA200 0.2886 <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Nasdaq Trend</td>
+                    <td class="mono right">22387.68</td>
+                    <td class="mono right">0.7</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>22387.68 | MA20 22794.14, MA50 23189.87, MA200 22087.15 <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Fed Balance Sheet</td>
+                    <td class="mono right">6.6289T</td>
+                    <td class="mono right">0.4</td>
+                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
+                    <td>$6.63T | ~12w change +1.37% <span class="muted">(normal conditions)</span></td>
+                </tr>
+                
+                    </tbody>
+                </table>
+            </section>
+            
+            <section class="card">
+                <h2>Macro Context (context only)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicator</th>
+                            <th class="right">Value</th>
+                            <th class="right">Weight</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="mono">Global Liquidity Context</td>
+                    <td class="mono right">0.82</td>
+                    <td class="mono right">0</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>Fed ~12w +1.37% | M2 ~6m -0.55% | USD vs MA50 99.25/98.00 <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Inflation Trend</td>
+                    <td class="mono right">2.83</td>
+                    <td class="mono right">0</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>CPI YoY 2.83% <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Oil Shock</td>
+                    <td class="mono right">57.54</td>
+                    <td class="mono right">0</td>
+                    <td class="mono" style="color:#b91c1c; font-weight:700;">ALARM</td>
+                    <td>Brent 30d change +57.54% <span class="muted">(rare, true crisis signal)</span></td>
+                </tr>
+                
+                    </tbody>
+                </table>
+            </section>
+            
+            <section class="card">
+                <h2>Structural Vulnerability (context only)</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Indicator</th>
+                            <th class="right">Value</th>
+                            <th class="right">Weight</th>
+                            <th>Status</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                <tr>
+                    <td class="mono">Debt Burden</td>
+                    <td class="mono right">-0.86</td>
+                    <td class="mono right">0</td>
+                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
+                    <td>Proxy based on balance-sheet expansion: -0.86 <span class="muted">(normal conditions)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Valuation Stretch</td>
+                    <td class="mono right">1.89</td>
+                    <td class="mono right">0</td>
+                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
+                    <td>Proxy vs 200d averages: SPY +2.4%, Nasdaq +1.4% <span class="muted">(normal conditions)</span></td>
+                </tr>
+                
+                <tr>
+                    <td class="mono">Credit System Fragility</td>
+                    <td class="mono right">3.00</td>
+                    <td class="mono right">0</td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>HY spread 3.00% | HYG vs 200d weak | USD vs 200d tight <span class="muted">(early warning / rising tension)</span></td>
+                </tr>
+                
+                    </tbody>
+                </table>
+            </section>
+            
+
+    <section class="card">
+        <h2>Market Interpretation</h2>
+        <div><strong>Market regime:</strong> Risk-off environment developing</div>
+        <div><strong>Crash risk assessment:</strong> elevated crash risk</div>
+        <div><strong>Suggested portfolio positioning:</strong> slightly defensive positioning</div>
+        <br>
+        <div>Multiple market indicators show rising stress. Volatility is increasing and risk assets are weakening. However, key systemic indicators such as credit spreads and bond volatility remain stable, which means a full financial crisis is not yet indicated.</div>
+    </section>
+
+    <section class="card">
+        <h2>Narrative</h2>
+        <div>Er zijn meerdere betekenisvolle stress-signalen. De markt is kwetsbaar voor een scherpe correctie. Belangrijkste kernstress: VIX, HYG Trend. Verhoogde aandacht voor: Vol Regime Shift, Global Liquidity, USD Index, S&amp;P Breadth, Nasdaq Trend, Global Liquidity Context, Inflation Trend, Credit System Fragility.</div>
+    </section>
+
+    <section class="card">
+        <h2>Risk Trend</h2>
+        <div>Market risk is broadly stable versus the previous snapshot.</div>
+    </section>
+
+    <section class="card">
+        <h2>Calm Before the Storm Detector</h2>
+        <div><strong>Detected:</strong> NO</div>
+        <div>No Calm Before the Storm pattern detected.</div>
+    </section>
+
+</body>
+</html>

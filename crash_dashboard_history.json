@@ -1,0 +1,467 @@
+[
+  {
+    "timestamp": "2026-03-09T15:04:35.316509+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.19300079345703,
+      "hyg": 79.76000213623047,
+      "sp_breadth": 0.2930665568977305,
+      "nasdaq": 22307.158203125
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T15:09:55.676270+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.20099639892578,
+      "hyg": 79.74500274658203,
+      "sp_breadth": 0.2931437235392496,
+      "nasdaq": 22297.203125
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T15:12:21.833000+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.14600372314453,
+      "hyg": 79.75499725341797,
+      "sp_breadth": 0.2929619534319176,
+      "nasdaq": 22313.740234375
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T15:19:21.395685+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.13400268554688,
+      "hyg": 79.76499938964844,
+      "sp_breadth": 0.29312259094922877,
+      "nasdaq": 22312.3828125
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T15:53:10.460602+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.08799743652344,
+      "hyg": 79.8550033569336,
+      "sp_breadth": 0.2925266069969655,
+      "nasdaq": 22354.716796875
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:06:20.809365+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.03900146484375,
+      "hyg": 79.875,
+      "sp_breadth": 0.29274174468763,
+      "nasdaq": 22376.46484375
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:15:35.818333+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.02799987792969,
+      "hyg": 79.8550033569336,
+      "sp_breadth": 0.29299917365885414,
+      "nasdaq": 22376.837890625
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:34:11.146994+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.06600189208984,
+      "hyg": 79.86000061035156,
+      "sp_breadth": 0.2928982615984687,
+      "nasdaq": 22399.41796875
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:41:51.379440+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.03199768066406,
+      "hyg": 79.90799713134766,
+      "sp_breadth": 0.2928096895966177,
+      "nasdaq": 22436.544921875
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:42:46.019041+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.05000305175781,
+      "hyg": 79.91999816894531,
+      "sp_breadth": 0.29276701656609044,
+      "nasdaq": 22441.927734375
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:45:45.176625+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.0009994506836,
+      "hyg": 79.93499755859375,
+      "sp_breadth": 0.2929253877482806,
+      "nasdaq": 22447.755859375
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:47:32.608276+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 98.99700164794922,
+      "hyg": 79.93499755859375,
+      "sp_breadth": 0.29285926366469706,
+      "nasdaq": 22455.056640625
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:56:06.774427+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 98.99199676513672,
+      "hyg": 79.91500091552734,
+      "sp_breadth": 0.2929575019215352,
+      "nasdaq": 22432.27734375
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T16:59:05.348737+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 98.98300170898438,
+      "hyg": 79.91010284423828,
+      "sp_breadth": 0.2929503638795242,
+      "nasdaq": 22423.55078125
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-03-09T17:02:25.185144+00:00",
+    "crash_score": 65.0,
+    "indicator_values": {
+      "vix": 29.49,
+      "vol_regime": 29.49,
+      "credit_spread": 3.13,
+      "move": 81.26239776611328,
+      "yield_curve_2s10s": 0.56,
+      "fed_balance": 6628894.0,
+      "global_liquidity": 0.8232449180704213,
+      "usd_index": 99.00299835205078,
+      "hyg": 79.88999938964844,
+      "sp_breadth": 0.2929745400764224,
+      "nasdaq": 22410.30859375
+    },
+    "indicator_risk_scores": {
+      "vix": 2.0,
+      "vol_regime": 2.0,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 1.0,
+      "usd_index": 1.0,
+      "hyg": 3.0,
+      "sp_breadth": 1.0,
+      "nasdaq": 1.0
+    },
+    "stage_label": "SEVERE RISK"
+  }
+]

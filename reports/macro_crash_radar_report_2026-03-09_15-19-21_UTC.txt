@@ -1,0 +1,167 @@
+
+[1m[36mMACRO CRASH RADAR V3[0m
+UTC: 2026-03-09 15:19:21 UTC
+--- Summary ---
+Crash risk is rising since previous run (65% vs 58%); regime changed from HIGH RISK to SEVERE RISK; worsening in vol regime.
+
+--- Status severity scale ---
+OK > ELEVATED > WARNING > ALARM
+Weight = contribution factor to crash probability model
+
+--- Top Risk Drivers ---
+Ranked by current risk impact.
+
+1. HYG Trend (status: WARNING, weight: 1.7, contribution: 5.1)
+2. VIX (status: WARNING, weight: 1.2, contribution: 2.4)
+3. Vol Regime Shift (status: WARNING, weight: 1.0, contribution: 2.0)
+
+--- Market Stress Dashboard ---
+Indicator                    System               Status
+------------------------------------------------------------
+Volatility (VIX)             equity stress        WARNING
+Credit Stress (HY spreads)   credit market        OK
+Bond Stress (MOVE)           bond market          OK
+Liquidity (USD)              global liquidity     ELEVATED
+Risk Appetite (HYG)          risk appetite        WARNING
+Market Breadth               market structure     ELEVATED
+
+--- Macro Cycle Indicators ---
+Indicator                System             Status
+-------------------------------------------------------
+Global Liquidity         macro liquidity    ELEVATED
+Inflation Trend          price pressure     ELEVATED
+Oil Shock                energy shock       ALARM
+Dollar Strength          global funding     ELEVATED
+
+--- Macro Regime Classifier ---
+Macro regime: Liquidity Tightening
+Explanation: Liquidity conditions are becoming less supportive and the stronger dollar suggests tighter global financial conditions.
+Drivers: liquidity tightening; stronger USD
+
+--- Structural Vulnerability ---
+Indicator                    System                   Status
+----------------------------------------------------------------------
+Debt Burden                  balance sheet risk       OK
+Valuation Stretch            asset pricing            OK
+Credit System Fragility      intermediation risk      ELEVATED
+
+Structural vulnerability: ELEVATED
+Explanation: Structural vulnerability is elevated. The system may be more fragile if market stress increases.
+Drivers: credit system fragility
+
+--- Crash Setup Detector ---
+Crash setup: EARLY
+Explanation: Early crash setup signal: volatility stress is visible and credit-sensitive markets are weakening, but broad credit stress is not yet confirmed.
+Present conditions: Credit-sensitive markets weakening; Volatility regime turning risk-off
+Missing conditions: No clear liquidity stress
+
+--- Market Phase Indicator ---
+Market phase: Stress
+Explanation: Market stress is broadening. Risk conditions are worsening across multiple areas and the environment is vulnerable to sharp downside moves.
+Drivers: volatility rising; credit-sensitive assets weakening; market breadth weakening; growth assets weakening; USD strength / tighter conditions
+
+--- Bond Regime Indicator ---
+Bond regime: Bond Bullish
+Explanation: Government bonds may benefit from mild flight-to-safety demand while bond market volatility remains contained.
+Drivers: risk-off demand rising
+
+------------------------------------------------------------------------------------------------------------------------
+[1mCore Market Stress (drives score)[0m
+Indicator                    Value Weight     Status   Detail
+------------------------------------------------------------------------------------------------------------------------
+High Yield Credit Spread      3.13  1.8 [32mOK        [0m   3.13% | 5d change +0.01 pp   (normal conditions)
+HYG Trend                    79.76  1.7 [33mWARNING   [0m   79.76 | MA20 80.62, MA50 80.79, MA200 80.50   (clear market stress)
+MOVE                         81.26  1.5 [32mOK        [0m   81.26 | 5d change +10.7%   (normal conditions)
+VIX                          29.49  1.2 [33mWARNING   [0m   29.49 | 5d change +48.5%   (clear market stress)
+Vol Regime Shift             29.49  1.0 [33mWARNING   [0m   VIX 29.49 | MA20 20.55, MA50 18.01   (clear market stress)
+Yield Curve 2s10s             0.56  1.0 [32mOK        [0m   10Y 4.13% - 2Y 3.57% = +0.56 pp   (normal conditions)
+Global Liquidity              0.82  1.0 [33mELEVATED  [0m   Fed ~12w +1.37% | M2 ~6m -0.55%   (early warning / rising tension)
+USD Index                    99.13  0.7 [33mELEVATED  [0m   99.13 | MA20 97.86, MA50 98.00, MA200 98.39   (early warning / rising tension)
+S&P Breadth                   0.29  0.7 [33mELEVATED  [0m   RSP/SPY 0.2931 | MA20 0.2956, MA50 0.2899, MA200 0.2886   (early warning / rising tension)
+Nasdaq Trend              22312.38  0.7 [33mELEVATED  [0m   22312.38 | MA20 22758.20, MA50 23164.88, MA200 22102.99   (early warning / rising tension)
+Fed Balance Sheet          6.6289T  0.4 [32mOK        [0m   $6.63T | ~12w change +1.37%   (normal conditions)
+
+[1mMacro Context (context only)[0m
+Indicator                    Value Weight     Status   Detail
+------------------------------------------------------------------------------------------------------------------------
+Global Liquidity Context      0.82    0 [33mELEVATED  [0m   Fed ~12w +1.37% | M2 ~6m -0.55% | USD vs MA50 99.13/98.00   (early warning / rising tension)
+Inflation Trend               2.83    0 [33mELEVATED  [0m   CPI YoY 2.83%   (early warning / rising tension)
+Oil Shock                    52.94    0 [31mALARM     [0m   Brent 30d change +52.94%   (rare, true crisis signal)
+
+[1mStructural Vulnerability (context only)[0m
+Indicator                    Value Weight     Status   Detail
+------------------------------------------------------------------------------------------------------------------------
+Debt Burden                  -0.86    0 [32mOK        [0m   Proxy based on balance-sheet expansion: -0.86   (normal conditions)
+Valuation Stretch             1.35    0 [32mOK        [0m   Proxy vs 200d averages: SPY +1.8%, Nasdaq +0.9%   (normal conditions)
+Credit System Fragility       3.13    0 [33mELEVATED  [0m   HY spread 3.13% | HYG vs 200d weak | USD vs 200d tight   (early warning / rising tension)
+
+------------------------------------------------------------------------------------------------------------------------
+[1mTotal score:[0m 13
+[1mCrash probability:[0m 65%
+[1mRisk regime:[0m SEVERE RISK
+[1mHedge-fund trigger:[0m NO
+[1mTrend score:[0m 7
+[1mRisk trend:[0m rising
+------------------------------------------------------------------------------------------------------------------------
+De belangrijkste macro-indicatoren ogen op dit moment relatief rustig. Belangrijkste kernstress: VIX, HYG Trend. Verhoogde aandacht voor: Global Liquidity, USD Index, S&P Breadth, Nasdaq Trend, Global Liquidity Context, Inflation Trend, Credit System Fragility.
+
+--- Market Interpretation ---
+Market regime: Severe risk environment
+Crash risk assessment: high crash risk
+Suggested portfolio positioning: defensive positioning
+
+Explanation:
+Market stress is becoming broad and persistent. Volatility, credit conditions or liquidity indicators are deteriorating together. Historically this type of environment often precedes major corrections or market shocks.
+
+--- System Risk Interpretation ---
+Scenario C: Market stress is rising while structural vulnerability is already elevated. This is a more dangerous combination because stress is building on top of a weaker system.
+
+--- Interpreting Market Stress vs Structural Vulnerability ---
+Scenario A
+Market stress low + structural vulnerability low
+→ Financial system appears stable. No major systemic stress signals.
+
+Scenario B
+Market stress low + structural vulnerability high
+→ Markets are currently calm, but the system has a fragile foundation.
+  If a shock occurs, stress could escalate faster than usual.
+
+Scenario C
+Market stress high + structural vulnerability high
+→ Potentially dangerous environment. Market stress is appearing on top of
+  an already vulnerable financial system, increasing the probability of
+  a larger correction or systemic crisis.
+
+--- Calm Before the Storm Detector ---
+Detected: NO
+No Calm Before the Storm pattern detected.
+
+Risk trend explanation:
+Market risk is increasing versus the previous snapshot.
+
+Concepts explained:
+Risk-off environment → investors reduce exposure to risky assets and prefer safer investments.
+Defensive positioning → investors shift part of their portfolio toward safer assets or sectors.
+
+--- Risk Regime Legend ---
+NORMAL (0–29) → markets stable, no systemic stress
+ELEVATED RISK (30–49) → early warning signals appearing
+HIGH RISK (50–64) → multiple stress indicators, market vulnerable to correction
+SEVERE RISK (65–79) → strong systemic stress signals, crash risk rising
+CRASH WARNING (80+) → broad systemic stress, crash conditions possible
+
+--- How to interpret the radar ---
+Market stress typically develops in stages:
+1. Market breadth weakens
+2. High yield bonds weaken
+3. Volatility (VIX) rises
+4. Credit spreads widen
+5. Liquidity stress appears
+
+Key crash confirmation indicators:
+- Credit spreads rising
+- Volatility spike (VIX)
+- Liquidity tightening (USD / liquidity indicators)
+
+If these occur together, systemic market stress becomes more likely.
+

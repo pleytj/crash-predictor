@@ -1,0 +1,7 @@
+2026-03-09 12:50:44 | INFO | Logging initialized
+2026-03-09 12:50:44 | INFO | Starting macro crash radar run
+2026-03-09 12:50:44 | INFO | Arguments | json=False csv=radar_log.csv debug=False report= auto_report=True tee_report=True
+2026-03-09 12:50:51 | INFO | Radar run completed | probability=58 regime=HIGH RISK total_score=12
+2026-03-09 12:50:51 | INFO | Formatted report written to reports\macro_crash_radar_report_2026-03-09_11-50-51_UTC.txt
+2026-03-09 12:50:51 | INFO | CSV snapshot appended to radar_log.csv
+2026-03-09 12:50:51 | INFO | Run finished successfully
