@@ -1205,3 +1205,63 @@ A practical way to read the dashboard is:
 
 8. Important limitation
 This dashboard is an early warning and interpretation tool. It is not a guarantee that markets will crash, nor does it predict exact timing. It is best used to monitor whether risk is rising, stable, or easing over time.","False","No Calm Before the Storm pattern detected.","HYG Trend (status: WARNING, weight: 1.7, contribution: 5.1) | VIX (status: WARNING, weight: 1.2, contribution: 2.4) | Vol Regime Shift (status: WARNING, weight: 1.0, contribution: 2.0)","17","29.49","WARNING","2","29.49 | 5d change +48.5%","29.49","WARNING","2","VIX 29.49 | MA20 20.55, MA50 18.01","3.13","OK","0","3.13% | 5d change +0.01 pp","79.73999786376953","OK","0","79.74 | 5d change +8.9%","0.5900000000000003","OK","0","10Y 4.15% - 2Y 3.56% = +0.59 pp","6628894.0","OK","0","$6.63T | ~12w change +1.37%","0.8232449180704213","ELEVATED","1","Fed ~12w +1.37% | M2 ~6m -0.55%","98.56700134277344","ELEVATED","1","98.57 | MA20 97.95, MA50 98.01, MA200 98.38","80.16999816894531","WARNING","3","80.17 | MA20 80.64, MA50 80.80, MA200 80.50","0.29296592948512595","ELEVATED","1","RSP/SPY 0.2930 | MA20 0.2956, MA50 0.2899, MA200 0.2886","22695.94921875","ELEVATED","1","22695.95 | MA20 22777.38, MA50 23172.55, MA200 22104.91","0.8232449180704213","ELEVATED","0","Fed ~12w +1.37% | M2 ~6m -0.55% | USD vs MA50 98.57/98.01","2.8286797395498917","ELEVATED","0","CPI YoY 2.83%","31.01093071784522","WARNING","0","Brent 30d change +31.01%","-0.857052853534851","OK","0","Proxy based on balance-sheet expansion: -0.86","2.9660079523421445","OK","0","Proxy vs 200d averages: SPY +3.3%, Nasdaq +2.7%","3.13","ELEVATED","0","HY spread 3.13% | HYG vs 200d weak | USD vs 200d tight"
+"2026-03-10 14:08:30 UTC","13","65","SEVERE RISK","False","HYG below 200d MA","The main macro indicators still look relatively calm for now. Main core stress signals: VIX, HYG Trend. Elevated attention for: Global Liquidity, USD Index, S&P Breadth, Nasdaq Trend, Global Liquidity Context, Inflation Trend, Credit System Fragility.","EARLY","Credit-sensitive markets weakening | Volatility regime turning risk-off","No clear liquidity stress","Early crash setup signal: volatility stress is visible and credit-sensitive markets are weakening, but broad credit stress is not yet confirmed.","Stress","Market stress is broadening. Risk conditions are worsening across multiple areas and the environment is vulnerable to sharp downside moves.","volatility rising | credit-sensitive assets weakening | market breadth weakening | growth assets weakening | USD strength / tighter conditions","Bond Bullish","Government bonds may benefit from mild flight-to-safety demand while bond market volatility remains contained.","risk-off demand rising","7","rising","Market risk is increasing versus the previous snapshot.","ELEVATED","Macro cycle indicators provide context only. They help explain whether stress is being driven by liquidity, inflation or energy conditions.","global liquidity conditions | inflation trend | oil shock | dollar strength","Liquidity Tightening","Liquidity conditions are becoming less supportive and the stronger dollar suggests tighter global financial conditions.","liquidity tightening | stronger USD","ELEVATED","Structural vulnerability is elevated. The system may be more fragile if market stress increases.","credit system fragility","Scenario C: Market stress is rising while structural vulnerability is already elevated. This is a more dangerous combination because stress is building on top of a weaker system.","Crash Risk Score: 65% | Stable vs previous run | No material change in weighted risk indicators.","This dashboard is designed as an early warning system for market stress and potential crash risk.
+
+1. What this dashboard does
+The model tracks a set of financial and macro indicators that often deteriorate before major market corrections or financial stress events. It does not try to predict the exact timing of a crash, but it helps identify whether market conditions are becoming more fragile or more stressed.
+
+2. How the crash probability is built
+The crash probability is based mainly on the Core Market Stress indicators. Each of these indicators receives:
+- a status (OK, ELEVATED, WARNING, ALARM),
+- a score,
+- and a model weight.
+
+The weighted combination of these signals becomes a total risk score, which is then translated into a crash probability percentage. The higher the score, the higher the implied market stress.
+
+3. Core Market Stress indicators
+These are the main drivers of the model and directly affect the crash probability.
+
+- VIX: measures expected equity market volatility. A sharp rise usually signals growing fear in stock markets.
+- Vol Regime Shift: shows whether volatility is moving into a more stressed regime relative to recent averages.
+- High Yield Credit Spread: measures stress in lower-quality corporate debt. Wider spreads often signal deteriorating credit conditions.
+- MOVE: measures bond market volatility. Rising MOVE can indicate stress in rates markets or uncertainty around liquidity and policy.
+- Yield Curve 2s10s: shows the difference between 10-year and 2-year US Treasury yields. It helps indicate macro and cycle stress.
+- Fed Balance Sheet: tracks the direction of central bank liquidity support.
+- Global Liquidity: combines major liquidity signals and helps detect tightening financial conditions.
+- USD Index: a stronger dollar can signal tighter global funding conditions.
+- HYG Trend: high yield bond ETF trend. Weakness here often appears before broader equity stress.
+- S&P Breadth: shows whether market strength is broad or concentrated in fewer stocks.
+- Nasdaq Trend: helps monitor risk appetite and pressure in growth-oriented equities.
+
+4. Macro Context indicators
+These indicators do not directly drive the crash score, but they help explain the broader environment.
+
+- Global Liquidity Context: broader liquidity backdrop including dollar pressure.
+- Inflation Trend: helps assess whether inflation remains a macro headwind.
+- Oil Shock: rising oil prices can tighten financial conditions and increase macro stress.
+
+5. Structural Vulnerability indicators
+These indicators also do not directly drive the crash score. They show whether the system may be fragile beneath the surface.
+
+- Debt Burden: a proxy for balance sheet and debt-related vulnerability.
+- Valuation Stretch: a proxy for whether markets may be expensive or stretched.
+- Credit System Fragility: a proxy for weakness in credit-sensitive areas and funding conditions.
+
+These indicators are especially useful when market stress is still low, but structural vulnerability is elevated. In that situation, markets may look calm while the underlying foundation is more fragile.
+
+6. How to interpret the dashboard
+A practical way to read the dashboard is:
+- Start with the Summary line.
+- Then look at the Top Risk Drivers.
+- Then review the Core Market Stress section, because that drives the score.
+- Use Macro Context and Structural Vulnerability as supporting interpretation.
+- Use the Crash Setup Detector and Calm Before the Storm Detector as additional context.
+
+7. What the statuses mean
+- OK: normal conditions
+- ELEVATED: early warning or rising tension
+- WARNING: clear market stress
+- ALARM: rare, severe stress signal
+
+8. Important limitation
+This dashboard is an early warning and interpretation tool. It is not a guarantee that markets will crash, nor does it predict exact timing. It is best used to monitor whether risk is rising, stable, or easing over time.","False","No Calm Before the Storm pattern detected.","HYG Trend (status: WARNING, weight: 1.7, contribution: 5.1) | VIX (status: WARNING, weight: 1.2, contribution: 2.4) | Vol Regime Shift (status: WARNING, weight: 1.0, contribution: 2.0)","17","25.5","WARNING","2","25.50 | 5d change +18.9%","25.5","WARNING","2","VIX 25.50 | MA20 20.96, MA50 18.25","3.19","OK","0","3.19% | 5d change +0.16 pp","79.74469757080078","OK","0","79.74 | 5d change +8.9%","0.5900000000000003","OK","0","10Y 4.15% - 2Y 3.56% = +0.59 pp","6628894.0","OK","0","$6.63T | ~12w change +1.37%","0.8232449180704213","ELEVATED","1","Fed ~12w +1.37% | M2 ~6m -0.55%","98.73899841308594","ELEVATED","1","98.74 | MA20 97.96, MA50 98.02, MA200 98.38","80.13500213623047","WARNING","3","80.14 | MA20 80.60, MA50 80.79, MA200 80.51","0.29187641176103285","ELEVATED","1","RSP/SPY 0.2919 | MA20 0.2956, MA50 0.2901, MA200 0.2885","22634.408203125","ELEVATED","1","22634.41 | MA20 22747.16, MA50 23152.97, MA200 22123.72","0.8232449180704213","ELEVATED","0","Fed ~12w +1.37% | M2 ~6m -0.55% | USD vs MA50 98.74/98.02","2.8286797395498917","ELEVATED","0","CPI YoY 2.83%","32.2610227832647","WARNING","0","Brent 30d change +32.26%","-0.857052853534851","OK","0","Proxy based on balance-sheet expansion: -0.86","2.5316555691650224","OK","0","Proxy vs 200d averages: SPY +2.8%, Nasdaq +2.3%","3.19","ELEVATED","0","HY spread 3.19% | HYG vs 200d weak | USD vs 200d tight"
