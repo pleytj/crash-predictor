@@ -22,6 +22,12 @@
         font-size: 20px;
         margin-top: 0;
     }
+    h3 {
+        margin-top: 28px;
+        margin-bottom: 10px;
+        color: #1e3a8a;
+        font-weight: 700;
+    }
     .meta {
         color: #475569;
         margin-bottom: 20px;
@@ -262,6 +268,84 @@
     .neu {
         color: #64748b;
     }
+    .status-ok {
+        color: #15803d;
+        font-weight: 700;
+    }
+    .status-elevated {
+        color: #ca8a04;
+        font-weight: 700;
+    }
+    .status-warning {
+        color: #d97706;
+        font-weight: 700;
+    }
+    .status-alarm {
+        color: #b91c1c;
+        font-weight: 700;
+    }
+    .status-unavailable {
+        color: #0891b2;
+        font-weight: 700;
+    }
+    .status-neutral {
+        color: #64748b;
+        font-weight: 700;
+    }
+    .heatmap-wrap {
+        min-width: 220px;
+    }
+
+    .heatmap-bar-wrap {
+        position: relative;
+        overflow: visible;
+    }
+
+    .heatmap-marker {
+        position: absolute;
+        top: -2px;
+        bottom: -2px;
+        width: 2px;
+        background: rgba(15, 23, 42, 0.35);
+        z-index: 3;
+        pointer-events: none;
+    }
+
+    .heatmap-marker-labels {
+        position: relative;
+        height: 16px;
+        margin-top: 4px;
+        font-size: 11px;
+        color: #64748b;
+    }
+
+    .heatmap-marker-labels span {
+        position: absolute;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }
+    
+    .risk-bar-wrapper {
+        position: relative;
+    }
+    .risk-marker {
+        position: absolute;
+        top: -10px;
+        width: 2px;
+        height: 80px;
+        background: #111827;
+        opacity: 0.7;
+    }
+
+    .risk-marker-label {
+        position: absolute;
+        top: -28px;
+        transform: translateX(-50%);
+        font-size: 12px;
+        font-weight: 600;
+        color: #111827;
+    }
+
     @media (max-width: 1000px) {
         .grid {
             grid-template-columns: 1fr;
@@ -272,7 +356,7 @@
 <body>
 
     <h1>Macro Crash Radar V3</h1>
-    <div class="meta">UTC: 2026-03-09 17:02:25 UTC</div>
+    <div class="meta">UTC: 2026-03-13 13:09:37 UTC</div>
 
     <section class="card">
 
@@ -306,10 +390,16 @@
     <section class="card">
         <h2>System Risk Position</h2>
         <div><strong>Current level:</strong> SEVERE RISK</div>
-        <div><strong>Crash probability:</strong> 65%</div>
+        <div><strong>Crash probability:</strong> 66.7%</div>
 
-        <div class="risk-bar">
-            
+        <div class="risk-bar-wrapper">
+            <div class="risk-marker" style="left:66.72%"></div>
+            <div class="risk-marker-label" style="left:66.72%">
+                66.7%
+            </div>
+
+            <div class="risk-bar">
+                
             <div class="risk-stage stage-normal">
                 <div class="stage-name">Normal</div>
                 
@@ -335,16 +425,206 @@
                 
             </div>
             
+            </div>
         </div>
 
-        <div class="trend-chip trend-up">
-            ↑ Rising vs previous run
+        <div class="trend-chip trend-flat">
+            → Stable vs previous run
         </div>
     </section>
 
     <section class="card" id="drivers-card">
         <h2>Drivers of Change</h2>
         <div id="drivers-bars"></div>
+    </section>
+
+    <section class="card">
+        <h2>System Stress Heatmap</h2>
+        <div class="small">
+            Weighted contribution to systemic crash risk by market segment. This heatmap shows model impact, not raw indicator status.
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>System</th>
+                    <th>Heat</th>
+                    <th class="right">Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td>Volatility Stress (VIX)</td>
+            <td>
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:20.0%"></div>
+                    <div class="heatmap-marker" style="left:45.0%"></div>
+                    <div class="bar flat" style="width:53%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:20.0%">Elevated</span>
+                    <span style="left:45.0%">Warning</span>
+                </div>
+            </div>
+        </td>
+            <td class="right">2.65</td>
+            <td class="status-warning">WARNING</td>
+        </tr>
+        
+        <tr>
+            <td>Credit Stress (HY spreads)</td>
+            <td>
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:20.0%"></div>
+                    <div class="heatmap-marker" style="left:45.0%"></div>
+                    <div class="bar down" style="width:1%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:20.0%">Elevated</span>
+                    <span style="left:45.0%">Warning</span>
+                </div>
+            </div>
+        </td>
+            <td class="right">0.10</td>
+            <td class="status-ok">OK</td>
+        </tr>
+        
+        <tr>
+            <td>Bond Stress (MOVE)</td>
+            <td>
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:20.0%"></div>
+                    <div class="heatmap-marker" style="left:45.0%"></div>
+                    <div class="bar down" style="width:38%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:20.0%">Elevated</span>
+                    <span style="left:45.0%">Warning</span>
+                </div>
+            </div>
+        </td>
+            <td class="right">1.72</td>
+            <td class="status-elevated">ELEVATED</td>
+        </tr>
+        
+        <tr>
+            <td>Liquidity Stress (USD)</td>
+            <td>
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:20.0%"></div>
+                    <div class="heatmap-marker" style="left:45.0%"></div>
+                    <div class="bar down" style="width:30%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:20.0%">Elevated</span>
+                    <span style="left:45.0%">Warning</span>
+                </div>
+            </div>
+        </td>
+            <td class="right">0.92</td>
+            <td class="status-elevated">ELEVATED</td>
+        </tr>
+        
+        <tr>
+            <td>Risk Appetite Stress (HYG)</td>
+            <td>
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:20.0%"></div>
+                    <div class="heatmap-marker" style="left:45.0%"></div>
+                    <div class="bar flat" style="width:49%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:20.0%">Elevated</span>
+                    <span style="left:45.0%">Warning</span>
+                </div>
+            </div>
+        </td>
+            <td class="right">3.46</td>
+            <td class="status-warning">WARNING</td>
+        </tr>
+        
+        <tr>
+            <td>Market Breadth Stress</td>
+            <td>
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:20.0%"></div>
+                    <div class="heatmap-marker" style="left:45.0%"></div>
+                    <div class="bar down" style="width:16%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:20.0%">Elevated</span>
+                    <span style="left:45.0%">Warning</span>
+                </div>
+            </div>
+        </td>
+            <td class="right">0.50</td>
+            <td class="status-ok">OK</td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Market Stress Escalation Ladder</h2>
+        <div class="small">
+            Typical sequence of how stress spreads through markets. This is a staging tool, not a fixed rule.
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="right">Stage</th>
+                    <th>Phase</th>
+                    <th>Typical signals</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td class="right">1</td>
+            <td>Internal Weakness</td>
+            <td>Market Breadth Stress</td>
+            <td class="status-elevated">ACTIVE</td>
+        </tr>
+        
+        <tr>
+            <td class="right">2</td>
+            <td>Risk Appetite Deterioration</td>
+            <td>Risk Appetite Stress (HYG), Growth Equity Stress (Nasdaq)</td>
+            <td class="status-warning">CONFIRMED</td>
+        </tr>
+        
+        <tr>
+            <td class="right">3</td>
+            <td>Volatility Stress</td>
+            <td>Volatility Stress (VIX), Bond Stress (MOVE), Volatility Regime Stress</td>
+            <td class="status-warning">CONFIRMED</td>
+        </tr>
+        
+        <tr>
+            <td class="right">4</td>
+            <td>Credit Confirmation</td>
+            <td>Credit Stress (HY spreads)</td>
+            <td class="status-ok">INACTIVE</td>
+        </tr>
+        
+        <tr>
+            <td class="right">5</td>
+            <td>Liquidity / Systemic Stress</td>
+            <td>Liquidity Stress (USD), Global Liquidity Stress</td>
+            <td class="status-warning">CONFIRMED</td>
+        </tr>
+        
+            </tbody>
+        </table>
     </section>
 
      <section class="card">
@@ -377,19 +657,46 @@
     <div class="grid">
         <section class="card">
             <h2>Top Risk Drivers</h2>
-            <div class="small">Ranked by current risk impact.</div>
-            <ul>
-                <li>HYG Trend (status: WARNING, weight: 1.7, contribution: 5.1)</li><li>VIX (status: WARNING, weight: 1.2, contribution: 2.4)</li><li>Vol Regime Shift (status: WARNING, weight: 1.0, contribution: 2.0)</li>
-            </ul>
+            <div class="small">Ranked by weighted risk contribution.</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Driver</th>
+                        <th>Status</th>
+                        <th class="right">Weight / Contribution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+            <tr>
+                <td>Risk Appetite Stress (HYG)</td>
+                <td class="status-warning">WARNING</td>
+                <td class="right">w:1.7 • c:3.46</td>
+            </tr>
+            
+            <tr>
+                <td>Volatility Stress (VIX)</td>
+                <td class="status-warning">WARNING</td>
+                <td class="right">w:1.2 • c:2.65</td>
+            </tr>
+            
+            <tr>
+                <td>Volatility Regime Stress</td>
+                <td class="status-elevated">ELEVATED</td>
+                <td class="right">w:1.0 • c:2.02</td>
+            </tr>
+            
+                </tbody>
+            </table>
         </section>
 
         <section class="card">
             <h2>Risk Snapshot</h2>
-            <div class="pill">Total score: 13</div>
-            <div class="pill">Crash probability: 65%</div>
+            <div class="pill">Total score: 13.2</div>
+            <div class="pill">Crash probability: 66.7%</div>
             <div class="pill">Regime: SEVERE RISK</div>
-            <div class="pill">Trend: rising</div>
-            <div class="pill">Crash setup: EARLY</div>
+            <div class="pill">Trend: stable</div>
+            <div class="pill">Crash setup: WATCH</div>
             <div class="pill">Calm before storm: NO</div>
         </section>
     </div>
@@ -397,6 +704,9 @@
     <div class="grid">
         <section class="card">
             <h2>Market Stress Dashboard</h2>
+            <div class="small">
+                Raw indicator status by market segment. This dashboard shows each indicator’s direct stress condition, independent of model weighting.
+            </div>
             <table>
                 <thead>
                     <tr><th>Indicator</th><th>System</th><th>Status</th></tr>
@@ -404,7 +714,7 @@
                 <tbody>
                     
             <tr>
-                <td>Volatility (VIX)</td>
+                <td>Volatility Stress (VIX)</td>
                 <td>equity stress</td>
                 <td style="color:#d97706; font-weight:700;">WARNING</td>
             </tr>
@@ -418,23 +728,23 @@
             <tr>
                 <td>Bond Stress (MOVE)</td>
                 <td>bond market</td>
-                <td style="color:#15803d; font-weight:700;">OK</td>
-            </tr>
-            
-            <tr>
-                <td>Liquidity (USD)</td>
-                <td>global liquidity</td>
                 <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
             </tr>
             
             <tr>
-                <td>Risk Appetite (HYG)</td>
+                <td>Liquidity Stress (USD)</td>
+                <td>global liquidity</td>
+                <td style="color:#d97706; font-weight:700;">WARNING</td>
+            </tr>
+            
+            <tr>
+                <td>Risk Appetite Stress (HYG)</td>
                 <td>risk appetite</td>
                 <td style="color:#d97706; font-weight:700;">WARNING</td>
             </tr>
             
             <tr>
-                <td>Market Breadth</td>
+                <td>Market Breadth Stress</td>
                 <td>market structure</td>
                 <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
             </tr>
@@ -472,7 +782,7 @@
             <tr>
                 <td>Dollar Strength</td>
                 <td>global funding</td>
-                <td style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                <td style="color:#d97706; font-weight:700;">WARNING</td>
             </tr>
             
                 </tbody>
@@ -517,16 +827,16 @@
     <div class="grid">
         <section class="card">
             <h2>Crash Setup Detector</h2>
-            <div><strong>Level:</strong> EARLY</div>
-            <div><strong>Explanation:</strong> Early crash setup signal: volatility stress is visible and credit-sensitive markets are weakening, but broad credit stress is not yet confirmed.</div>
-            <div><strong>Present conditions:</strong> Credit-sensitive markets weakening; Volatility regime turning risk-off</div>
-            <div><strong>Missing conditions:</strong> No clear liquidity stress</div>
+            <div><strong>Level:</strong> WATCH</div>
+            <div><strong>Explanation:</strong> Partial crash setup: two of the three core crash conditions are present. Risk is rising, but setup is not yet complete.</div>
+            <div><strong>Present conditions:</strong> Credit-sensitive markets weakening; Volatility regime turning risk-off; Liquidity / funding backdrop worsening</div>
+            
         </section>
 
         <section class="card">
             <h2>System Interpretation</h2>
             <div><strong>Market phase:</strong> Stress</div>
-            <div><strong>Bond regime:</strong> Bond Bullish</div>
+            <div><strong>Bond regime:</strong> Bond Volatile</div>
             <div><strong>Macro regime:</strong> Liquidity Tightening</div>
             <br>
             <div>Scenario C: Market stress is rising while structural vulnerability is already elevated. This is a more dangerous combination because stress is building on top of a weaker system.</div>
@@ -550,50 +860,50 @@
                         
                 <tr>
                     <td class="mono">High Yield Credit Spread</td>
-                    <td class="mono right">3.13</td>
+                    <td class="mono right">3.09</td>
                     <td class="mono right">1.8</td>
                     <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
-                    <td>3.13% | 5d change +0.01 pp <span class="muted">(normal conditions)</span></td>
+                    <td>3.09% | 5d change +0.12 pp <span class="muted">(normal conditions)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">HYG Trend</td>
-                    <td class="mono right">79.89</td>
+                    <td class="mono right">79.35</td>
                     <td class="mono right">1.7</td>
                     <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
-                    <td>79.89 | MA20 80.63, MA50 80.79, MA200 80.50 <span class="muted">(clear market stress)</span></td>
+                    <td>79.35 | MA20 80.47, MA50 80.74, MA200 80.52 <span class="muted">(clear market stress)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">MOVE</td>
-                    <td class="mono right">81.26</td>
+                    <td class="mono right">95.30</td>
                     <td class="mono right">1.5</td>
-                    <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
-                    <td>81.26 | 5d change +10.7% <span class="muted">(normal conditions)</span></td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>95.30 | 5d change +27.9% <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">VIX</td>
-                    <td class="mono right">29.49</td>
+                    <td class="mono right">24.23</td>
                     <td class="mono right">1.2</td>
                     <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
-                    <td>29.49 | 5d change +48.5% <span class="muted">(clear market stress)</span></td>
+                    <td>24.23 | 5d change +14.6% <span class="muted">(clear market stress)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Vol Regime Shift</td>
-                    <td class="mono right">29.49</td>
+                    <td class="mono right">24.23</td>
                     <td class="mono right">1.0</td>
-                    <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
-                    <td>VIX 29.49 | MA20 20.55, MA50 18.01 <span class="muted">(clear market stress)</span></td>
+                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
+                    <td>VIX 24.23 | MA20 21.64, MA50 18.66 <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Yield Curve 2s10s</td>
-                    <td class="mono right">0.56</td>
+                    <td class="mono right">0.57</td>
                     <td class="mono right">1.0</td>
                     <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
-                    <td>10Y 4.13% - 2Y 3.57% = +0.56 pp <span class="muted">(normal conditions)</span></td>
+                    <td>10Y 4.21% - 2Y 3.64% = +0.57 pp <span class="muted">(normal conditions)</span></td>
                 </tr>
                 
                 <tr>
@@ -601,15 +911,15 @@
                     <td class="mono right">0.82</td>
                     <td class="mono right">1.0</td>
                     <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>Fed ~12w +1.37% | M2 ~6m -0.55% <span class="muted">(early warning / rising tension)</span></td>
+                    <td>Fed ~12w +1.36% | M2 ~6m -0.55% <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">USD Index</td>
-                    <td class="mono right">99.00</td>
+                    <td class="mono right">100.03</td>
                     <td class="mono right">0.7</td>
-                    <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>99.00 | MA20 97.85, MA50 98.00, MA200 98.39 <span class="muted">(early warning / rising tension)</span></td>
+                    <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
+                    <td>100.03 | MA20 98.38, MA50 98.11, MA200 98.39 <span class="muted">(clear market stress)</span></td>
                 </tr>
                 
                 <tr>
@@ -617,23 +927,23 @@
                     <td class="mono right">0.29</td>
                     <td class="mono right">0.7</td>
                     <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>RSP/SPY 0.2930 | MA20 0.2956, MA50 0.2899, MA200 0.2886 <span class="muted">(early warning / rising tension)</span></td>
+                    <td>RSP/SPY 0.2906 | MA20 0.2953, MA50 0.2905, MA200 0.2884 <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Nasdaq Trend</td>
-                    <td class="mono right">22410.31</td>
+                    <td class="mono right">22311.98</td>
                     <td class="mono right">0.7</td>
                     <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>22410.31 | MA20 22763.09, MA50 23166.84, MA200 22103.48 <span class="muted">(early warning / rising tension)</span></td>
+                    <td>22311.98 | MA20 22693.26, MA50 23113.44, MA200 22160.86 <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Fed Balance Sheet</td>
-                    <td class="mono right">6.6289T</td>
+                    <td class="mono right">6.6463T</td>
                     <td class="mono right">0.4</td>
                     <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
-                    <td>$6.63T | ~12w change +1.37% <span class="muted">(normal conditions)</span></td>
+                    <td>$6.65T | ~12w change +1.36% <span class="muted">(normal conditions)</span></td>
                 </tr>
                 
                     </tbody>
@@ -659,23 +969,23 @@
                     <td class="mono right">0.82</td>
                     <td class="mono right">0</td>
                     <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>Fed ~12w +1.37% | M2 ~6m -0.55% | USD vs MA50 99.00/98.00 <span class="muted">(early warning / rising tension)</span></td>
+                    <td>Fed ~12w +1.36% | M2 ~6m -0.55% | USD vs MA50 100.03/98.11 <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Inflation Trend</td>
-                    <td class="mono right">2.83</td>
+                    <td class="mono right">2.66</td>
                     <td class="mono right">0</td>
                     <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>CPI YoY 2.83% <span class="muted">(early warning / rising tension)</span></td>
+                    <td>CPI YoY 2.66% <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Oil Shock</td>
-                    <td class="mono right">49.97</td>
+                    <td class="mono right">39.80</td>
                     <td class="mono right">0</td>
                     <td class="mono" style="color:#d97706; font-weight:700;">WARNING</td>
-                    <td>Brent 30d change +49.97% <span class="muted">(clear market stress)</span></td>
+                    <td>Brent 30d change +39.80% <span class="muted">(clear market stress)</span></td>
                 </tr>
                 
                     </tbody>
@@ -698,26 +1008,26 @@
                         
                 <tr>
                     <td class="mono">Debt Burden</td>
-                    <td class="mono right">-0.86</td>
+                    <td class="mono right">-0.64</td>
                     <td class="mono right">0</td>
                     <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
-                    <td>Proxy based on balance-sheet expansion: -0.86 <span class="muted">(normal conditions)</span></td>
+                    <td>Proxy based on balance-sheet expansion: -0.64 <span class="muted">(normal conditions)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Valuation Stretch</td>
-                    <td class="mono right">1.76</td>
+                    <td class="mono right">0.93</td>
                     <td class="mono right">0</td>
                     <td class="mono" style="color:#15803d; font-weight:700;">OK</td>
-                    <td>Proxy vs 200d averages: SPY +2.1%, Nasdaq +1.4% <span class="muted">(normal conditions)</span></td>
+                    <td>Proxy vs 200d averages: SPY +1.2%, Nasdaq +0.7% <span class="muted">(normal conditions)</span></td>
                 </tr>
                 
                 <tr>
                     <td class="mono">Credit System Fragility</td>
-                    <td class="mono right">3.13</td>
+                    <td class="mono right">3.09</td>
                     <td class="mono right">0</td>
                     <td class="mono" style="color:#ca8a04; font-weight:700;">ELEVATED</td>
-                    <td>HY spread 3.13% | HYG vs 200d weak | USD vs 200d tight <span class="muted">(early warning / rising tension)</span></td>
+                    <td>HY spread 3.09% | HYG vs 200d weak | USD vs 200d tight <span class="muted">(early warning / rising tension)</span></td>
                 </tr>
                 
                     </tbody>
@@ -736,18 +1046,18 @@
 
     <section class="card">
         <h2>Narrative</h2>
-        <div>The main macro indicators still look relatively calm for now. Main core stress signals: VIX, HYG Trend. Elevated attention for: Global Liquidity, USD Index, S&amp;P Breadth, Nasdaq Trend, Global Liquidity Context, Inflation Trend, Credit System Fragility.</div>
+        <div>The radar currently points to a severe risk environment with broad market stress already visible. The strongest stress signals are coming from volatility stress, risk appetite deterioration. Additional pressure is visible in bond volatility, liquidity conditions, dollar strength, market breadth weakness, Nasdaq trend weakness. At the same time, credit spreads remain relatively contained; yield curve stress is not confirming. This is consistent with a developed stress phase in which volatility, risk appetite and broader market conditions are already under pressure.</div>
     </section>
 
     <section class="card">
         <h2>Risk Trend</h2>
-        <div>Market risk is increasing versus the previous snapshot.</div>
+        <div>Systemic risk is broadly stable versus the previous stored snapshot, but it remains stable at a high stress level.</div>
     </section>
 
    <section class="card">
         <h2>Calm Before the Storm Detector</h2>
         <div><strong>Detected:</strong> NO</div>
-        <div>No Calm Before the Storm pattern detected.</div>
+        <div>Calm Before the Storm means: market volatility is still low, but structural or underlying risks are already high. In other words: markets still look calm on the surface, while fragility is building underneath. This pattern is not active now because stress is already visible on the surface: volatility is already elevated; risk appetite stress is already visible; overall crash risk is no longer low.</div>
     </section>
 
     <section class="card">
@@ -755,71 +1065,230 @@
             <summary style="cursor:pointer; font-weight:700; font-size:18px;">
                 How this dashboard works
             </summary>
-            <div style="margin-top:14px; white-space:pre-wrap;">This dashboard is designed as an early warning system for market stress and potential crash risk.
+            <div style="margin-top:14px; line-height:1.6; max-width:900px;">
+                <h3>1. What this dashboard does</h3>
 
-1. What this dashboard does
-The model tracks a set of financial and macro indicators that often deteriorate before major market corrections or financial stress events. It does not try to predict the exact timing of a crash, but it helps identify whether market conditions are becoming more fragile or more stressed.
+<p>
+This dashboard is designed as an early warning system for market stress and potential crash risk.
+It monitors financial and macro indicators that historically deteriorate before major market corrections.
+</p>
 
-2. How the crash probability is built
-The crash probability is based mainly on the Core Market Stress indicators. Each of these indicators receives:
-- a status (OK, ELEVATED, WARNING, ALARM),
-- a score,
-- and a model weight.
+<p>
+The model does not attempt to predict the exact timing of a crash. Instead it evaluates whether
+the financial system is becoming more fragile, more stressed, or more stable over time.
+</p>
 
-The weighted combination of these signals becomes a total risk score, which is then translated into a crash probability percentage. The higher the score, the higher the implied market stress.
+<h3>2. How the crash probability is built</h3>
 
-3. Core Market Stress indicators
-These are the main drivers of the model and directly affect the crash probability.
+<p>The crash probability is mainly derived from the <b>Core Market Stress indicators</b>.</p>
 
-- VIX: measures expected equity market volatility. A sharp rise usually signals growing fear in stock markets.
-- Vol Regime Shift: shows whether volatility is moving into a more stressed regime relative to recent averages.
-- High Yield Credit Spread: measures stress in lower-quality corporate debt. Wider spreads often signal deteriorating credit conditions.
-- MOVE: measures bond market volatility. Rising MOVE can indicate stress in rates markets or uncertainty around liquidity and policy.
-- Yield Curve 2s10s: shows the difference between 10-year and 2-year US Treasury yields. It helps indicate macro and cycle stress.
-- Fed Balance Sheet: tracks the direction of central bank liquidity support.
-- Global Liquidity: combines major liquidity signals and helps detect tightening financial conditions.
-- USD Index: a stronger dollar can signal tighter global funding conditions.
-- HYG Trend: high yield bond ETF trend. Weakness here often appears before broader equity stress.
-- S&amp;P Breadth: shows whether market strength is broad or concentrated in fewer stocks.
-- Nasdaq Trend: helps monitor risk appetite and pressure in growth-oriented equities.
+<ul>
+<li>a status (OK, ELEVATED, WARNING, ALARM)</li>
+<li>a risk score</li>
+<li>a model weight</li>
+</ul>
 
-4. Macro Context indicators
-These indicators do not directly drive the crash score, but they help explain the broader environment.
+<p>
+The weighted combination of these signals produces a systemic risk score which is translated
+into a crash probability percentage.
+</p>
 
-- Global Liquidity Context: broader liquidity backdrop including dollar pressure.
-- Inflation Trend: helps assess whether inflation remains a macro headwind.
-- Oil Shock: rising oil prices can tighten financial conditions and increase macro stress.
+<h3>3. Core Market Stress indicators</h3>
 
-5. Structural Vulnerability indicators
-These indicators also do not directly drive the crash score. They show whether the system may be fragile beneath the surface.
+<p>
+The Core Market Stress indicators are the primary drivers of the crash risk model.
+Each indicator measures stress in a different part of the financial system.
+Together they help detect whether stress is building internally within markets,
+or spreading more broadly across asset classes.
+</p>
 
-- Debt Burden: a proxy for balance sheet and debt-related vulnerability.
-- Valuation Stretch: a proxy for whether markets may be expensive or stretched.
-- Credit System Fragility: a proxy for weakness in credit-sensitive areas and funding conditions.
+<p>
+Each indicator produces a <strong>risk score</strong> based on how far the current
+market condition deviates from its normal trend or equilibrium level.
+These scores are then multiplied by model weights and combined into the
+overall systemic risk score.
+</p>
 
-These indicators are especially useful when market stress is still low, but structural vulnerability is elevated. In that situation, markets may look calm while the underlying foundation is more fragile.
+<p>
+The indicators cover five main stress channels:
+</p>
 
-6. How to interpret the dashboard
-A practical way to read the dashboard is:
-- Start with the Summary line.
-- Then look at the Top Risk Drivers.
-- Then review the Core Market Stress section, because that drives the score.
-- Use Macro Context and Structural Vulnerability as supporting interpretation.
-- Use the Crash Setup Detector and Calm Before the Storm Detector as additional context.
+<ul>
 
-7. What the statuses mean
-- OK: normal conditions
-- ELEVATED: early warning or rising tension
-- WARNING: clear market stress
-- ALARM: rare, severe stress signal
+<li>
+<strong>Volatility Stress (VIX)</strong><br>
+Measures expected volatility in the equity market based on S&P 500 options pricing.
+A rising VIX reflects increasing demand for downside protection and often signals
+growing uncertainty or fear among investors.
+Sharp spikes in the VIX are frequently observed during market corrections.
+</li>
 
-8. Important limitation
-This dashboard is an early warning and interpretation tool. It is not a guarantee that markets will crash, nor does it predict exact timing. It is best used to monitor whether risk is rising, stable, or easing over time.</div>
+<li>
+<strong>Volatility Regime Shift</strong><br>
+Detects whether volatility is structurally moving into a higher regime relative
+to recent market history. Even without a sudden spike, a sustained increase in
+volatility often indicates deteriorating market stability.
+</li>
+
+<li>
+<strong>High Yield Credit Spread</strong><br>
+Measures the difference between yields on lower-quality corporate bonds and
+risk-free government bonds. When spreads widen, it indicates that investors
+demand higher compensation for credit risk, often signaling deterioration in
+corporate credit conditions.
+</li>
+
+<li>
+<strong>HYG Trend</strong><br>
+Tracks the trend of the high-yield bond ETF (HYG). High-yield bonds are very
+sensitive to economic risk and liquidity conditions. Weakness here often appears
+before stress spreads to equities.
+</li>
+
+<li>
+<strong>MOVE</strong><br>
+The MOVE index measures volatility in U.S. Treasury yields.
+Rising bond volatility often reflects uncertainty around interest rates,
+inflation expectations, or monetary policy.
+</li>
+
+<li>
+<strong>Global Liquidity</strong><br>
+Captures broader financial liquidity conditions.
+Tightening liquidity tends to increase systemic fragility because it reduces
+the availability of capital across financial markets.
+</li>
+
+<li>
+<strong>USD Index</strong><br>
+A strengthening U.S. dollar can signal tightening global financial conditions.
+Because much global debt is dollar-denominated, a stronger dollar can increase
+funding pressure internationally.
+</li>
+
+<li>
+<strong>S&amp;P Breadth</strong><br>
+Measures how broadly the equity market rally is supported across individual
+stocks. When fewer stocks participate in market gains, market structure becomes
+more fragile and more vulnerable to corrections.
+</li>
+
+<li>
+<strong>Nasdaq Trend</strong><br>
+Tracks the trend of growth-oriented technology stocks.
+These assets tend to be highly sensitive to liquidity and risk appetite and
+often weaken early when investor sentiment deteriorates.
+</li>
+
+<li>
+<strong>Yield Curve (2s10s)</strong><br>
+Measures the slope between short-term and long-term government bond yields.
+An inverted or flattening yield curve often signals tightening financial
+conditions and increasing macroeconomic stress.
+</li>
+
+</ul>
+
+<p>
+Because these indicators monitor different segments of the financial system,
+they help detect whether stress is isolated to a single market or spreading
+more broadly across equities, credit, interest rates, and liquidity conditions.
+</p>
+
+<h3>4. Heatmap vs Market Stress Dashboard</h3>
+
+<p><b>System Stress Heatmap</b></p>
+
+<p>
+Shows the weighted contribution of each market segment to the systemic risk score.
+It answers the question: <i>Which systems are currently driving overall risk?</i>
+</p>
+
+<p><b>Market Stress Dashboard</b></p>
+
+<p>
+Shows the raw status of each indicator without model weighting.
+It answers the question: <i>Which market segments are currently calm or stressed?</i>
+</p>
+
+<p><b>How to read them together</b></p>
+
+<ul>
+<li><b>Inactive</b> – the Market Stress Dashboard shows mostly OK or ELEVATED signals, so little stress is visible.</li>
+<li><b>Active</b> – some indicators deteriorate, so stress is becoming visible in the Market Stress Dashboard.</li>
+<li><b>Confirmed</b> – the same systems begin to dominate the Heatmap, meaning stress is now materially driving systemic risk.</li>
+</ul>
+
+<p><i>In short: the Dashboard shows where stress appears; the Heatmap shows when it starts driving systemic risk.</i></p>
+
+<h3>5. Structural Vulnerability</h3>
+
+<p>
+Structural indicators show whether the system may be fragile beneath the surface,
+even when market stress is still low.
+</p>
+
+<ul>
+<li>Debt Burden</li>
+<li>Valuation Stretch</li>
+<li>Credit System Fragility</li>
+</ul>
+
+<h3>6. System Risk Position stages</h3>
+
+<table>
+<tr><th>Stage</th><th>Meaning</th></tr>
+<tr><td>Normal</td><td>Markets broadly stable with limited stress signals.</td></tr>
+<tr><td>Elevated Risk</td><td>Early warning signals appearing.</td></tr>
+<tr><td>High Risk</td><td>Stress spreading across several market segments.</td></tr>
+<tr><td>Severe Risk</td><td>Multiple core indicators showing clear stress.</td></tr>
+<tr><td>Crash Warning</td><td>Extreme systemic stress environment.</td></tr>
+</table>
+
+<h3>7. Typical Stress Escalation Pattern</h3>
+
+<p>Market stress usually spreads through the system in stages.</p>
+
+<table>
+<tr><th>Stage</th><th>Typical signals</th></tr>
+<tr><td>1</td><td>Market breadth weakens</td></tr>
+<tr><td>2</td><td>Risk appetite deteriorates (HYG, growth stocks)</td></tr>
+<tr><td>3</td><td>Volatility rises (VIX, MOVE)</td></tr>
+<tr><td>4</td><td>Credit spreads widen</td></tr>
+<tr><td>5</td><td>Systemic stress across markets</td></tr>
+</table>
+
+<h3>8. How to read the dashboard</h3>
+
+<ol>
+<li>Start with the Summary</li>
+<li>Look at the System Stress Heatmap</li>
+<li>Check the Top Risk Drivers</li>
+<li>Review the Core Market Stress indicators</li>
+<li>Check Macro Context and Structural Vulnerability</li>
+</ol>
+
+<h3>9. Status levels</h3>
+
+<ul>
+<li><b>OK</b> – normal conditions</li>
+<li><b>ELEVATED</b> – early warning</li>
+<li><b>WARNING</b> – clear market stress</li>
+<li><b>ALARM</b> – rare extreme stress</li>
+</ul>
+
+<h3>10. Important limitation</h3>
+
+<p>
+This dashboard is an early warning system. It does not predict exact crash timing,
+but helps monitor whether systemic risk is rising, stable or easing over time.
+</p>
+            </div>
         </details>
     </section>
 
 <script>
-const COMPARISON_DATA = {"previous_run": {"mode": "previous_run", "label": "Previous run", "summary": {"headline": "Crash Risk Score: 65%", "subtitle": "Stable vs previous run", "driver_line": "No material change in weighted risk indicators.", "system_line": ""}, "result": {"baseline_available": true, "score_current": 65.0, "score_baseline": 65.0, "score_delta": 0.0, "summary_state": "stable", "top_driver": null, "top_drivers": [], "top_system": null, "rows": [{"key": "credit_spread", "label": "HY Spread", "system": "Credit Market", "weight": 1.8, "prev_raw": 3.13, "curr_raw": 3.13, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "fed_balance", "label": "Fed Balance Sheet", "system": "Liquidity", "weight": 0.4, "prev_raw": 6628894.0, "curr_raw": 6628894.0, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "global_liquidity", "label": "Global Liquidity", "system": "Liquidity", "weight": 1.0, "prev_raw": 0.8232449180704213, "curr_raw": 0.8232449180704213, "prev_score": 1.0, "curr_score": 1.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "hyg", "label": "HYG", "system": "Risk Appetite", "weight": 1.7, "prev_raw": 79.91010284423828, "curr_raw": 79.88999938964844, "prev_score": 3.0, "curr_score": 3.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "move", "label": "MOVE", "system": "Bond Market", "weight": 1.5, "prev_raw": 81.26239776611328, "curr_raw": 81.26239776611328, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "nasdaq", "label": "Nasdaq", "system": "Risk Assets", "weight": 0.7, "prev_raw": 22423.55078125, "curr_raw": 22410.30859375, "prev_score": 1.0, "curr_score": 1.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "sp_breadth", "label": "Breadth", "system": "Market Structure", "weight": 0.7, "prev_raw": 0.2929503638795242, "curr_raw": 0.2929745400764224, "prev_score": 1.0, "curr_score": 1.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "usd_index", "label": "USD", "system": "Global Liquidity", "weight": 0.7, "prev_raw": 98.98300170898438, "curr_raw": 99.00299835205078, "prev_score": 1.0, "curr_score": 1.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "vix", "label": "VIX", "system": "Equity Stress", "weight": 1.2, "prev_raw": 29.49, "curr_raw": 29.49, "prev_score": 2.0, "curr_score": 2.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "vol_regime", "label": "Vol Regime", "system": "Equity Stress", "weight": 1.0, "prev_raw": 29.49, "curr_raw": 29.49, "prev_score": 2.0, "curr_score": 2.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "yield_curve_2s10s", "label": "Yield Curve", "system": "Rates / Macro", "weight": 1.0, "prev_raw": 0.56, "curr_raw": 0.56, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}], "system_rows": [{"system": "Credit Market", "contribution": 0.0}, {"system": "Liquidity", "contribution": 0.0}, {"system": "Risk Appetite", "contribution": 0.0}, {"system": "Bond Market", "contribution": 0.0}, {"system": "Risk Assets", "contribution": 0.0}, {"system": "Market Structure", "contribution": 0.0}, {"system": "Global Liquidity", "contribution": 0.0}, {"system": "Equity Stress", "contribution": 0.0}, {"system": "Rates / Macro", "contribution": 0.0}], "has_meaningful_change": false, "baseline_timestamp": "2026-03-09T16:59:05.348737+00:00"}}, "yesterday": {"mode": "yesterday", "label": "Yesterday", "summary": {"headline": "Crash Risk Score: 65%", "subtitle": "No comparison available vs yesterday", "driver_line": "This is the first stored snapshot for this comparison mode.", "system_line": ""}, "result": {"baseline_available": false, "score_current": 65.0, "score_baseline": null, "score_delta": null, "summary_state": "unavailable", "top_driver": null, "top_drivers": [], "top_system": null, "rows": [{"key": "sp_breadth", "label": "Breadth", "system": "Market Structure", "weight": 0.7, "prev_raw": null, "curr_raw": 0.2929745400764224, "prev_score": null, "curr_score": 1.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "fed_balance", "label": "Fed Balance Sheet", "system": "Liquidity", "weight": 0.4, "prev_raw": null, "curr_raw": 6628894.0, "prev_score": null, "curr_score": 0.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "global_liquidity", "label": "Global Liquidity", "system": "Liquidity", "weight": 1.0, "prev_raw": null, "curr_raw": 0.8232449180704213, "prev_score": null, "curr_score": 1.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "credit_spread", "label": "HY Spread", "system": "Credit Market", "weight": 1.8, "prev_raw": null, "curr_raw": 3.13, "prev_score": null, "curr_score": 0.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "hyg", "label": "HYG", "system": "Risk Appetite", "weight": 1.7, "prev_raw": null, "curr_raw": 79.88999938964844, "prev_score": null, "curr_score": 3.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "move", "label": "MOVE", "system": "Bond Market", "weight": 1.5, "prev_raw": null, "curr_raw": 81.26239776611328, "prev_score": null, "curr_score": 0.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "nasdaq", "label": "Nasdaq", "system": "Risk Assets", "weight": 0.7, "prev_raw": null, "curr_raw": 22410.30859375, "prev_score": null, "curr_score": 1.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "usd_index", "label": "USD", "system": "Global Liquidity", "weight": 0.7, "prev_raw": null, "curr_raw": 99.00299835205078, "prev_score": null, "curr_score": 1.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "vix", "label": "VIX", "system": "Equity Stress", "weight": 1.2, "prev_raw": null, "curr_raw": 29.49, "prev_score": null, "curr_score": 2.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "vol_regime", "label": "Vol Regime", "system": "Equity Stress", "weight": 1.0, "prev_raw": null, "curr_raw": 29.49, "prev_score": null, "curr_score": 2.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}, {"key": "yield_curve_2s10s", "label": "Yield Curve", "system": "Rates / Macro", "weight": 1.0, "prev_raw": null, "curr_raw": 0.56, "prev_score": null, "curr_score": 0.0, "risk_score_delta": null, "contribution": null, "direction": "flat"}], "system_rows": [], "has_meaningful_change": false, "baseline_timestamp": null}}, "default_mode": "previous_run"};
+const COMPARISON_DATA = {"previous_run": {"mode": "previous_run", "label": "Previous run", "summary": {"headline": "Crash Risk Score: 66.7%", "subtitle": "Stable vs previous run", "driver_line": "No material change in weighted risk indicators.", "system_line": ""}, "result": {"baseline_available": true, "score_current": 66.72, "score_baseline": 66.738, "score_delta": -0.018000000000000682, "summary_state": "stable", "top_driver": null, "top_drivers": [], "top_system": null, "rows": [{"key": "usd_index", "label": "USD", "system": "Global Liquidity", "weight": 0.7, "prev_raw": 100.01100158691406, "curr_raw": 100.02899932861328, "prev_score": 1.312, "curr_score": 1.318, "risk_score_delta": 0.006, "contribution": 0.0042, "direction": "up"}, {"key": "credit_spread", "label": "HY Spread", "system": "Credit Market", "weight": 1.8, "prev_raw": 3.09, "curr_raw": 3.09, "prev_score": 0.054, "curr_score": 0.054, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "fed_balance", "label": "Fed Balance Sheet", "system": "Liquidity", "weight": 0.4, "prev_raw": 6646344.0, "curr_raw": 6646344.0, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "global_liquidity", "label": "Global Liquidity", "system": "Liquidity", "weight": 1.0, "prev_raw": 0.8179290902103313, "curr_raw": 0.8179290902103313, "prev_score": 0.697, "curr_score": 0.697, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "hyg", "label": "HYG", "system": "Risk Appetite", "weight": 1.7, "prev_raw": 79.3499984741211, "curr_raw": 79.3499984741211, "prev_score": 2.035, "curr_score": 2.035, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "move", "label": "MOVE", "system": "Bond Market", "weight": 1.5, "prev_raw": 95.30000305175781, "curr_raw": 95.30000305175781, "prev_score": 1.143, "curr_score": 1.143, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "nasdaq", "label": "Nasdaq", "system": "Risk Assets", "weight": 0.7, "prev_raw": 22311.98046875, "curr_raw": 22311.98046875, "prev_score": 1.635, "curr_score": 1.635, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "sp_breadth", "label": "Breadth", "system": "Market Structure", "weight": 0.7, "prev_raw": 0.2905594082945537, "curr_raw": 0.2905594082945537, "prev_score": 0.711, "curr_score": 0.711, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "vix", "label": "VIX", "system": "Equity Stress", "weight": 1.2, "prev_raw": 24.23, "curr_raw": 24.23, "prev_score": 2.211, "curr_score": 2.211, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "vol_regime", "label": "Vol Regime", "system": "Equity Stress", "weight": 1.0, "prev_raw": 24.23, "curr_raw": 24.23, "prev_score": 2.022, "curr_score": 2.022, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "yield_curve_2s10s", "label": "Yield Curve", "system": "Rates / Macro", "weight": 1.0, "prev_raw": 0.5699999999999998, "curr_raw": 0.5699999999999998, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}], "system_rows": [{"system": "Global Liquidity", "contribution": 0.004200000000000003}, {"system": "Credit Market", "contribution": 0.0}, {"system": "Liquidity", "contribution": 0.0}, {"system": "Risk Appetite", "contribution": 0.0}, {"system": "Bond Market", "contribution": 0.0}, {"system": "Risk Assets", "contribution": 0.0}, {"system": "Market Structure", "contribution": 0.0}, {"system": "Equity Stress", "contribution": 0.0}, {"system": "Rates / Macro", "contribution": 0.0}], "has_meaningful_change": false, "baseline_timestamp": "2026-03-13T13:02:43.302709+00:00"}}, "yesterday": {"mode": "yesterday", "label": "Yesterday", "summary": {"headline": "Crash Risk Score: 66.7%", "subtitle": "Up 12.5 pts vs yesterday", "driver_line": "Main driver: MOVE · Secondary: Nasdaq, HYG", "system_line": "System most responsible: Bond Market"}, "result": {"baseline_available": true, "score_current": 66.72, "score_baseline": 54.21, "score_delta": 12.509999999999998, "summary_state": "up", "top_driver": {"key": "move", "label": "MOVE", "system": "Bond Market", "weight": 1.5, "prev_raw": 78.59380340576172, "curr_raw": 95.30000305175781, "prev_score": 0.286, "curr_score": 1.143, "risk_score_delta": 0.857, "contribution": 1.2855, "direction": "up"}, "top_drivers": [{"key": "move", "label": "MOVE", "system": "Bond Market", "weight": 1.5, "prev_raw": 78.59380340576172, "curr_raw": 95.30000305175781, "prev_score": 0.286, "curr_score": 1.143, "risk_score_delta": 0.857, "contribution": 1.2855, "direction": "up"}, {"key": "nasdaq", "label": "Nasdaq", "system": "Risk Assets", "weight": 0.7, "prev_raw": 22433.986328125, "curr_raw": 22311.98046875, "prev_score": 1.436, "curr_score": 1.635, "risk_score_delta": 0.199, "contribution": 0.1393, "direction": "up"}, {"key": "hyg", "label": "HYG", "system": "Risk Appetite", "weight": 1.7, "prev_raw": 79.65499877929688, "curr_raw": 79.3499984741211, "prev_score": 1.963, "curr_score": 2.035, "risk_score_delta": 0.072, "contribution": 0.1224, "direction": "up"}], "top_system": {"system": "Bond Market", "contribution": 1.2854999999999999}, "rows": [{"key": "move", "label": "MOVE", "system": "Bond Market", "weight": 1.5, "prev_raw": 78.59380340576172, "curr_raw": 95.30000305175781, "prev_score": 0.286, "curr_score": 1.143, "risk_score_delta": 0.857, "contribution": 1.2855, "direction": "up"}, {"key": "nasdaq", "label": "Nasdaq", "system": "Risk Assets", "weight": 0.7, "prev_raw": 22433.986328125, "curr_raw": 22311.98046875, "prev_score": 1.436, "curr_score": 1.635, "risk_score_delta": 0.199, "contribution": 0.1393, "direction": "up"}, {"key": "hyg", "label": "HYG", "system": "Risk Appetite", "weight": 1.7, "prev_raw": 79.65499877929688, "curr_raw": 79.3499984741211, "prev_score": 1.963, "curr_score": 2.035, "risk_score_delta": 0.072, "contribution": 0.1224, "direction": "up"}, {"key": "usd_index", "label": "USD", "system": "Global Liquidity", "weight": 0.7, "prev_raw": 99.6500015258789, "curr_raw": 100.02899932861328, "prev_score": 1.177, "curr_score": 1.318, "risk_score_delta": 0.141, "contribution": 0.0987, "direction": "up"}, {"key": "sp_breadth", "label": "Breadth", "system": "Market Structure", "weight": 0.7, "prev_raw": 0.29108201195802086, "curr_raw": 0.2905594082945537, "prev_score": 0.655, "curr_score": 0.711, "risk_score_delta": 0.056, "contribution": 0.0392, "direction": "up"}, {"key": "credit_spread", "label": "HY Spread", "system": "Credit Market", "weight": 1.8, "prev_raw": 3.09, "curr_raw": 3.09, "prev_score": 0.054, "curr_score": 0.054, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "fed_balance", "label": "Fed Balance Sheet", "system": "Liquidity", "weight": 0.4, "prev_raw": 6628894.0, "curr_raw": 6646344.0, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "global_liquidity", "label": "Global Liquidity", "system": "Liquidity", "weight": 1.0, "prev_raw": 0.8232449180704213, "curr_raw": 0.8179290902103313, "prev_score": 0.697, "curr_score": 0.697, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "vix", "label": "VIX", "system": "Equity Stress", "weight": 1.2, "prev_raw": 24.23, "curr_raw": 24.23, "prev_score": 2.211, "curr_score": 2.211, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "vol_regime", "label": "Vol Regime", "system": "Equity Stress", "weight": 1.0, "prev_raw": 24.23, "curr_raw": 24.23, "prev_score": 2.022, "curr_score": 2.022, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}, {"key": "yield_curve_2s10s", "label": "Yield Curve", "system": "Rates / Macro", "weight": 1.0, "prev_raw": 0.5800000000000005, "curr_raw": 0.5699999999999998, "prev_score": 0.0, "curr_score": 0.0, "risk_score_delta": 0.0, "contribution": 0.0, "direction": "flat"}], "system_rows": [{"system": "Bond Market", "contribution": 1.2854999999999999}, {"system": "Risk Assets", "contribution": 0.13930000000000003}, {"system": "Risk Appetite", "contribution": 0.1224000000000001}, {"system": "Global Liquidity", "contribution": 0.09870000000000001}, {"system": "Market Structure", "contribution": 0.03919999999999996}, {"system": "Credit Market", "contribution": 0.0}, {"system": "Liquidity", "contribution": 0.0}, {"system": "Equity Stress", "contribution": 0.0}, {"system": "Rates / Macro", "contribution": 0.0}], "has_meaningful_change": true, "baseline_timestamp": "2026-03-12T16:45:01.871410+00:00"}}, "default_mode": "previous_run"};
 
 function fmtNum(x, digits=1) {
     if (x === null || x === undefined || x === "") return "";

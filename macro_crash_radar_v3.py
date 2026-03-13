@@ -71,8 +71,8 @@ STATUS_EXPLANATION = {
 # =========================
 
 HISTORY_FILE = Path("crash_dashboard_history.json")
-SCORE_CHANGE_EPSILON = 0.5        # below this => "stable"
-CONTRIBUTION_EPSILON = 0.2        # below this => do not show in top summary
+SCORE_CHANGE_EPSILON = 0.15        # below this => "stable"
+CONTRIBUTION_EPSILON = 0.04       # below this => do not show in top summary
 MAX_TOP_DRIVERS = 3
 
 # IMPORTANT:
@@ -236,7 +236,7 @@ def write_report_to_file(
             with redirect_stdout(f):
                 print_report(output)
 
-def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
+def build_html_report(output: "RadarOutput") -> str:
     weights = indicator_weights()
     sections = grouped_indicator_sections(output.indicators)
 
@@ -245,7 +245,7 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     current_stage = risk_stage_index(output.regime)
 
     trend_symbol, trend_label = trend_symbol_and_label(output.risk_trend)
-    trend_compare = trend_comparison_text(output, csv_path)
+    trend_compare = trend_comparison_text_from_output(output)
 
     stage_bar_html = []
     for idx, (name, cls) in enumerate(zip(stage_names, stage_classes)):
@@ -263,13 +263,33 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     def esc(x: str) -> str:
         return html.escape(str(x))
 
-    top_drivers_html = ""
+    def status_class(status: str) -> str:
+        return {
+            "OK": "status-ok",
+            "ELEVATED": "status-elevated",
+            "WARNING": "status-warning",
+            "HIGH": "status-alarm",
+            "ALARM": "status-alarm",
+            "UNAVAILABLE": "status-unavailable",
+        }.get(status, "status-neutral")
+
     if output.top_risk_drivers:
         top_drivers_html = "".join(
-            f"<li>{esc(driver)}</li>" for driver in output.top_risk_drivers
+            f"""
+            <tr>
+                <td>{esc(driver['driver'])}</td>
+                <td class="{status_class(driver['status'])}">{esc(driver['status'])}</td>
+                <td class="right">w:{driver['weight']:.1f} • c:{driver['contribution']:.2f}</td>
+            </tr>
+            """
+            for driver in output.top_risk_drivers
         )
     else:
-        top_drivers_html = "<li>No material weighted risk drivers detected.</li>"
+        top_drivers_html = """
+            <tr>
+                <td colspan="3" class="muted">No material weighted risk drivers detected.</td>
+            </tr>
+        """
 
     section_tables = []
 
@@ -335,6 +355,61 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     regime, crash_view, positioning, explanation = market_summary(output)
     comparison_json = json.dumps(output.comparison, ensure_ascii=False)
 
+    def heatmap_bar(normalized_score: float, status: str) -> str:
+        width_pct = min(100, max(0, int(normalized_score)))
+
+        if status == "HIGH":
+            bar_class = "bar up"
+        elif status == "WARNING":
+            bar_class = "bar flat"
+        elif status == "ELEVATED":
+            bar_class = "bar down"
+        else:
+            bar_class = "bar down"
+
+        elevated_marker = 20.0
+        warning_marker = 45.0
+
+        return f"""
+            <div class="heatmap-wrap">
+                <div class="driver-bar-wrap heatmap-bar-wrap" style="min-width:220px;">
+                    <div class="heatmap-marker" style="left:{elevated_marker}%"></div>
+                    <div class="heatmap-marker" style="left:{warning_marker}%"></div>
+                    <div class="{bar_class}" style="width:{width_pct}%"></div>
+                </div>
+                <div class="heatmap-marker-labels">
+                    <span style="left:{elevated_marker}%">Elevated</span>
+                    <span style="left:{warning_marker}%">Warning</span>
+                </div>
+            </div>
+        """
+
+    heatmap_rows = "".join(
+        f"""
+        <tr>
+            <td>{esc(row['system'])}</td>
+            <td>{heatmap_bar(row['normalized_score'], row['status'])}</td>
+            <td class="right">{row['raw_score']:.2f}</td>
+            <td class="{status_class(row['status'])}">{esc(row['status'])}</td>
+        </tr>
+        """
+        for row in output.system_stress_heatmap
+    )
+
+    ladder_rows = "".join(
+        f"""
+        <tr>
+            <td class="right">{esc(row['stage'])}</td>
+            <td>{esc(row['label'])}</td>
+            <td>{esc(row['signals'])}</td>
+            <td class="{status_class(row['status_class'])}">{esc(row['status'])}</td>
+        </tr>
+        """
+        for row in output.stress_escalation_ladder
+    )
+    
+    risk_marker_pct = max(0.0, min(100.0, float(output.crash_probability_pct)))
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -358,6 +433,12 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     h2 {{
         font-size: 20px;
         margin-top: 0;
+    }}
+    h3 {{
+        margin-top: 28px;
+        margin-bottom: 10px;
+        color: #1e3a8a;
+        font-weight: 700;
     }}
     .meta {{
         color: #475569;
@@ -599,6 +680,84 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     .neu {{
         color: #64748b;
     }}
+    .status-ok {{
+        color: #15803d;
+        font-weight: 700;
+    }}
+    .status-elevated {{
+        color: #ca8a04;
+        font-weight: 700;
+    }}
+    .status-warning {{
+        color: #d97706;
+        font-weight: 700;
+    }}
+    .status-alarm {{
+        color: #b91c1c;
+        font-weight: 700;
+    }}
+    .status-unavailable {{
+        color: #0891b2;
+        font-weight: 700;
+    }}
+    .status-neutral {{
+        color: #64748b;
+        font-weight: 700;
+    }}
+    .heatmap-wrap {{
+        min-width: 220px;
+    }}
+
+    .heatmap-bar-wrap {{
+        position: relative;
+        overflow: visible;
+    }}
+
+    .heatmap-marker {{
+        position: absolute;
+        top: -2px;
+        bottom: -2px;
+        width: 2px;
+        background: rgba(15, 23, 42, 0.35);
+        z-index: 3;
+        pointer-events: none;
+    }}
+
+    .heatmap-marker-labels {{
+        position: relative;
+        height: 16px;
+        margin-top: 4px;
+        font-size: 11px;
+        color: #64748b;
+    }}
+
+    .heatmap-marker-labels span {{
+        position: absolute;
+        transform: translateX(-50%);
+        white-space: nowrap;
+    }}
+    
+    .risk-bar-wrapper {{
+        position: relative;
+    }}
+    .risk-marker {{
+        position: absolute;
+        top: -10px;
+        width: 2px;
+        height: 80px;
+        background: #111827;
+        opacity: 0.7;
+    }}
+
+    .risk-marker-label {{
+        position: absolute;
+        top: -28px;
+        transform: translateX(-50%);
+        font-size: 12px;
+        font-weight: 600;
+        color: #111827;
+    }}
+
     @media (max-width: 1000px) {{
         .grid {{
             grid-template-columns: 1fr;
@@ -643,10 +802,17 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     <section class="card">
         <h2>System Risk Position</h2>
         <div><strong>Current level:</strong> {esc(output.regime)}</div>
-        <div><strong>Crash probability:</strong> {esc(output.crash_probability_pct)}%</div>
+        <div><strong>Crash probability:</strong> {output.crash_probability_pct:.1f}%</div>
 
-        <div class="risk-bar">
-            {''.join(stage_bar_html)}
+        <div class="risk-bar-wrapper">
+            <div class="risk-marker" style="left:{risk_marker_pct}%"></div>
+            <div class="risk-marker-label" style="left:{risk_marker_pct}%">
+                {output.crash_probability_pct:.1f}%
+            </div>
+
+            <div class="risk-bar">
+                {''.join(stage_bar_html)}
+            </div>
         </div>
 
         <div class="trend-chip {'trend-up' if output.risk_trend in ('rising', 'rising fast') else 'trend-down' if output.risk_trend in ('falling', 'falling fast') else 'trend-flat'}">
@@ -657,6 +823,46 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     <section class="card" id="drivers-card">
         <h2>Drivers of Change</h2>
         <div id="drivers-bars"></div>
+    </section>
+
+    <section class="card">
+        <h2>System Stress Heatmap</h2>
+        <div class="small">
+            Weighted contribution to systemic crash risk by market segment. This heatmap shows model impact, not raw indicator status.
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>System</th>
+                    <th>Heat</th>
+                    <th class="right">Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {heatmap_rows}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="card">
+        <h2>Market Stress Escalation Ladder</h2>
+        <div class="small">
+            Typical sequence of how stress spreads through markets. This is a staging tool, not a fixed rule.
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="right">Stage</th>
+                    <th>Phase</th>
+                    <th>Typical signals</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {ladder_rows}
+            </tbody>
+        </table>
     </section>
 
      <section class="card">
@@ -689,16 +895,25 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     <div class="grid">
         <section class="card">
             <h2>Top Risk Drivers</h2>
-            <div class="small">Ranked by current risk impact.</div>
-            <ul>
-                {top_drivers_html}
-            </ul>
+            <div class="small">Ranked by weighted risk contribution.</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Driver</th>
+                        <th>Status</th>
+                        <th class="right">Weight / Contribution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {top_drivers_html}
+                </tbody>
+            </table>
         </section>
 
         <section class="card">
             <h2>Risk Snapshot</h2>
-            <div class="pill">Total score: {esc(output.total_score)}</div>
-            <div class="pill">Crash probability: {esc(output.crash_probability_pct)}%</div>
+            <div class="pill">Total score: {output.total_score:.1f}</div>
+            <div class="pill">Crash probability: {output.crash_probability_pct:.1f}%</div>
             <div class="pill">Regime: {esc(output.regime)}</div>
             <div class="pill">Trend: {esc(output.risk_trend)}</div>
             <div class="pill">Crash setup: {esc(output.crash_setup_level)}</div>
@@ -709,6 +924,9 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
     <div class="grid">
         <section class="card">
             <h2>Market Stress Dashboard</h2>
+            <div class="small">
+                Raw indicator status by market segment. This dashboard shows each indicator’s direct stress condition, independent of model weighting.
+            </div>
             <table>
                 <thead>
                     <tr><th>Indicator</th><th>System</th><th>Status</th></tr>
@@ -799,7 +1017,9 @@ def build_html_report(output: "RadarOutput", csv_path: str = "") -> str:
             <summary style="cursor:pointer; font-weight:700; font-size:18px;">
                 How this dashboard works
             </summary>
-            <div style="margin-top:14px; white-space:pre-wrap;">{esc(output.dashboard_explanation)}</div>
+            <div style="margin-top:14px; line-height:1.6; max-width:900px;">
+                {output.dashboard_explanation}
+            </div>
         </details>
     </section>
 
@@ -898,7 +1118,6 @@ setCompareMode(COMPARISON_DATA.default_mode || "previous_run");
 """
 
 
-
 # =========================
 # Data models
 # =========================
@@ -909,15 +1128,15 @@ class Indicator:
     name: str
     value: float | None
     status: str
-    score: int
+    risk_score: float
     detail: str
 
 
 @dataclass
 class RadarOutput:
     timestamp_utc: str
-    total_score: int
-    crash_probability_pct: int
+    total_score: float
+    crash_probability_pct: float
     regime: str
     hedge_fund_trigger: bool
     trigger_reasons: list[str]
@@ -937,7 +1156,7 @@ class RadarOutput:
     bond_regime_explanation: str
     bond_regime_drivers: list[str]
 
-    trend_score: int | None
+    trend_score: float | None
     risk_trend: str
     trend_explanation: str
 
@@ -958,7 +1177,9 @@ class RadarOutput:
     calm_before_storm: bool
     calm_before_storm_explanation: str
 
-    top_risk_drivers: list[str]
+    top_risk_drivers: list[dict[str, Any]]
+    system_stress_heatmap: list[dict[str, Any]]
+    stress_escalation_ladder: list[dict[str, Any]]
     summary_line: str
     dashboard_explanation: str
     comparison: dict[str, Any]
@@ -1085,6 +1306,27 @@ def safe_ma(series: pd.Series, n: int) -> float:
         return float(s.tail(n).mean())
     return float(s.mean())
 
+
+def interpolate_score(value: float, anchors: list[tuple[float, float]]) -> float:
+    """
+    Piecewise linear interpolation between anchor points.
+    anchors = [(value, score), ...] sorted by value.
+    """
+    if value <= anchors[0][0]:
+        return anchors[0][1]
+
+    for i in range(len(anchors) - 1):
+        x0, y0 = anchors[i]
+        x1, y1 = anchors[i + 1]
+
+        if value <= x1:
+            if x1 == x0:
+                return y0
+            ratio = (value - x0) / (x1 - x0)
+            return y0 + ratio * (y1 - y0)
+
+    return anchors[-1][1]
+
 def safe_float(x: Any, default: float = 0.0) -> float:
     try:
         if x is None:
@@ -1168,16 +1410,18 @@ def get_yesterday_snapshot(history: list[dict[str, Any]], current_ts_iso: str) -
 
 def build_history_snapshot(
     *,
-    crash_score: float,
+    total_score: float,
+    crash_probability_pct: float,
     indicator_values: dict[str, Any],
     indicator_risk_scores: dict[str, float],
     stage_label: str | None = None,
 ) -> dict[str, Any]:
     return {
         "timestamp": utc_now_iso(),
-        "crash_score": round(safe_float(crash_score), 2),
+        "total_score": safe_float(total_score),
+        "crash_probability_pct": safe_float(crash_probability_pct),
         "indicator_values": indicator_values,
-        "indicator_risk_scores": {k: round(safe_float(v), 4) for k, v in indicator_risk_scores.items()},
+        "indicator_risk_scores": {k: safe_float(v) for k, v in indicator_risk_scores.items()},
         "stage_label": stage_label or "",
     }
 
@@ -1194,10 +1438,10 @@ def calculate_driver_contributions(
 
     baseline_available = baseline_snapshot is not None
 
-    current_total = safe_float(current_snapshot.get("crash_score"))
+    current_total = safe_float(current_snapshot.get("crash_probability_pct"))
 
     if baseline_available:
-        baseline_total = safe_float(baseline_snapshot.get("crash_score"))
+        baseline_total = safe_float(baseline_snapshot.get("crash_probability_pct"))
         score_delta = current_total - baseline_total
     else:
         baseline_total = None
@@ -1246,13 +1490,13 @@ def calculate_driver_contributions(
             "key": key,
             "label": label,
             "system": system,
-            "weight": round(weight, 4),
+            "weight": weight,
             "prev_raw": prev_raw,
             "curr_raw": curr_raw,
-            "prev_score": round(prev_score, 2) if prev_score is not None else None,
-            "curr_score": round(curr_score, 2),
-            "risk_score_delta": round(risk_score_delta, 2) if risk_score_delta is not None else None,
-            "contribution": round(contribution, 2) if contribution is not None else None,
+            "prev_score": prev_score,
+            "curr_score": curr_score,
+            "risk_score_delta": round(risk_score_delta, 4) if risk_score_delta is not None else None,
+            "contribution": round(contribution, 4) if contribution is not None else None,
             "direction": direction,
         }
         rows.append(row)
@@ -1266,7 +1510,7 @@ def calculate_driver_contributions(
         rows.sort(key=lambda x: x["label"])
 
     system_rows = [
-        {"system": k, "contribution": round(v, 2)}
+        {"system": k, "contribution": v}
         for k, v in system_contribs.items()
     ]
     system_rows.sort(key=lambda x: abs(safe_float(x["contribution"])), reverse=True)
@@ -1294,9 +1538,9 @@ def calculate_driver_contributions(
 
     return {
         "baseline_available": baseline_available,
-        "score_current": round(current_total, 2),
-        "score_baseline": round(baseline_total, 2) if baseline_total is not None else None,
-        "score_delta": round(score_delta, 2) if score_delta is not None else None,
+        "score_current": current_total,
+        "score_baseline": baseline_total,
+        "score_delta": score_delta,
         "summary_state": summary_state,
         "top_driver": top_driver,
         "top_drivers": meaningful_rows[:MAX_TOP_DRIVERS],
@@ -1307,6 +1551,41 @@ def calculate_driver_contributions(
         "baseline_timestamp": (baseline_snapshot or {}).get("timestamp"),
     }
 
+
+def calculate_system_stress_momentum(compare_result: dict[str, Any]) -> float:
+    """
+    Small bonus for broad, recent worsening across the system.
+    Uses comparison output from previous_run.
+    Returns a probability bonus in percentage points.
+    """
+
+    if not compare_result.get("baseline_available"):
+        return 0.0
+
+    rows = compare_result.get("rows", []) or []
+    if not rows:
+        return 0.0
+
+    worsening_rows = [
+        r for r in rows
+        if safe_float(r.get("contribution")) > 0
+    ]
+
+    if not worsening_rows:
+        return 0.0
+
+    total_positive_contribution = sum(
+        safe_float(r.get("contribution")) for r in worsening_rows
+    )
+
+    worsening_count = len(worsening_rows)
+
+    breadth_bonus = min(0.8, worsening_count * 0.12)
+    intensity_bonus = min(1.2, total_positive_contribution * 0.35)
+
+    momentum_bonus = breadth_bonus + intensity_bonus
+
+    return min(2.0, momentum_bonus)
 
 def fmt_signed(x: float, digits: int = 1) -> str:
     x = safe_float(x)
@@ -1320,7 +1599,7 @@ def build_clean_summary_line(compare_result: dict[str, Any], mode_label: str) ->
     top_driver = compare_result.get("top_driver")
     top_drivers = compare_result.get("top_drivers", [])
 
-    line1 = f"Crash Risk Score: {score_now:.0f}%"
+    line1 = f"Crash Risk Score: {score_now:.1f}%"
 
     if not baseline_available or state == "unavailable":
         line2 = f"No comparison available vs {mode_label}"
@@ -1349,36 +1628,41 @@ def calculate_trend_from_snapshot(
     baseline_snapshot: dict[str, Any] | None,
 ) -> tuple[float | None, str, str]:
     """
-    Compare current crash score vs baseline snapshot from JSON history.
+    Compare current crash probability vs baseline snapshot from JSON history.
     Returns:
-    - trend_score: delta in crash score
+    - trend_score: delta in crash probability points
     - risk_trend: rising / rising fast / stable / falling / falling fast / unavailable
     - explanation
     """
     if not baseline_snapshot:
         return None, "unavailable", "No previous snapshot available in JSON history."
 
-    current_score = safe_float(current_snapshot.get("crash_score"))
-    baseline_score = safe_float(baseline_snapshot.get("crash_score"))
+    current_score = safe_float(current_snapshot.get("crash_probability_pct"))
+    baseline_score = safe_float(baseline_snapshot.get("crash_probability_pct"))
     delta = current_score - baseline_score
 
     if delta >= 8:
         trend = "rising fast"
-        explanation = "Market risk is increasing quickly versus the previous stored snapshot."
+        explanation = "Systemic risk is rising quickly versus the previous stored snapshot, with stress broadening across the model."
     elif delta >= 3:
         trend = "rising"
-        explanation = "Market risk is increasing versus the previous stored snapshot."
+        explanation = "Systemic risk is rising versus the previous stored snapshot, with broader pressure across score-driving indicators."
     elif delta <= -8:
         trend = "falling fast"
-        explanation = "Market risk is improving quickly versus the previous stored snapshot."
+        explanation = "Systemic risk is easing quickly versus the previous stored snapshot, with a meaningful reduction in weighted stress."
     elif delta <= -3:
         trend = "falling"
-        explanation = "Market risk is easing versus the previous stored snapshot."
+        explanation = "Systemic risk is easing versus the previous stored snapshot, although the market may still remain in a stressed regime."
     else:
         trend = "stable"
-        explanation = "Market risk is broadly stable versus the previous stored snapshot."
+        if current_score >= 65:
+            explanation = "Systemic risk is broadly stable versus the previous stored snapshot, but it remains stable at a high stress level."
+        elif current_score >= 50:
+            explanation = "Systemic risk is broadly stable versus the previous stored snapshot, with stress remaining elevated but not materially broadening."
+        else:
+            explanation = "Systemic risk is broadly stable versus the previous stored snapshot."
 
-    return round(delta, 2), trend, explanation    
+    return delta, trend, explanation
 
 def format_summary_text(compare_result: dict[str, Any], mode_label: str) -> dict[str, str]:
     score_now = safe_float(compare_result.get("score_current"))
@@ -1389,7 +1673,7 @@ def format_summary_text(compare_result: dict[str, Any], mode_label: str) -> dict
     top_system = compare_result.get("top_system")
     baseline_available = compare_result.get("baseline_available", False)
 
-    headline = f"Crash Risk Score: {score_now:.0f}%"
+    headline = f"Crash Risk Score: {score_now:.1f}%"
 
     if not baseline_available or state == "unavailable":
         subtitle = f"No comparison available vs {mode_label}"
@@ -1425,6 +1709,17 @@ def format_summary_text(compare_result: dict[str, Any], mode_label: str) -> dict
     }
 
 
+def comparison_mode_label(mode: str) -> str:
+    if mode == "yesterday":
+        return "vs yesterday"
+    return "vs previous run"
+
+
+def trend_comparison_text_from_output(output: "RadarOutput") -> str:
+    default_mode = output.comparison.get("default_mode", "previous_run")
+    return comparison_mode_label(default_mode)
+
+
 # =========================
 # Indicator analysis
 # =========================
@@ -1434,21 +1729,53 @@ def analyze_credit_spread(series: pd.Series) -> Indicator:
     prev_5 = value_days_ago(series, 5)
     delta_5 = pp_change(cur, prev_5)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur >= 6.5 or delta_5 >= 1.0:
-        status, score = "ALARM", 4
+        status = "ALARM"
     elif cur >= 5.5 or delta_5 >= 0.5:
-        status, score = "WARNING", 3
+        status = "WARNING"
     elif cur >= 4.5:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Base score from spread level
+    # -------------------------
+    anchors = [
+        (3.0, 0.0),
+        (4.0, 0.6),
+        (4.5, 1.0),
+        (5.5, 2.0),
+        (6.5, 3.0),
+        (8.0, 4.0),
+    ]
+
+    base_score = interpolate_score(cur, anchors)
+
+    # -------------------------
+    # Extra stress bonus for rapid widening
+    # -------------------------
+    if delta_5 >= 1.2:
+        trend_bonus = 0.5
+    elif delta_5 >= 0.8:
+        trend_bonus = 0.3
+    elif delta_5 >= 0.5:
+        trend_bonus = 0.15
+    else:
+        trend_bonus = 0.0
+
+    risk_score = min(4.0, base_score + trend_bonus)
 
     return Indicator(
         key="credit_spread",
         name="High Yield Credit Spread",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"{cur:.2f}% | 5d change {delta_5:+.2f} pp",
     )
 
@@ -1458,21 +1785,52 @@ def analyze_vix(series: pd.Series) -> Indicator:
     prev_5 = value_days_ago(series, 5)
     chg_pct = pct_change(cur, prev_5)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur >= 30:
-        status, score = "ALARM", 4
+        status = "ALARM"
     elif cur >= 23 or chg_pct >= 25:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif cur >= 20:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Base score from VIX level
+    # -------------------------
+    anchors = [
+        (12.0, 0.0),
+        (18.0, 0.8),
+        (20.0, 1.0),
+        (23.0, 2.0),
+        (30.0, 3.2),
+        (35.0, 4.0),
+    ]
+    base_score = interpolate_score(cur, anchors)
+
+    # -------------------------
+    # Extra stress bonus for fast rise
+    # -------------------------
+    if chg_pct >= 40:
+        trend_bonus = 0.5
+    elif chg_pct >= 25:
+        trend_bonus = 0.3
+    elif chg_pct >= 15:
+        trend_bonus = 0.15
+    else:
+        trend_bonus = 0.0
+
+    risk_score = min(4.0, base_score + trend_bonus)
 
     return Indicator(
         key="vix",
         name="VIX",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"{cur:.2f} | 5d change {chg_pct:+.1f}%",
     )
 
@@ -1483,19 +1841,66 @@ def analyze_vol_regime(vix_series: pd.Series) -> Indicator:
     ma20 = safe_ma(s, 20)
     ma50 = safe_ma(s, 50)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur >= 25 and cur > ma20 and cur > ma50:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif cur >= 20 or cur > ma20:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Regime stress = elevated VIX + above short/medium trend
+    # -------------------------
+    level_anchors = [
+        (12.0, 0.0),
+        (18.0, 0.5),
+        (20.0, 1.0),
+        (23.0, 1.6),
+        (25.0, 2.0),
+        (30.0, 3.0),
+        (35.0, 4.0),
+    ]
+    level_score = interpolate_score(cur, level_anchors)
+
+    dev20 = max(0.0, pct_change(cur, ma20))
+    dev50 = max(0.0, pct_change(cur, ma50))
+
+    trend_strength = (0.6 * dev20) + (0.4 * dev50)
+
+    trend_anchors = [
+        (0.0, 0.0),
+        (2.0, 0.2),
+        (5.0, 0.5),
+        (8.0, 0.8),
+        (12.0, 1.2),
+        (16.0, 1.6),
+    ]
+    trend_score = interpolate_score(trend_strength, trend_anchors)
+
+    above_count = sum([
+        cur > ma20,
+        cur > ma50,
+    ])
+
+    if above_count == 2:
+        structure_bonus = 0.25
+    elif above_count == 1:
+        structure_bonus = 0.10
+    else:
+        structure_bonus = 0.0
+
+    risk_score = min(4.0, (0.7 * level_score) + (0.3 * trend_score) + structure_bonus)
 
     return Indicator(
         key="vol_regime",
         name="Vol Regime Shift",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"VIX {cur:.2f} | MA20 {ma20:.2f}, MA50 {ma50:.2f}",
     )
 
@@ -1505,21 +1910,52 @@ def analyze_move(series: pd.Series) -> Indicator:
     prev_5 = value_days_ago(series, 5)
     chg_pct = pct_change(cur, prev_5)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur >= 140:
-        status, score = "ALARM", 3
+        status = "ALARM"
     elif cur >= 120:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif cur >= 100 or chg_pct >= 15:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Base score from MOVE level
+    # -------------------------
+    anchors = [
+        (70.0, 0.0),
+        (85.0, 0.5),
+        (100.0, 1.0),
+        (120.0, 2.0),
+        (140.0, 3.0),
+        (170.0, 4.0),
+    ]
+    base_score = interpolate_score(cur, anchors)
+
+    # -------------------------
+    # Extra stress bonus for fast rise
+    # -------------------------
+    if chg_pct >= 30:
+        trend_bonus = 0.5
+    elif chg_pct >= 20:
+        trend_bonus = 0.3
+    elif chg_pct >= 15:
+        trend_bonus = 0.15
+    else:
+        trend_bonus = 0.0
+
+    risk_score = min(4.0, base_score + trend_bonus)
 
     return Indicator(
         key="move",
         name="MOVE",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"{cur:.2f} | 5d change {chg_pct:+.1f}%",
     )
 
@@ -1529,19 +1965,39 @@ def analyze_yield_curve(us10y: pd.Series, us2y: pd.Series) -> Indicator:
     cur2 = latest(us2y)
     curve = cur10 - cur2
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if curve <= -0.50:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif curve < 0:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # More inverted = more stress
+    # -------------------------
+    inversion = max(0.0, -curve)
+
+    anchors = [
+        (0.00, 0.0),
+        (0.10, 0.4),
+        (0.20, 0.8),
+        (0.30, 1.2),
+        (0.50, 2.0),
+        (0.75, 3.0),
+        (1.00, 4.0),
+    ]
+    risk_score = interpolate_score(inversion, anchors)
 
     return Indicator(
         key="yield_curve_2s10s",
         name="Yield Curve 2s10s",
         value=curve,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"10Y {cur10:.2f}% - 2Y {cur2:.2f}% = {curve:+.2f} pp",
     )
 
@@ -1551,19 +2007,41 @@ def analyze_fed_balance(series: pd.Series) -> Indicator:
     prev_12w = value_days_ago(series, 12)
     chg_pct = pct_change(cur, prev_12w)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if chg_pct <= -3.0:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif chg_pct < 0:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Balance sheet contraction = liquidity tightening
+    # -------------------------
+    contraction = max(0.0, -chg_pct)
+
+    anchors = [
+        (0.0, 0.0),
+        (0.5, 0.2),
+        (1.0, 0.5),
+        (2.0, 1.0),
+        (3.0, 1.6),
+        (4.0, 2.3),
+        (6.0, 3.2),
+        (8.0, 4.0),
+    ]
+
+    risk_score = interpolate_score(contraction, anchors)
 
     return Indicator(
         key="fed_balance",
         name="Fed Balance Sheet",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"${cur/1e6:.2f}T | ~12w change {chg_pct:+.2f}%",
     )
 
@@ -1577,19 +2055,48 @@ def analyze_global_liquidity(fed_series: pd.Series, m2_series: pd.Series) -> Ind
     m2_prev = value_days_ago(m2_series, 6)
     m2_chg = pct_change(m2_cur, m2_prev)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if fed_chg < 0 and m2_chg < 0:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif fed_chg < 0 or m2_chg < 0:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Lower liquidity = more stress
+    # -------------------------
+    liquidity_pressure = max(0.0, -fed_chg) + max(0.0, -m2_chg)
+
+    anchors = [
+        (0.0, 0.0),
+        (0.5, 0.5),
+        (1.0, 1.0),
+        (2.0, 1.8),
+        (3.0, 2.5),
+        (4.5, 3.2),
+        (6.0, 4.0),
+    ]
+    base_score = interpolate_score(liquidity_pressure, anchors)
+
+    if fed_chg < 0 and m2_chg < 0:
+        combo_bonus = 0.35
+    elif fed_chg < 0 or m2_chg < 0:
+        combo_bonus = 0.15
+    else:
+        combo_bonus = 0.0
+
+    risk_score = min(4.0, base_score + combo_bonus)
 
     return Indicator(
         key="global_liquidity",
         name="Global Liquidity",
         value=fed_chg + m2_chg,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"Fed ~12w {fed_chg:+.2f}% | M2 ~6m {m2_chg:+.2f}%",
     )
 
@@ -1601,21 +2108,69 @@ def analyze_usd_index(series: pd.Series, label: str = "USD Index") -> Indicator:
     ma50 = safe_ma(s, 50)
     ma200 = safe_ma(s, 200)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     # Less aggressive:
     # WARNING only if USD is above all major averages AND meaningfully strong in absolute level
     if cur > 100 and cur > ma20 and cur > ma50 and cur > ma200:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif cur > ma50 or cur > ma200:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Based on absolute level + strength vs trend
+    # -------------------------
+    level_anchors = [
+        (94.0, 0.0),
+        (97.0, 0.4),
+        (99.0, 0.8),
+        (100.0, 1.2),
+        (102.0, 2.0),
+        (105.0, 3.0),
+        (108.0, 4.0),
+    ]
+    level_score = interpolate_score(cur, level_anchors)
+
+    dev50 = max(0.0, pct_change(cur, ma50))
+    dev200 = max(0.0, pct_change(cur, ma200))
+
+    trend_strength = (0.45 * dev50) + (0.55 * dev200)
+
+    trend_anchors = [
+        (0.0, 0.0),
+        (0.5, 0.2),
+        (1.0, 0.4),
+        (2.0, 0.7),
+        (3.0, 1.0),
+        (5.0, 1.4),
+    ]
+    trend_score = interpolate_score(trend_strength, trend_anchors)
+
+    above_count = sum([
+        cur > ma20,
+        cur > ma50,
+        cur > ma200,
+    ])
+
+    if above_count == 3:
+        structure_bonus = 0.25
+    elif above_count == 2:
+        structure_bonus = 0.10
+    else:
+        structure_bonus = 0.0
+
+    risk_score = min(4.0, (0.75 * level_score) + (0.25 * trend_score) + structure_bonus)
 
     return Indicator(
         key="usd_index",
         name=label,
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"{cur:.2f} | MA20 {ma20:.2f}, MA50 {ma50:.2f}, MA200 {ma200:.2f}",
     )
 
@@ -1627,19 +2182,76 @@ def analyze_hyg(series: pd.Series) -> Indicator:
     ma50 = safe_ma(s, 50)
     ma200 = safe_ma(s, 200)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur < ma200 and cur < ma50:
-        status, score = "WARNING", 3
+        status = "WARNING"
     elif cur < ma50 or cur < ma20:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Based on % weakness vs key moving averages
+    # More weakness = more stress
+    # -------------------------
+    dev20 = pct_change(cur, ma20)   # negative if below MA20
+    dev50 = pct_change(cur, ma50)   # negative if below MA50
+    dev200 = pct_change(cur, ma200) # negative if below MA200
+
+    stress20 = max(0.0, -dev20)
+    stress50 = max(0.0, -dev50)
+    stress200 = max(0.0, -dev200)
+
+    # Weighted weakness score
+    # MA200 matters most, then MA50, then MA20
+    weighted_stress = (
+        0.2 * stress20 +
+        0.35 * stress50 +
+        0.45 * stress200
+    )
+
+    anchors = [
+        (0.0, 0.0),
+        (0.5, 0.6),
+        (1.0, 1.2),
+        (1.5, 1.7),
+        (2.0, 2.2),
+        (3.0, 2.9),
+        (4.0, 3.5),
+        (5.0, 4.0),
+    ]
+
+    base_score = interpolate_score(weighted_stress, anchors)
+
+    # Small bonus if price is below all three averages
+    below_count = sum([
+        cur < ma20,
+        cur < ma50,
+        cur < ma200,
+    ])
+
+    # if below_count == 3:
+    #     structure_bonus = 0.6
+    # elif below_count == 2:
+    #     structure_bonus = 0.3
+    # elif below_count == 1:
+    #     structure_bonus = 0.1
+    # else:
+    #     structure_bonus = 0.0
+
+    structure_bonus = 0.1 * below_count
+
+    risk_score = min(4.0, base_score + structure_bonus)
 
     return Indicator(
         key="hyg",
         name="HYG Trend",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"{cur:.2f} | MA20 {ma20:.2f}, MA50 {ma50:.2f}, MA200 {ma200:.2f}",
     )
 
@@ -1654,19 +2266,70 @@ def analyze_sp_breadth(rsp_series: pd.Series, spy_series: pd.Series) -> Indicato
     ma50 = safe_ma(ratio, 50)
     ma200 = safe_ma(ratio, 200)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur < ma50 and cur < ma200:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif cur < ma20 or cur < ma50:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Breadth deterioration vs trend
+    # -------------------------
+    dev20 = pct_change(cur, ma20)
+    dev50 = pct_change(cur, ma50)
+    dev200 = pct_change(cur, ma200)
+
+    stress20 = max(0.0, -dev20)
+    stress50 = max(0.0, -dev50)
+    stress200 = max(0.0, -dev200)
+
+    weighted_stress = (
+        0.25 * stress20 +
+        0.35 * stress50 +
+        0.40 * stress200
+    )
+
+    anchors = [
+        (0.0, 0.0),
+        (0.3, 0.5),
+        (0.6, 0.9),
+        (1.0, 1.4),
+        (1.5, 2.0),
+        (2.0, 2.6),
+        (3.0, 3.3),
+        (4.0, 4.0),
+    ]
+
+    base_score = interpolate_score(weighted_stress, anchors)
+
+    below_count = sum([
+        cur < ma20,
+        cur < ma50,
+        cur < ma200,
+    ])
+
+    if below_count == 3:
+        structure_bonus = 0.45
+    elif below_count == 2:
+        structure_bonus = 0.22
+    elif below_count == 1:
+        structure_bonus = 0.08
+    else:
+        structure_bonus = 0.0
+
+    risk_score = min(4.0, base_score + structure_bonus)
 
     return Indicator(
         key="sp_breadth",
         name="S&P Breadth",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"RSP/SPY {cur:.4f} | MA20 {ma20:.4f}, MA50 {ma50:.4f}, MA200 {ma200:.4f}",
     )
 
@@ -1678,19 +2341,69 @@ def analyze_nasdaq(series: pd.Series) -> Indicator:
     ma50 = safe_ma(s, 50)
     ma200 = safe_ma(s, 200)
 
+    # -------------------------
+    # Human-readable status
+    # -------------------------
     if cur < ma200 and cur < ma50:
-        status, score = "WARNING", 2
+        status = "WARNING"
     elif cur < ma50 or cur < ma20:
-        status, score = "ELEVATED", 1
+        status = "ELEVATED"
     else:
-        status, score = "OK", 0
+        status = "OK"
+
+    # -------------------------
+    # Continuous model score
+    # Weakness vs trend = more stress
+    # -------------------------
+    dev20 = pct_change(cur, ma20)    # negative if below MA20
+    dev50 = pct_change(cur, ma50)    # negative if below MA50
+    dev200 = pct_change(cur, ma200)  # negative if below MA200
+
+    stress20 = max(0.0, -dev20)
+    stress50 = max(0.0, -dev50)
+    stress200 = max(0.0, -dev200)
+
+    weighted_stress = (
+        0.20 * stress20 +
+        0.35 * stress50 +
+        0.45 * stress200
+    )
+
+    anchors = [
+        (0.0, 0.0),
+        (0.5, 0.5),
+        (1.0, 1.0),
+        (2.0, 1.7),
+        (3.0, 2.3),
+        (5.0, 3.0),
+        (7.0, 3.6),
+        (10.0, 4.0),
+    ]
+    base_score = interpolate_score(weighted_stress, anchors)
+
+    below_count = sum([
+        cur < ma20,
+        cur < ma50,
+        cur < ma200,
+    ])
+
+    if below_count == 3:
+        structure_bonus = 0.50
+    elif below_count == 2:
+        structure_bonus = 0.25
+    elif below_count == 1:
+        structure_bonus = 0.10
+    else:
+        structure_bonus = 0.0
+
+    risk_score = min(4.0, base_score + structure_bonus)
 
     return Indicator(
         key="nasdaq",
         name="Nasdaq Trend",
         value=cur,
         status=status,
-        score=score,
+        risk_score=round(risk_score, 3),
         detail=f"{cur:.2f} | MA20 {ma20:.2f}, MA50 {ma50:.2f}, MA200 {ma200:.2f}",
     )
 
@@ -1716,7 +2429,7 @@ def analyze_inflation_trend(series: pd.Series) -> Indicator:
         name="Inflation Trend",
         value=yoy,
         status=status,
-        score=score,
+        risk_score=float(score),
         detail=f"CPI YoY {yoy:.2f}%",
     )
 
@@ -1740,7 +2453,7 @@ def analyze_oil_shock(series: pd.Series) -> Indicator:
         name="Oil Shock",
         value=chg_30d,
         status=status,
-        score=score,
+        risk_score=float(score),
         detail=f"Brent 30d change {chg_30d:+.2f}%",
     )
 
@@ -1771,7 +2484,7 @@ def analyze_macro_global_liquidity(fed_series: pd.Series, m2_series: pd.Series, 
         name="Global Liquidity Context",
         value=fed_chg + m2_chg,
         status=status,
-        score=score,
+        risk_score=float(score),
         detail=f"Fed ~12w {fed_chg:+.2f}% | M2 ~6m {m2_chg:+.2f}% | USD vs MA50 {usd_cur:.2f}/{usd_ma50:.2f}",
     )
 
@@ -1806,7 +2519,7 @@ def analyze_debt_burden(fed_balance_series: pd.Series, m2_series: pd.Series) -> 
         name="Debt Burden",
         value=proxy,
         status=status,
-        score=0,
+        risk_score=0.0,
         detail=f"Proxy based on balance-sheet expansion: {proxy:+.2f}",
     )
 
@@ -1815,7 +2528,7 @@ def analyze_valuation_stretch(nasdaq_series: pd.Series, spy_series: pd.Series) -
     """
     Placeholder structural valuation indicator.
     Uses distance vs long-term averages as a simple market-stretch proxy.
-    Context only: score = 0
+    Context only: risk_score = 0.0
     """
     spy_cur = latest(spy_series)
     spy_ma200 = safe_ma(spy_series, 200)
@@ -1839,7 +2552,7 @@ def analyze_valuation_stretch(nasdaq_series: pd.Series, spy_series: pd.Series) -
         name="Valuation Stretch",
         value=proxy,
         status=status,
-        score=0,
+        risk_score=0.0,
         detail=f"Proxy vs 200d averages: SPY {spy_stretch:+.1f}%, Nasdaq {nas_stretch:+.1f}%",
     )
 
@@ -1876,7 +2589,7 @@ def analyze_credit_system_fragility(
         name="Credit System Fragility",
         value=spread_cur,
         status=status,
-        score=0,
+        risk_score=0.0,
         detail=f"HY spread {spread_cur:.2f}% | HYG vs 200d {'weak' if hyg_weak else 'stable'} | USD vs 200d {'tight' if usd_tight else 'normal'}",
     )
 
@@ -1902,15 +2615,15 @@ def hedge_fund_trigger(indicators: dict[str, Indicator], hyg_series: pd.Series) 
 
     return len(reasons) >= 2, reasons
 
-def weighted_total_score(indicators: list[Indicator]) -> int:
+def weighted_total_score(indicators: list[Indicator]) -> float:
     weights = indicator_weights()
 
     total = 0.0
     for ind in indicators:
         w = weights.get(ind.key, 0.0)
-        total += ind.score * w
+        total += ind.risk_score * w
 
-    return int(round(total))
+    return round(total, 4)
 
 def crash_setup_detector(indicators: dict[str, Indicator]) -> CrashSetupResult:
     """
@@ -2037,7 +2750,11 @@ def crash_setup_detector(indicators: dict[str, Indicator]) -> CrashSetupResult:
     )
 
 
-def calculate_probability(indicators: list[Indicator], trigger_on: bool) -> int:
+def calculate_probability(
+    indicators: list[Indicator],
+    trigger_on: bool,
+    momentum_bonus: float = 0.0,
+) -> float:
     weighted_score = weighted_total_score(indicators)
 
     # More conservative than v2:
@@ -2048,10 +2765,12 @@ def calculate_probability(indicators: list[Indicator], trigger_on: bool) -> int:
     if trigger_on:
         base += 10
 
-    return int(round(clamp(base, 0, 100)))
+    base += momentum_bonus
+
+    return round(clamp(base, 0, 100), 3)
 
 
-def regime_from_probability(prob: int) -> str:
+def regime_from_probability(prob: float) -> str:
     if prob >= 80:
         return "CRASH WARNING"
     if prob >= 65:
@@ -2064,36 +2783,95 @@ def regime_from_probability(prob: int) -> str:
 
 
 def narrative(indicators: list[Indicator], regime: str, trigger_on: bool, reasons: list[str]) -> str:
-    bad = [i.name for i in indicators if i.status in ("ALARM", "WARNING")]
-    elevated = [i.name for i in indicators if i.status == "ELEVATED"]
+    by_key = {i.key: i for i in indicators}
 
-    core_bad = [
-        i.name for i in indicators
-        if i.key in ("credit_spread", "move", "hyg", "vix", "global_liquidity")
-        and i.status in ("ALARM", "WARNING")
-    ]
+    primary_drivers: list[str] = []
+    secondary_drivers: list[str] = []
+    missing_confirmation: list[str] = []
 
-    parts: list[str] = []
+    # Primary stress drivers
+    if by_key["vix"].status in ("WARNING", "ALARM"):
+        primary_drivers.append("volatility stress")
+    if by_key["hyg"].status in ("WARNING", "ALARM"):
+        primary_drivers.append("risk appetite deterioration")
+    if by_key["credit_spread"].status in ("WARNING", "ALARM"):
+        primary_drivers.append("credit stress")
 
+    # Secondary supporting pressure
+    if by_key["move"].status in ("ELEVATED", "WARNING", "ALARM"):
+        secondary_drivers.append("bond volatility")
+    if by_key["global_liquidity"].status in ("ELEVATED", "WARNING", "ALARM"):
+        secondary_drivers.append("liquidity conditions")
+    if by_key["usd_index"].status in ("ELEVATED", "WARNING", "ALARM"):
+        secondary_drivers.append("dollar strength")
+    if by_key["sp_breadth"].status in ("ELEVATED", "WARNING", "ALARM"):
+        secondary_drivers.append("market breadth weakness")
+    if by_key["nasdaq"].status in ("ELEVATED", "WARNING", "ALARM"):
+        secondary_drivers.append("Nasdaq trend weakness")
+
+    # Missing confirmation
+    if by_key["credit_spread"].status == "OK":
+        missing_confirmation.append("credit spreads remain relatively contained")
+    if by_key["yield_curve_2s10s"].status == "OK":
+        missing_confirmation.append("yield curve stress is not confirming")
+    if by_key["fed_balance"].status == "OK":
+        missing_confirmation.append("Fed balance sheet is not signaling acute liquidity withdrawal")
+
+    # Opening line by regime
     if regime == "CRASH WARNING":
-        parts.append("Several core markets are showing stress at the same time. This is a pronounced risk-off regime.")
+        opening = "The radar currently points to a crash warning environment with broad and severe systemic stress."
+    elif regime == "SEVERE RISK":
+        opening = "The radar currently points to a severe risk environment with broad market stress already visible."
     elif regime == "HIGH RISK":
-        parts.append("There are multiple meaningful stress signals. The market is vulnerable to a sharp correction.")
+        opening = "The radar currently points to a high-risk environment in which market stress is clearly building."
     elif regime == "ELEVATED RISK":
-        parts.append("There are early warning signals, but not yet a broad crisis picture.")
+        opening = "The radar currently points to an elevated-risk environment with early but meaningful stress signals."
     else:
-        parts.append("The main macro indicators still look relatively calm for now.")
+        opening = "The radar currently points to a broadly normal environment with limited systemic stress."
 
-    if core_bad:
-        parts.append("Main core stress signals: " + ", ".join(core_bad) + ".")
-    elif bad:
-        parts.append("Main stress points: " + ", ".join(bad) + ".")
+    parts = [opening]
 
-    if elevated:
-        parts.append("Elevated attention for: " + ", ".join(elevated) + ".")
+    if primary_drivers:
+        parts.append(
+            "The strongest stress signals are coming from "
+            + ", ".join(primary_drivers)
+            + "."
+        )
 
-    if trigger_on:
-        parts.append("Hedge-fund crash trigger is active: " + "; ".join(reasons) + ".")
+    if secondary_drivers:
+        parts.append(
+            "Additional pressure is visible in "
+            + ", ".join(secondary_drivers)
+            + "."
+        )
+
+    if missing_confirmation:
+        parts.append(
+            "At the same time, "
+            + "; ".join(missing_confirmation[:2])
+            + "."
+        )
+
+    # Phase-style interpretation
+    if regime in ("SEVERE RISK", "CRASH WARNING"):
+        parts.append(
+            "This is consistent with a developed stress phase in which volatility, risk appetite and broader market conditions are already under pressure."
+        )
+    elif regime == "HIGH RISK":
+        parts.append(
+            "This is consistent with a developing stress phase in which equity and volatility signals are leading before full systemic confirmation is complete."
+        )
+    elif regime == "ELEVATED RISK":
+        parts.append(
+            "This is consistent with an early stress phase in which internal market conditions are weakening before a full crisis pattern is in place."
+        )
+    else:
+        parts.append(
+            "This is consistent with a stable phase in which risk signals remain limited and fragmented."
+        )
+
+    if trigger_on and reasons:
+        parts.append("Crash-trigger conditions currently present: " + "; ".join(reasons) + ".")
 
     return " ".join(parts)
 
@@ -2167,12 +2945,12 @@ def build_market_stress_dashboard(indicators: dict[str, Indicator]):
     """
 
     return [
-        ("Volatility (VIX)", "equity stress", indicators["vix"].status),
+        ("Volatility Stress (VIX)", "equity stress", indicators["vix"].status),
         ("Credit Stress (HY spreads)", "credit market", indicators["credit_spread"].status),
         ("Bond Stress (MOVE)", "bond market", indicators["move"].status),
-        ("Liquidity (USD)", "global liquidity", indicators["usd_index"].status),
-        ("Risk Appetite (HYG)", "risk appetite", indicators["hyg"].status),
-        ("Market Breadth", "market structure", indicators["sp_breadth"].status),
+        ("Liquidity Stress (USD)", "global liquidity", indicators["usd_index"].status),
+        ("Risk Appetite Stress (HYG)", "risk appetite", indicators["hyg"].status),
+        ("Market Breadth Stress", "market structure", indicators["sp_breadth"].status),
     ]
 
 def build_macro_cycle_dashboard(indicators: dict[str, Indicator]):
@@ -2298,7 +3076,7 @@ def determine_structural_vulnerability(indicators: dict[str, Indicator]) -> tupl
     )
 
 def interpret_stress_vs_vulnerability(
-    crash_probability: int,
+    crash_probability: float,
     structural_status: str,
 ) -> str:
     if crash_probability < 30 and structural_status == "OK":
@@ -2325,7 +3103,7 @@ def interpret_stress_vs_vulnerability(
 
 def detect_calm_before_the_storm(
     indicators: dict[str, Indicator],
-    crash_probability: int,
+    crash_probability: float,
     structural_status: str,
 ) -> tuple[bool, str]:
     """
@@ -2339,16 +3117,42 @@ def detect_calm_before_the_storm(
     market_stress_low = crash_probability < 30
     structural_high = structural_status in ("ELEVATED", "WARNING")
 
+    explanation_prefix = (
+        "Calm Before the Storm means: market volatility is still low, but structural or underlying risks are already high. "
+        "In other words: markets still look calm on the surface, while fragility is building underneath. "
+    )
+
     if market_stress_low and structural_high and vix_ok and move_ok and credit_not_broken:
         return (
             True,
-            "Calm Before the Storm detected: current market stress is still relatively low, "
-            "but structural vulnerability is elevated. Markets may appear calm while underlying fragility is building."
+            explanation_prefix
+            + "This pattern is currently detected. Volatility remains relatively contained, but structural vulnerability is elevated, which can happen before broader market stress becomes fully visible."
+        )
+
+    # Explain why it is NOT active
+    visible_stress_reasons: list[str] = []
+    if indicators["vix"].status in ("ELEVATED", "WARNING", "ALARM"):
+        visible_stress_reasons.append("volatility is already elevated")
+    if indicators["move"].status in ("WARNING", "ALARM"):
+        visible_stress_reasons.append("bond volatility is already stressed")
+    if indicators["hyg"].status in ("WARNING", "ALARM"):
+        visible_stress_reasons.append("risk appetite stress is already visible")
+    if crash_probability >= 30:
+        visible_stress_reasons.append("overall crash risk is no longer low")
+
+    if visible_stress_reasons:
+        return (
+            False,
+            explanation_prefix
+            + "This pattern is not active now because stress is already visible on the surface: "
+            + "; ".join(visible_stress_reasons)
+            + "."
         )
 
     return (
         False,
-        "No Calm Before the Storm pattern detected."
+        explanation_prefix
+        + "This pattern is not active now because the required combination of low visible stress and elevated structural fragility is not present."
     )
 
 def indicator_weights() -> dict[str, float]:
@@ -2431,34 +3235,213 @@ def grouped_indicator_sections(indicators: list[Indicator]) -> list[tuple[str, l
     return result
 
 
-def top_risk_drivers(indicators: list[Indicator], top_n: int = 3) -> list[str]:
+def top_risk_drivers(indicators: list[Indicator], top_n: int = 3) -> list[dict[str, Any]]:
     """
     Top risk drivers based on weighted contribution:
-    contribution = score * weight
+    contribution = risk_score * weight
     Only indicators with contribution > 0 are shown.
     """
     weights = indicator_weights()
 
     ranked = sorted(
         indicators,
-        key=lambda ind: ind.score * weights.get(ind.key, 0.0),
+        key=lambda ind: ind.risk_score * weights.get(ind.key, 0.0),
         reverse=True,
     )
 
-    result: list[str] = []
+    result: list[dict[str, Any]] = []
     for ind in ranked:
-        contribution = ind.score * weights.get(ind.key, 0.0)
+        contribution = round(ind.risk_score * weights.get(ind.key, 0.0), 4)
         if contribution <= 0:
             continue
 
         result.append(
-            f"{ind.name} (status: {ind.status}, weight: {weights.get(ind.key, 0.0):.1f}, contribution: {contribution:.1f})"
+            {
+                "driver": top_driver_display_label(ind),
+                "status": ind.status,
+                "weight": round(weights.get(ind.key, 0.0), 2),
+                "contribution": round(contribution, 2),
+            }
         )
 
         if len(result) >= top_n:
             break
 
     return result
+
+
+def build_system_stress_heatmap(indicators: list[Indicator]) -> list[dict[str, Any]]:
+    """
+    Aggregates weighted indicator stress into score-driving system buckets.
+    Returns rows with:
+    - system
+    - raw_score
+    - normalized_score (0-100)
+    - status
+    """
+
+    weights = indicator_weights()
+
+    mapping = {
+        "vix": "Volatility Stress (VIX)",
+        "credit_spread": "Credit Stress (HY spreads)",
+        "move": "Bond Stress (MOVE)",
+        "usd_index": "Liquidity Stress (USD)",
+        "hyg": "Risk Appetite Stress (HYG)",
+        "sp_breadth": "Market Breadth Stress",
+    }
+
+    bucket_scores: dict[str, float] = {}
+
+    for ind in indicators:
+        bucket = mapping.get(ind.key)
+        if not bucket:
+            continue
+
+        contribution = ind.risk_score * weights.get(ind.key, 0.0)
+        bucket_scores[bucket] = bucket_scores.get(bucket, 0.0) + contribution
+
+    ordered = [
+        "Volatility Stress (VIX)",
+        "Credit Stress (HY spreads)",
+        "Bond Stress (MOVE)",
+        "Liquidity Stress (USD)",
+        "Risk Appetite Stress (HYG)",
+        "Market Breadth Stress",
+    ]
+
+    # Practical max contribution ranges for visual normalization
+    # This is NOT the same as indicator status thresholds.
+    bucket_max = {
+        "Volatility Stress (VIX)": 5.0,
+        "Credit Stress (HY spreads)": 7.0,
+        "Bond Stress (MOVE)": 4.5,
+        "Liquidity Stress (USD)": 3.0,
+        "Risk Appetite Stress (HYG)": 7.0,
+        "Market Breadth Stress": 3.0,
+    }
+
+    def bucket_status(score: float, max_score: float) -> str:
+        ratio = 0.0 if max_score <= 0 else score / max_score
+
+        if ratio >= 0.75:
+            return "HIGH"
+        if ratio >= 0.45:
+            return "WARNING"
+        if ratio >= 0.20:
+            return "ELEVATED"
+        return "OK"
+
+    rows: list[dict[str, Any]] = []
+    for bucket in ordered:
+        raw_score = round(bucket_scores.get(bucket, 0.0), 3)
+        max_score = bucket_max[bucket]
+        normalized_score = round(min(100.0, (raw_score / max_score) * 100.0), 1) if max_score > 0 else 0.0
+        status = bucket_status(raw_score, max_score)
+
+        rows.append(
+            {
+                "system": bucket,
+                "raw_score": raw_score,
+                "normalized_score": normalized_score,
+                "status": status,
+                "max_score": max_score,
+            }
+        )
+
+    return rows
+
+
+def build_stress_escalation_ladder(indicators: dict[str, Indicator]) -> list[dict[str, Any]]:
+    """
+    Typical escalation pattern of market stress.
+    This is a staging tool, not a deterministic rule.
+    """
+
+    def stage_status(keys: list[str]) -> str:
+        relevant = [indicators[k].status for k in keys if k in indicators]
+        if not relevant:
+            return "INACTIVE"
+
+        if any(s in ("ALARM",) for s in relevant):
+            return "CONFIRMED"
+        if any(s in ("WARNING",) for s in relevant):
+            return "CONFIRMED"
+        if any(s in ("ELEVATED",) for s in relevant):
+            return "ACTIVE"
+        return "INACTIVE"
+
+    def stage_class(status: str) -> str:
+        return {
+            "INACTIVE": "OK",
+            "ACTIVE": "ELEVATED",
+            "CONFIRMED": "WARNING",
+        }.get(status, "OK")
+
+    stages = [
+        {
+            "stage": "1",
+            "label": "Internal Weakness",
+            "signals": "Market Breadth Stress",
+            "keys": ["sp_breadth"],
+        },
+        {
+            "stage": "2",
+            "label": "Risk Appetite Deterioration",
+            "signals": "Risk Appetite Stress (HYG), Growth Equity Stress (Nasdaq)",
+            "keys": ["hyg", "nasdaq"],
+        },
+        {
+            "stage": "3",
+            "label": "Volatility Stress",
+            "signals": "Volatility Stress (VIX), Bond Stress (MOVE), Volatility Regime Stress",
+            "keys": ["vix", "move", "vol_regime"],
+        },
+        {
+            "stage": "4",
+            "label": "Credit Confirmation",
+            "signals": "Credit Stress (HY spreads)",
+            "keys": ["credit_spread"],
+        },
+        {
+            "stage": "5",
+            "label": "Liquidity / Systemic Stress",
+            "signals": "Liquidity Stress (USD), Global Liquidity Stress",
+            "keys": ["usd_index", "global_liquidity"],
+        },
+    ]
+
+    rows: list[dict[str, Any]] = []
+    for s in stages:
+        status = stage_status(s["keys"])
+        rows.append(
+            {
+                "stage": s["stage"],
+                "label": s["label"],
+                "signals": s["signals"],
+                "status": status,
+                "status_class": stage_class(status),
+            }
+        )
+
+    return rows    
+
+
+def top_driver_display_label(ind: Indicator) -> str:
+    mapping = {
+        "vix": "Volatility Stress (VIX)",
+        "credit_spread": "Credit Stress (HY spreads)",
+        "move": "Bond Stress (MOVE)",
+        "usd_index": "Liquidity Stress (USD)",
+        "hyg": "Risk Appetite Stress (HYG)",
+        "sp_breadth": "Market Breadth Stress",
+        "vol_regime": "Volatility Regime Stress",
+        "nasdaq": "Growth Equity Stress (Nasdaq)",
+        "yield_curve_2s10s": "Yield Curve Stress",
+        "global_liquidity": "Global Liquidity Stress",
+        "fed_balance": "Fed Balance Sheet Stress",
+    }
+    return mapping.get(ind.key, ind.name)
 
 def print_report(output: RadarOutput) -> None:
     print()
@@ -2475,7 +3458,7 @@ def print_report(output: RadarOutput) -> None:
     print()
 
     print("--- Top Risk Drivers ---")
-    print("Ranked by current risk impact.")
+    print("Ranked by weighted risk contribution.")
     print()
 
     if output.top_risk_drivers:
@@ -2590,12 +3573,12 @@ def print_report(output: RadarOutput) -> None:
         print()
 
     print("-" * 120)
-    print(f"{ANSI['bold']}Total score:{ANSI['reset']} {output.total_score}")
-    print(f"{ANSI['bold']}Crash probability:{ANSI['reset']} {output.crash_probability_pct}%")
+    print(f"{ANSI['bold']}Total score:{ANSI['reset']} {output.total_score:.2f}")
+    print(f"{ANSI['bold']}Crash probability:{ANSI['reset']} {output.crash_probability_pct:.2f}%")
     print(f"{ANSI['bold']}Risk regime:{ANSI['reset']} {output.regime}")
     print(f"{ANSI['bold']}Hedge-fund trigger:{ANSI['reset']} {'YES' if output.hedge_fund_trigger else 'NO'}")
 
-    trend_display = output.trend_score if output.trend_score is not None else "n/a"
+    trend_display = f"{output.trend_score:.2f}" if output.trend_score is not None else "n/a"
     print(f"{ANSI['bold']}Trend score:{ANSI['reset']} {trend_display}")
     print(f"{ANSI['bold']}Risk trend:{ANSI['reset']} {output.risk_trend}")
     if output.hedge_fund_trigger and output.trigger_reasons:
@@ -2736,7 +3719,7 @@ def save_csv_row(output: RadarOutput, path: str) -> None:
     for ind in output.indicators:
         row[f"{ind.key}_value"] = ind.value
         row[f"{ind.key}_status"] = ind.status
-        row[f"{ind.key}_score"] = ind.score
+        row[f"{ind.key}_risk_score"] = ind.risk_score
         row[f"{ind.key}_detail"] = ind.detail
 
     df = pd.DataFrame([row])
@@ -2769,7 +3752,7 @@ def debug_series(name: str, series: pd.Series) -> None:
 
 def determine_market_phase(
     indicators: dict[str, Indicator],
-    crash_probability_pct: int,
+    crash_probability_pct: float,
     crash_setup_level: str,
 ) -> tuple[str, str, list[str]]:
     """
@@ -3174,66 +4157,223 @@ def build_summary_line(output: RadarOutput, csv_path: str) -> str:
 
 def build_dashboard_explanation() -> str:
     return """
+<h3>1. What this dashboard does</h3>
+
+<p>
 This dashboard is designed as an early warning system for market stress and potential crash risk.
+It monitors financial and macro indicators that historically deteriorate before major market corrections.
+</p>
 
-1. What this dashboard does
-The model tracks a set of financial and macro indicators that often deteriorate before major market corrections or financial stress events. It does not try to predict the exact timing of a crash, but it helps identify whether market conditions are becoming more fragile or more stressed.
+<p>
+The model does not attempt to predict the exact timing of a crash. Instead it evaluates whether
+the financial system is becoming more fragile, more stressed, or more stable over time.
+</p>
 
-2. How the crash probability is built
-The crash probability is based mainly on the Core Market Stress indicators. Each of these indicators receives:
-- a status (OK, ELEVATED, WARNING, ALARM),
-- a score,
-- and a model weight.
+<h3>2. How the crash probability is built</h3>
 
-The weighted combination of these signals becomes a total risk score, which is then translated into a crash probability percentage. The higher the score, the higher the implied market stress.
+<p>The crash probability is mainly derived from the <b>Core Market Stress indicators</b>.</p>
 
-3. Core Market Stress indicators
-These are the main drivers of the model and directly affect the crash probability.
+<ul>
+<li>a status (OK, ELEVATED, WARNING, ALARM)</li>
+<li>a risk score</li>
+<li>a model weight</li>
+</ul>
 
-- VIX: measures expected equity market volatility. A sharp rise usually signals growing fear in stock markets.
-- Vol Regime Shift: shows whether volatility is moving into a more stressed regime relative to recent averages.
-- High Yield Credit Spread: measures stress in lower-quality corporate debt. Wider spreads often signal deteriorating credit conditions.
-- MOVE: measures bond market volatility. Rising MOVE can indicate stress in rates markets or uncertainty around liquidity and policy.
-- Yield Curve 2s10s: shows the difference between 10-year and 2-year US Treasury yields. It helps indicate macro and cycle stress.
-- Fed Balance Sheet: tracks the direction of central bank liquidity support.
-- Global Liquidity: combines major liquidity signals and helps detect tightening financial conditions.
-- USD Index: a stronger dollar can signal tighter global funding conditions.
-- HYG Trend: high yield bond ETF trend. Weakness here often appears before broader equity stress.
-- S&P Breadth: shows whether market strength is broad or concentrated in fewer stocks.
-- Nasdaq Trend: helps monitor risk appetite and pressure in growth-oriented equities.
+<p>
+The weighted combination of these signals produces a systemic risk score which is translated
+into a crash probability percentage.
+</p>
 
-4. Macro Context indicators
-These indicators do not directly drive the crash score, but they help explain the broader environment.
+<h3>3. Core Market Stress indicators</h3>
 
-- Global Liquidity Context: broader liquidity backdrop including dollar pressure.
-- Inflation Trend: helps assess whether inflation remains a macro headwind.
-- Oil Shock: rising oil prices can tighten financial conditions and increase macro stress.
+<p>
+The Core Market Stress indicators are the primary drivers of the crash risk model.
+Each indicator measures stress in a different part of the financial system.
+Together they help detect whether stress is building internally within markets,
+or spreading more broadly across asset classes.
+</p>
 
-5. Structural Vulnerability indicators
-These indicators also do not directly drive the crash score. They show whether the system may be fragile beneath the surface.
+<p>
+Each indicator produces a <strong>risk score</strong> based on how far the current
+market condition deviates from its normal trend or equilibrium level.
+These scores are then multiplied by model weights and combined into the
+overall systemic risk score.
+</p>
 
-- Debt Burden: a proxy for balance sheet and debt-related vulnerability.
-- Valuation Stretch: a proxy for whether markets may be expensive or stretched.
-- Credit System Fragility: a proxy for weakness in credit-sensitive areas and funding conditions.
+<p>
+The indicators cover five main stress channels:
+</p>
 
-These indicators are especially useful when market stress is still low, but structural vulnerability is elevated. In that situation, markets may look calm while the underlying foundation is more fragile.
+<ul>
 
-6. How to interpret the dashboard
-A practical way to read the dashboard is:
-- Start with the Summary line.
-- Then look at the Top Risk Drivers.
-- Then review the Core Market Stress section, because that drives the score.
-- Use Macro Context and Structural Vulnerability as supporting interpretation.
-- Use the Crash Setup Detector and Calm Before the Storm Detector as additional context.
+<li>
+<strong>Volatility Stress (VIX)</strong><br>
+Measures expected volatility in the equity market based on S&P 500 options pricing.
+A rising VIX reflects increasing demand for downside protection and often signals
+growing uncertainty or fear among investors.
+Sharp spikes in the VIX are frequently observed during market corrections.
+</li>
 
-7. What the statuses mean
-- OK: normal conditions
-- ELEVATED: early warning or rising tension
-- WARNING: clear market stress
-- ALARM: rare, severe stress signal
+<li>
+<strong>Volatility Regime Shift</strong><br>
+Detects whether volatility is structurally moving into a higher regime relative
+to recent market history. Even without a sudden spike, a sustained increase in
+volatility often indicates deteriorating market stability.
+</li>
 
-8. Important limitation
-This dashboard is an early warning and interpretation tool. It is not a guarantee that markets will crash, nor does it predict exact timing. It is best used to monitor whether risk is rising, stable, or easing over time.
+<li>
+<strong>High Yield Credit Spread</strong><br>
+Measures the difference between yields on lower-quality corporate bonds and
+risk-free government bonds. When spreads widen, it indicates that investors
+demand higher compensation for credit risk, often signaling deterioration in
+corporate credit conditions.
+</li>
+
+<li>
+<strong>HYG Trend</strong><br>
+Tracks the trend of the high-yield bond ETF (HYG). High-yield bonds are very
+sensitive to economic risk and liquidity conditions. Weakness here often appears
+before stress spreads to equities.
+</li>
+
+<li>
+<strong>MOVE</strong><br>
+The MOVE index measures volatility in U.S. Treasury yields.
+Rising bond volatility often reflects uncertainty around interest rates,
+inflation expectations, or monetary policy.
+</li>
+
+<li>
+<strong>Global Liquidity</strong><br>
+Captures broader financial liquidity conditions.
+Tightening liquidity tends to increase systemic fragility because it reduces
+the availability of capital across financial markets.
+</li>
+
+<li>
+<strong>USD Index</strong><br>
+A strengthening U.S. dollar can signal tightening global financial conditions.
+Because much global debt is dollar-denominated, a stronger dollar can increase
+funding pressure internationally.
+</li>
+
+<li>
+<strong>S&amp;P Breadth</strong><br>
+Measures how broadly the equity market rally is supported across individual
+stocks. When fewer stocks participate in market gains, market structure becomes
+more fragile and more vulnerable to corrections.
+</li>
+
+<li>
+<strong>Nasdaq Trend</strong><br>
+Tracks the trend of growth-oriented technology stocks.
+These assets tend to be highly sensitive to liquidity and risk appetite and
+often weaken early when investor sentiment deteriorates.
+</li>
+
+<li>
+<strong>Yield Curve (2s10s)</strong><br>
+Measures the slope between short-term and long-term government bond yields.
+An inverted or flattening yield curve often signals tightening financial
+conditions and increasing macroeconomic stress.
+</li>
+
+</ul>
+
+<p>
+Because these indicators monitor different segments of the financial system,
+they help detect whether stress is isolated to a single market or spreading
+more broadly across equities, credit, interest rates, and liquidity conditions.
+</p>
+
+<h3>4. Heatmap vs Market Stress Dashboard</h3>
+
+<p><b>System Stress Heatmap</b></p>
+
+<p>
+Shows the weighted contribution of each market segment to the systemic risk score.
+It answers the question: <i>Which systems are currently driving overall risk?</i>
+</p>
+
+<p><b>Market Stress Dashboard</b></p>
+
+<p>
+Shows the raw status of each indicator without model weighting.
+It answers the question: <i>Which market segments are currently calm or stressed?</i>
+</p>
+
+<p><b>How to read them together</b></p>
+
+<ul>
+<li><b>Inactive</b> – the Market Stress Dashboard shows mostly OK or ELEVATED signals, so little stress is visible.</li>
+<li><b>Active</b> – some indicators deteriorate, so stress is becoming visible in the Market Stress Dashboard.</li>
+<li><b>Confirmed</b> – the same systems begin to dominate the Heatmap, meaning stress is now materially driving systemic risk.</li>
+</ul>
+
+<p><i>In short: the Dashboard shows where stress appears; the Heatmap shows when it starts driving systemic risk.</i></p>
+
+<h3>5. Structural Vulnerability</h3>
+
+<p>
+Structural indicators show whether the system may be fragile beneath the surface,
+even when market stress is still low.
+</p>
+
+<ul>
+<li>Debt Burden</li>
+<li>Valuation Stretch</li>
+<li>Credit System Fragility</li>
+</ul>
+
+<h3>6. System Risk Position stages</h3>
+
+<table>
+<tr><th>Stage</th><th>Meaning</th></tr>
+<tr><td>Normal</td><td>Markets broadly stable with limited stress signals.</td></tr>
+<tr><td>Elevated Risk</td><td>Early warning signals appearing.</td></tr>
+<tr><td>High Risk</td><td>Stress spreading across several market segments.</td></tr>
+<tr><td>Severe Risk</td><td>Multiple core indicators showing clear stress.</td></tr>
+<tr><td>Crash Warning</td><td>Extreme systemic stress environment.</td></tr>
+</table>
+
+<h3>7. Typical Stress Escalation Pattern</h3>
+
+<p>Market stress usually spreads through the system in stages.</p>
+
+<table>
+<tr><th>Stage</th><th>Typical signals</th></tr>
+<tr><td>1</td><td>Market breadth weakens</td></tr>
+<tr><td>2</td><td>Risk appetite deteriorates (HYG, growth stocks)</td></tr>
+<tr><td>3</td><td>Volatility rises (VIX, MOVE)</td></tr>
+<tr><td>4</td><td>Credit spreads widen</td></tr>
+<tr><td>5</td><td>Systemic stress across markets</td></tr>
+</table>
+
+<h3>8. How to read the dashboard</h3>
+
+<ol>
+<li>Start with the Summary</li>
+<li>Look at the System Stress Heatmap</li>
+<li>Check the Top Risk Drivers</li>
+<li>Review the Core Market Stress indicators</li>
+<li>Check Macro Context and Structural Vulnerability</li>
+</ol>
+
+<h3>9. Status levels</h3>
+
+<ul>
+<li><b>OK</b> – normal conditions</li>
+<li><b>ELEVATED</b> – early warning</li>
+<li><b>WARNING</b> – clear market stress</li>
+<li><b>ALARM</b> – rare extreme stress</li>
+</ul>
+
+<h3>10. Important limitation</h3>
+
+<p>
+This dashboard is an early warning system. It does not predict exact crash timing,
+but helps monitor whether systemic risk is rising, stable or easing over time.
+</p>
 """.strip()            
 
 def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
@@ -3245,7 +4385,6 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
     vix = fred_series(FRED_SERIES["vix"])
     m2 = fred_series(FRED_SERIES["m2"])
     cpi = fred_series(FRED_SERIES["cpi"])
-   
 
     # Yahoo data
     hyg = yf_close_series(YF_TICKERS["hyg"])
@@ -3264,7 +4403,7 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
             name="MOVE",
             value=None,
             status="UNAVAILABLE",
-            score=0,
+            risk_score=0.0,
             detail=f"Could not fetch ^MOVE ({e})",
         )
 
@@ -3288,7 +4427,7 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
         debug_series("NASDAQ", nasdaq)
         debug_series("SPY", spy)
         debug_series("RSP", rsp)
-        if 'usd' in locals():
+        if "usd" in locals():
             debug_series(usd_label, usd)
 
     indicators_list = [
@@ -3320,9 +4459,57 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
     crash_setup = crash_setup_detector(indicators)
 
     total_score = weighted_total_score(indicators_list)
-    prob = calculate_probability(indicators_list, trigger_on)
+
+    # =========================
+    # Build comparison snapshots
+    # =========================
+    weights = indicator_weights()
+
+    # Only include indicators that actually drive the score
+    indicator_values = {
+        ind.key: ind.value
+        for ind in indicators_list
+        if weights.get(ind.key, 0.0) > 0
+    }
+
+    indicator_risk_scores = {
+        ind.key: float(ind.risk_score)
+        for ind in indicators_list
+        if weights.get(ind.key, 0.0) > 0
+    }
+
+    # First build a provisional snapshot without probability history comparison bonus
+    provisional_snapshot = build_history_snapshot(
+        total_score=total_score,
+        crash_probability_pct=0.0,   # temporary placeholder
+        indicator_values=indicator_values,
+        indicator_risk_scores=indicator_risk_scores,
+        stage_label="",
+    )
+
+    history = load_history(HISTORY_FILE)
+
+    previous_run_snapshot = get_previous_run_snapshot(history)
+    yesterday_snapshot = get_yesterday_snapshot(history, provisional_snapshot["timestamp"])
+
+    compare_previous_provisional = calculate_driver_contributions(
+        current_snapshot=provisional_snapshot,
+        baseline_snapshot=previous_run_snapshot,
+        indicator_meta=INDICATOR_META,
+    )
+
+    momentum_bonus = calculate_system_stress_momentum(compare_previous_provisional)
+
+    prob = calculate_probability(
+        indicators_list,
+        trigger_on,
+        momentum_bonus=momentum_bonus,
+    )
     regime = regime_from_probability(prob)
 
+    # =========================
+    # Dependent regime / interpretation blocks
+    # =========================
     market_phase, market_phase_explanation, market_phase_drivers = determine_market_phase(
         indicators,
         prob,
@@ -3330,8 +4517,6 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
     )
 
     bond_regime, bond_regime_explanation, bond_regime_drivers = determine_bond_regime(indicators)
-
-    trend_score, risk_trend, trend_explanation = calculate_trend_from_csv(csv_path, prob)
 
     macro_regime, macro_regime_explanation, macro_regime_drivers = determine_macro_regime(indicators)
 
@@ -3349,6 +4534,10 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
     )
 
     top_drivers = top_risk_drivers(indicators_list, top_n=3)
+    system_stress_heatmap = build_system_stress_heatmap(indicators_list)
+    stress_escalation_ladder = build_stress_escalation_ladder(indicators)
+
+
 
     macro_cycle_status = indicators["macro_global_liquidity"].status
     macro_cycle_explanation = (
@@ -3365,35 +4554,20 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
         macro_cycle_drivers.append("dollar strength")
 
     # =========================
-    # Build comparison snapshots
+    # Final snapshot + trend + comparison
     # =========================
-
-    weights = indicator_weights()
-
-    # Only include indicators that actually drive the score
-    indicator_values = {
-        ind.key: ind.value
-        for ind in indicators_list
-        if weights.get(ind.key, 0.0) > 0
-    }
-
-    indicator_risk_scores = {
-        ind.key: float(ind.score)
-        for ind in indicators_list
-        if weights.get(ind.key, 0.0) > 0
-    }
-
     current_snapshot = build_history_snapshot(
-        crash_score=prob,   # compare on crash probability, because that is your top number
+        total_score=total_score,
+        crash_probability_pct=prob,
         indicator_values=indicator_values,
         indicator_risk_scores=indicator_risk_scores,
         stage_label=regime,
     )
 
-    history = load_history(HISTORY_FILE)
-
-    previous_run_snapshot = get_previous_run_snapshot(history)
-    yesterday_snapshot = get_yesterday_snapshot(history, current_snapshot["timestamp"])
+    trend_score, risk_trend, trend_explanation = calculate_trend_from_snapshot(
+        current_snapshot=current_snapshot,
+        baseline_snapshot=previous_run_snapshot,
+    )
 
     compare_previous = calculate_driver_contributions(
         current_snapshot=current_snapshot,
@@ -3408,7 +4582,7 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
     )
 
     summary_previous = format_summary_text(compare_previous, "previous run")
-    summary_yesterday = format_summary_text(compare_yesterday, "yesterday")    
+    summary_yesterday = format_summary_text(compare_yesterday, "yesterday")
 
     output_obj = RadarOutput(
         timestamp_utc=datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC"),
@@ -3445,6 +4619,8 @@ def run_radar(debug: bool = False, csv_path: str = "") -> RadarOutput:
         calm_before_storm=calm_before_storm,
         calm_before_storm_explanation=calm_before_storm_explanation,
         top_risk_drivers=top_drivers,
+        system_stress_heatmap=system_stress_heatmap,
+        stress_escalation_ladder=stress_escalation_ladder,
         summary_line="",
         dashboard_explanation=build_dashboard_explanation(),
         comparison={
