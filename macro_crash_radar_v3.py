@@ -3711,7 +3711,10 @@ def save_csv_row(output: RadarOutput, path: str) -> None:
         "calm_before_storm": output.calm_before_storm,
         "calm_before_storm_explanation": output.calm_before_storm_explanation,
 
-        "top_risk_drivers": " | ".join(output.top_risk_drivers),
+        "top_risk_drivers": " | ".join(
+            f"{d['driver']} [{d['status']}] (w:{d['weight']:.1f}, c:{d['contribution']:.2f})"
+            for d in output.top_risk_drivers
+        ),
 
         "indicator_count": len(output.indicators),
     }
