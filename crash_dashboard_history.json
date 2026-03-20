@@ -1810,5 +1810,37 @@
       "nasdaq": 2.84
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-03-20T19:48:22.003978+00:00",
+    "total_score": 13.4749,
+    "crash_probability_pct": 69.338,
+    "indicator_values": {
+      "vix": 24.06,
+      "vol_regime": 24.06,
+      "credit_spread": 3.27,
+      "move": 84.87529754638672,
+      "yield_curve_2s10s": 0.5,
+      "fed_balance": 6655939.0,
+      "global_liquidity": 0.588373509624752,
+      "usd_index": 99.65599822998047,
+      "hyg": 78.91999816894531,
+      "sp_breadth": 0.29350530664941715,
+      "nasdaq": 21589.119140625
+    },
+    "indicator_risk_scores": {
+      "vix": 2.182,
+      "vol_regime": 1.857,
+      "credit_spread": 0.162,
+      "move": 0.496,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.697,
+      "usd_index": 1.173,
+      "hyg": 2.39,
+      "sp_breadth": 0.163,
+      "nasdaq": 3.241
+    },
+    "stage_label": "SEVERE RISK"
   }
 ]
