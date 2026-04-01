@@ -2834,5 +2834,37 @@
       "nasdaq": 3.015
     },
     "stage_label": "CRASH WARNING"
+  },
+  {
+    "timestamp": "2026-04-01T08:41:18.823519+00:00",
+    "total_score": 13.7109,
+    "crash_probability_pct": 80.131,
+    "indicator_values": {
+      "vix": 30.61,
+      "vol_regime": 30.61,
+      "credit_spread": 3.46,
+      "move": 96.05000305175781,
+      "yield_curve_2s10s": 0.5299999999999998,
+      "fed_balance": 6657161.0,
+      "global_liquidity": 1.185730300034744,
+      "usd_index": 99.49400329589844,
+      "hyg": 79.55999755859375,
+      "sp_breadth": 0.29510715970677526,
+      "nasdaq": 21590.630859375
+    },
+    "indicator_risk_scores": {
+      "vix": 3.448,
+      "vol_regime": 2.915,
+      "credit_spread": 0.276,
+      "move": 0.868,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 0.956,
+      "hyg": 1.23,
+      "sp_breadth": 0.0,
+      "nasdaq": 2.999
+    },
+    "stage_label": "CRASH WARNING"
   }
 ]
