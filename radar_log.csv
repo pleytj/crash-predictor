@@ -26160,3 +26160,220 @@ even when market stress is still low.
 This dashboard is an early warning system. It does not predict exact crash timing,
 but helps monitor whether systemic risk is rising, stable or easing over time.
 </p>","True","Calm Before the Storm means: market volatility is still low, but structural or underlying risks are already high. In other words: markets still look calm on the surface, while fragility is building underneath. This pattern is currently detected. Volatility remains relatively contained, but structural vulnerability is elevated, which can happen before broader market stress becomes fully visible.","Market Breadth Stress [WARNING] (w:0.7, c:2.12) | Volatility Stress (VIX) [OK] (w:1.2, c:1.14) | Volatility Regime Stress [OK] (w:1.0, c:0.61)","17","19.5","OK","0.95","19.50 | 5d change +6.2%","19.5","OK","0.612","VIX 19.50 | MA20 22.71, MA50 22.50","2.85","OK","0.0","2.85% | 5d change +0.01 pp","69.87999725341797","OK","0.0","69.88 | 5d change +2.9%","0.52","OK","0.0","10Y 4.30% - 2Y 3.78% = +0.52 pp","6705696.0","OK","0.0","$6.71T | ~12w change +1.84%","2.7760003090242753","OK","0.0","Fed ~12w +1.84% | M2 ~6m +0.94%","98.65399932861328","ELEVATED","0.555","98.65 | MA20 99.05, MA50 98.78, MA200 98.52","80.5","OK","0.111","80.50 | MA20 79.89, MA50 80.08, MA200 80.52","0.28466978875285187","WARNING","3.032","RSP/SPY 0.2847 | MA20 0.2912, MA50 0.2932, MA200 0.2876","24657.5703125","OK","0.0","24657.57 | MA20 22774.90, MA50 22641.81, MA200 22562.82","2.7760003090242753","OK","0.0","Fed ~12w +1.84% | M2 ~6m +0.94% | USD vs MA50 98.65/98.78","3.320205581223676","WARNING","0.0","CPI YoY 3.32%","6.7297179670575735","OK","0.0","Brent 30d change +6.73%","0.9302933003270939","OK","0.0","Proxy based on balance-sheet expansion: +0.93","7.895105003003035","ELEVATED","0.0","Proxy vs 200d averages: SPY +6.5%, Nasdaq +9.3%","2.85","ELEVATED","0.0","HY spread 2.85% | HYG vs 200d weak | USD vs 200d tight"
+"2026-04-23 15:21:59 UTC","4.1063","10.521","NORMAL","False","","The radar currently points to a broadly normal environment with limited systemic stress. Additional pressure is visible in dollar strength, market breadth weakness. At the same time, credit spreads remain relatively contained; yield curve stress is not confirming. This is consistent with a stable phase in which risk signals remain limited and fragmented.","NO","","No meaningful credit stress | No broad volatility shock | No clear liquidity stress","No crash setup detected. Core systemic crash conditions are not aligned.","Late-cycle","Early warning signs are appearing. Market leadership is narrowing and conditions are becoming less supportive for risk-taking.","market breadth weakening | USD strength / tighter conditions","Bond Neutral","Government bonds appear relatively stable. Current conditions do not strongly point to either a major bond rally or bond sell-off.","","-1.17","stable","Systemic risk is broadly stable versus the previous stored snapshot.","OK","Macro cycle indicators provide context only. They help explain whether stress is being driven by liquidity, inflation or energy conditions.","inflation trend | oil shock | dollar strength","Late Cycle","Macro conditions are becoming less supportive for risk assets. Inflation, energy or funding pressure suggest a later-cycle environment.","inflation pressure | tighter financial conditions","ELEVATED","Structural vulnerability is elevated. The system may be more fragile if market stress increases.","valuation stretch | credit system fragility","Scenario B: Market stress is currently low, but structural vulnerability is elevated. There is no immediate crisis signal, but the system has a fragile foundation.","Crash Risk Score: 10.5% | Down 1.2 pts vs previous run | Main driver: HYG. Secondary drivers: Vol Regime, VIX.","<h3>1. What this dashboard does</h3>
+
+<p>
+This dashboard is designed as an early warning system for market stress and potential crash risk.
+It monitors financial and macro indicators that historically deteriorate before major market corrections.
+</p>
+
+<p>
+The model does not attempt to predict the exact timing of a crash. Instead it evaluates whether
+the financial system is becoming more fragile, more stressed, or more stable over time.
+</p>
+
+<h3>2. How the crash probability is built</h3>
+
+<p>The crash probability is mainly derived from the <b>Core Market Stress indicators</b>.</p>
+
+<ul>
+<li>a status (OK, ELEVATED, WARNING, ALARM)</li>
+<li>a risk score</li>
+<li>a model weight</li>
+</ul>
+
+<p>
+The weighted combination of these signals produces a systemic risk score which is translated
+into a crash probability percentage.
+</p>
+
+<h3>3. Core Market Stress indicators</h3>
+
+<p>
+The Core Market Stress indicators are the primary drivers of the crash risk model.
+Each indicator measures stress in a different part of the financial system.
+Together they help detect whether stress is building internally within markets,
+or spreading more broadly across asset classes.
+</p>
+
+<p>
+Each indicator produces a <strong>risk score</strong> based on how far the current
+market condition deviates from its normal trend or equilibrium level.
+These scores are then multiplied by model weights and combined into the
+overall systemic risk score.
+</p>
+
+<p>
+The indicators cover five main stress channels:
+</p>
+
+<ul>
+
+<li>
+<strong>Volatility Stress (VIX)</strong><br>
+Measures expected volatility in the equity market based on S&P 500 options pricing.
+A rising VIX reflects increasing demand for downside protection and often signals
+growing uncertainty or fear among investors.
+Sharp spikes in the VIX are frequently observed during market corrections.
+</li>
+
+<li>
+<strong>Volatility Regime Shift</strong><br>
+Detects whether volatility is structurally moving into a higher regime relative
+to recent market history. Even without a sudden spike, a sustained increase in
+volatility often indicates deteriorating market stability.
+</li>
+
+<li>
+<strong>High Yield Credit Spread</strong><br>
+Measures the difference between yields on lower-quality corporate bonds and
+risk-free government bonds. When spreads widen, it indicates that investors
+demand higher compensation for credit risk, often signaling deterioration in
+corporate credit conditions.
+</li>
+
+<li>
+<strong>HYG Trend</strong><br>
+Tracks the trend of the high-yield bond ETF (HYG). High-yield bonds are very
+sensitive to economic risk and liquidity conditions. Weakness here often appears
+before stress spreads to equities.
+</li>
+
+<li>
+<strong>MOVE</strong><br>
+The MOVE index measures volatility in U.S. Treasury yields.
+Rising bond volatility often reflects uncertainty around interest rates,
+inflation expectations, or monetary policy.
+</li>
+
+<li>
+<strong>Global Liquidity</strong><br>
+Captures broader financial liquidity conditions.
+Tightening liquidity tends to increase systemic fragility because it reduces
+the availability of capital across financial markets.
+</li>
+
+<li>
+<strong>USD Index</strong><br>
+A strengthening U.S. dollar can signal tightening global financial conditions.
+Because much global debt is dollar-denominated, a stronger dollar can increase
+funding pressure internationally.
+</li>
+
+<li>
+<strong>S&amp;P Breadth</strong><br>
+Measures how broadly the equity market rally is supported across individual
+stocks. When fewer stocks participate in market gains, market structure becomes
+more fragile and more vulnerable to corrections.
+</li>
+
+<li>
+<strong>Nasdaq Trend</strong><br>
+Tracks the trend of growth-oriented technology stocks.
+These assets tend to be highly sensitive to liquidity and risk appetite and
+often weaken early when investor sentiment deteriorates.
+</li>
+
+<li>
+<strong>Yield Curve (2s10s)</strong><br>
+Measures the slope between short-term and long-term government bond yields.
+An inverted or flattening yield curve often signals tightening financial
+conditions and increasing macroeconomic stress.
+</li>
+
+</ul>
+
+<p>
+Because these indicators monitor different segments of the financial system,
+they help detect whether stress is isolated to a single market or spreading
+more broadly across equities, credit, interest rates, and liquidity conditions.
+</p>
+
+<h3>4. Heatmap vs Market Stress Dashboard</h3>
+
+<p><b>System Stress Heatmap</b></p>
+
+<p>
+Shows the weighted contribution of each market segment to the systemic risk score.
+It answers the question: <i>Which systems are currently driving overall risk?</i>
+</p>
+
+<p><b>Market Stress Dashboard</b></p>
+
+<p>
+Shows the raw status of each indicator without model weighting.
+It answers the question: <i>Which market segments are currently calm or stressed?</i>
+</p>
+
+<p><b>How to read them together</b></p>
+
+<ul>
+<li><b>Inactive</b> – the Market Stress Dashboard shows mostly OK or ELEVATED signals, so little stress is visible.</li>
+<li><b>Active</b> – some indicators deteriorate, so stress is becoming visible in the Market Stress Dashboard.</li>
+<li><b>Confirmed</b> – the same systems begin to dominate the Heatmap, meaning stress is now materially driving systemic risk.</li>
+</ul>
+
+<p><i>In short: the Dashboard shows where stress appears; the Heatmap shows when it starts driving systemic risk.</i></p>
+
+<h3>5. Structural Vulnerability</h3>
+
+<p>
+Structural indicators show whether the system may be fragile beneath the surface,
+even when market stress is still low.
+</p>
+
+<ul>
+<li>Debt Burden</li>
+<li>Valuation Stretch</li>
+<li>Credit System Fragility</li>
+</ul>
+
+<h3>6. System Risk Position stages</h3>
+
+<table>
+<tr><th>Stage</th><th>Meaning</th></tr>
+<tr><td>Normal</td><td>Markets broadly stable with limited stress signals.</td></tr>
+<tr><td>Elevated Risk</td><td>Early warning signals appearing.</td></tr>
+<tr><td>High Risk</td><td>Stress spreading across several market segments.</td></tr>
+<tr><td>Severe Risk</td><td>Multiple core indicators showing clear stress.</td></tr>
+<tr><td>Crash Warning</td><td>Extreme systemic stress environment.</td></tr>
+</table>
+
+<h3>7. Typical Stress Escalation Pattern</h3>
+
+<p>Market stress usually spreads through the system in stages.</p>
+
+<table>
+<tr><th>Stage</th><th>Typical signals</th></tr>
+<tr><td>1</td><td>Market breadth weakens</td></tr>
+<tr><td>2</td><td>Risk appetite deteriorates (HYG, growth stocks)</td></tr>
+<tr><td>3</td><td>Volatility rises (VIX, MOVE)</td></tr>
+<tr><td>4</td><td>Credit spreads widen</td></tr>
+<tr><td>5</td><td>Systemic stress across markets</td></tr>
+</table>
+
+<h3>8. How to read the dashboard</h3>
+
+<ol>
+<li>Start with the Summary</li>
+<li>Look at the System Stress Heatmap</li>
+<li>Check the Top Risk Drivers</li>
+<li>Review the Core Market Stress indicators</li>
+<li>Check Macro Context and Structural Vulnerability</li>
+</ol>
+
+<h3>9. Status levels</h3>
+
+<ul>
+<li><b>OK</b> – normal conditions</li>
+<li><b>ELEVATED</b> – early warning</li>
+<li><b>WARNING</b> – clear market stress</li>
+<li><b>ALARM</b> – rare extreme stress</li>
+</ul>
+
+<h3>10. Important limitation</h3>
+
+<p>
+This dashboard is an early warning system. It does not predict exact crash timing,
+but helps monitor whether systemic risk is rising, stable or easing over time.
+</p>","True","Calm Before the Storm means: market volatility is still low, but structural or underlying risks are already high. In other words: markets still look calm on the surface, while fragility is building underneath. This pattern is currently detected. Volatility remains relatively contained, but structural vulnerability is elevated, which can happen before broader market stress becomes fully visible.","Market Breadth Stress [WARNING] (w:0.7, c:2.14) | Volatility Stress (VIX) [OK] (w:1.2, c:1.07) | Volatility Regime Stress [OK] (w:1.0, c:0.51)","17","18.92","OK","0.892","18.92 | 5d change +4.1%","18.92","OK","0.511","VIX 18.92 | MA20 22.31, MA50 22.52","2.84","OK","0.0","2.84% | 5d change -0.01 pp","69.87999725341797","OK","0.0","69.88 | 5d change +2.9%","0.52","OK","0.0","10Y 4.30% - 2Y 3.78% = +0.52 pp","6705696.0","OK","0.0","$6.71T | ~12w change +1.84%","2.7760003090242753","OK","0.0","Fed ~12w +1.84% | M2 ~6m +0.94%","98.6050033569336","ELEVATED","0.545","98.61 | MA20 99.05, MA50 98.78, MA200 98.52","80.53500366210938","OK","0.0","80.54 | MA20 79.95, MA50 80.08, MA200 80.52","0.28437895780337596","WARNING","3.062","RSP/SPY 0.2844 | MA20 0.2907, MA50 0.2930, MA200 0.2876","24651.9765625","OK","0.0","24651.98 | MA20 22911.01, MA50 22672.80, MA200 22583.98","2.7760003090242753","OK","0.0","Fed ~12w +1.84% | M2 ~6m +0.94% | USD vs MA50 98.61/98.78","3.320205581223676","WARNING","0.0","CPI YoY 3.32%","12.056964484829674","ELEVATED","0.0","Brent 30d change +12.06%","0.9302933003270939","OK","0.0","Proxy based on balance-sheet expansion: +0.93","7.853356537639829","ELEVATED","0.0","Proxy vs 200d averages: SPY +6.5%, Nasdaq +9.2%","2.84","ELEVATED","0.0","HY spread 2.84% | HYG vs 200d stable | USD vs 200d tight"
