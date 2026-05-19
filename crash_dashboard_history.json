@@ -6802,5 +6802,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-05-19T16:31:15.448960+00:00",
+    "total_score": 8.5222,
+    "crash_probability_pct": 31.932,
+    "indicator_values": {
+      "vix": 17.82,
+      "vol_regime": 17.82,
+      "credit_spread": 2.83,
+      "move": 86.06999969482422,
+      "yield_curve_2s10s": 0.5,
+      "fed_balance": 6728502.0,
+      "global_liquidity": 4.296060672351775,
+      "usd_index": 99.35700225830078,
+      "hyg": 79.38500213623047,
+      "sp_breadth": 0.2751609174320462,
+      "nasdaq": 25878.30078125
+    },
+    "indicator_risk_scores": {
+      "vix": 0.776,
+      "vol_regime": 0.34,
+      "credit_spread": 0.0,
+      "move": 0.836,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.02,
+      "hyg": 1.482,
+      "sp_breadth": 3.948,
+      "nasdaq": 0.0
+    },
+    "stage_label": "ELEVATED RISK"
   }
 ]
