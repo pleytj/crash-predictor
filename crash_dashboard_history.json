@@ -15954,5 +15954,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "NORMAL"
+  },
+  {
+    "timestamp": "2026-08-28T03:33:57.465838+00:00",
+    "total_score": 1.6393,
+    "crash_probability_pct": 5.213,
+    "indicator_values": {
+      "vix": 15.21,
+      "vol_regime": 15.21,
+      "credit_spread": 2.67,
+      "move": 69.85880279541016,
+      "yield_curve_2s10s": 0.46999999999999975,
+      "fed_balance": 6730912.0,
+      "global_liquidity": 1.0696639610805256,
+      "usd_index": 99.14600372314453,
+      "hyg": 79.87000274658203,
+      "sp_breadth": 0.2871871403963779,
+      "nasdaq": 26541.3515625
+    },
+    "indicator_risk_scores": {
+      "vix": 0.428,
+      "vol_regime": 0.187,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 0.644,
+      "hyg": 0.287,
+      "sp_breadth": 0.0,
+      "nasdaq": 0.0
+    },
+    "stage_label": "NORMAL"
   }
 ]
