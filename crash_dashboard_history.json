@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-12T13:32:52.329079+00:00",
-    "total_score": 11.6405,
-    "crash_probability_pct": 56.27776214757466,
-    "indicator_values": {
-      "vix": 24.93,
-      "vol_regime": 24.93,
-      "credit_spread": 3.06,
-      "move": 78.59380340576172,
-      "yield_curve_2s10s": 0.5800000000000005,
-      "fed_balance": 6628894.0,
-      "global_liquidity": 0.8232449180704213,
-      "usd_index": 99.58399963378906,
-      "hyg": 79.66999816894531,
-      "sp_breadth": 0.2906919387484898,
-      "nasdaq": 22498.966796875
-    },
-    "indicator_risk_scores": {
-      "vix": 2.331,
-      "vol_regime": 2.12,
-      "credit_spread": 0.036,
-      "move": 0.286,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.697,
-      "usd_index": 1.152,
-      "hyg": 1.945,
-      "sp_breadth": 0.697,
-      "nasdaq": 1.331
-    },
-    "stage_label": "HIGH RISK"
-  },
-  {
     "timestamp": "2026-03-12T16:21:10.124850+00:00",
     "total_score": 11.5278,
     "crash_probability_pct": 54.66435989772715,
@@ -15957,6 +15925,38 @@
   },
   {
     "timestamp": "2026-08-29T13:10:00.829597+00:00",
+    "total_score": 1.4895,
+    "crash_probability_pct": 4.871,
+    "indicator_values": {
+      "vix": 14.51,
+      "vol_regime": 14.51,
+      "credit_spread": 2.63,
+      "move": 69.86000061035156,
+      "yield_curve_2s10s": 0.46999999999999975,
+      "fed_balance": 6730912.0,
+      "global_liquidity": 1.0696639610805256,
+      "usd_index": 99.16000366210938,
+      "hyg": 79.87000274658203,
+      "sp_breadth": 0.2871871403963779,
+      "nasdaq": 26541.349609375
+    },
+    "indicator_risk_scores": {
+      "vix": 0.335,
+      "vol_regime": 0.146,
+      "credit_spread": 0.0,
+      "move": 0.0,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 0.648,
+      "hyg": 0.287,
+      "sp_breadth": 0.0,
+      "nasdaq": 0.0
+    },
+    "stage_label": "NORMAL"
+  },
+  {
+    "timestamp": "2026-08-29T17:07:18.201163+00:00",
     "total_score": 1.4895,
     "crash_probability_pct": 4.871,
     "indicator_values": {
