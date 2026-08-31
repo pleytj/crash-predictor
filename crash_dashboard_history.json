@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-13T09:43:56.078018+00:00",
-    "total_score": 13.2299,
-    "crash_probability_pct": 66.749,
-    "indicator_values": {
-      "vix": 24.23,
-      "vol_regime": 24.23,
-      "credit_spread": 3.09,
-      "move": 95.30000305175781,
-      "yield_curve_2s10s": 0.5699999999999998,
-      "fed_balance": 6646344.0,
-      "global_liquidity": 0.8179290902103313,
-      "usd_index": 100.11199951171875,
-      "hyg": 79.3499984741211,
-      "sp_breadth": 0.2905594082945537,
-      "nasdaq": 22311.98046875
-    },
-    "indicator_risk_scores": {
-      "vix": 2.211,
-      "vol_regime": 2.022,
-      "credit_spread": 0.054,
-      "move": 1.143,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.697,
-      "usd_index": 1.349,
-      "hyg": 2.035,
-      "sp_breadth": 0.711,
-      "nasdaq": 1.635
-    },
-    "stage_label": "SEVERE RISK"
-  },
-  {
     "timestamp": "2026-03-13T10:05:53.485678+00:00",
     "total_score": 13.2467,
     "crash_probability_pct": 66.991,
@@ -15984,6 +15952,38 @@
       "hyg": 0.351,
       "sp_breadth": 0.47,
       "nasdaq": 0.171
+    },
+    "stage_label": "NORMAL"
+  },
+  {
+    "timestamp": "2026-08-31T23:11:21.676706+00:00",
+    "total_score": 2.3325,
+    "crash_probability_pct": 6.582,
+    "indicator_values": {
+      "vix": 14.43,
+      "vol_regime": 14.43,
+      "credit_spread": 2.6,
+      "move": 75.31929779052734,
+      "yield_curve_2s10s": 0.39000000000000057,
+      "fed_balance": 6730912.0,
+      "global_liquidity": 1.0696639610805256,
+      "usd_index": 99.41300201416016,
+      "hyg": 79.80999755859375,
+      "sp_breadth": 0.286017864390949,
+      "nasdaq": 26370.888671875
+    },
+    "indicator_risk_scores": {
+      "vix": 0.324,
+      "vol_regime": 0.142,
+      "credit_spread": 0.0,
+      "move": 0.177,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 0.738,
+      "hyg": 0.321,
+      "sp_breadth": 0.546,
+      "nasdaq": 0.131
     },
     "stage_label": "NORMAL"
   }
