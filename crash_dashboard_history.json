@@ -1,36 +1,5 @@
 [
   {
-    "timestamp": "2026-03-10T14:08:30.850866+00:00",
-    "crash_score": 65.0,
-    "indicator_values": {
-      "vix": 25.5,
-      "vol_regime": 25.5,
-      "credit_spread": 3.19,
-      "move": 79.74469757080078,
-      "yield_curve_2s10s": 0.5900000000000003,
-      "fed_balance": 6628894.0,
-      "global_liquidity": 0.8232449180704213,
-      "usd_index": 98.73899841308594,
-      "hyg": 80.13500213623047,
-      "sp_breadth": 0.29187641176103285,
-      "nasdaq": 22634.408203125
-    },
-    "indicator_risk_scores": {
-      "vix": 2.0,
-      "vol_regime": 2.0,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 1.0,
-      "usd_index": 1.0,
-      "hyg": 3.0,
-      "sp_breadth": 1.0,
-      "nasdaq": 1.0
-    },
-    "stage_label": "SEVERE RISK"
-  },
-  {
     "timestamp": "2026-03-10T19:50:16.909071+00:00",
     "crash_score": 65.0,
     "indicator_values": {
@@ -15986,6 +15955,38 @@
       "usd_index": 0.626,
       "hyg": 1.233,
       "sp_breadth": 1.432,
+      "nasdaq": 0.0
+    },
+    "stage_label": "NORMAL"
+  },
+  {
+    "timestamp": "2026-09-04T21:25:06.543925+00:00",
+    "total_score": 4.4271,
+    "crash_probability_pct": 11.805,
+    "indicator_values": {
+      "vix": 14.32,
+      "vol_regime": 14.32,
+      "credit_spread": 2.65,
+      "move": 73.10449981689453,
+      "yield_curve_2s10s": 0.4299999999999997,
+      "fed_balance": 6737204.0,
+      "global_liquidity": 0.9559127606389431,
+      "usd_index": 99.15699768066406,
+      "hyg": 79.16000366210938,
+      "sp_breadth": 0.28434542035834964,
+      "nasdaq": 26506.990234375
+    },
+    "indicator_risk_scores": {
+      "vix": 0.309,
+      "vol_regime": 0.135,
+      "credit_spread": 0.0,
+      "move": 0.103,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 0.647,
+      "hyg": 1.3,
+      "sp_breadth": 1.577,
       "nasdaq": 0.0
     },
     "stage_label": "NORMAL"
