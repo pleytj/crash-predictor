@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-18T19:53:04.881531+00:00",
-    "total_score": 9.4754,
-    "crash_probability_pct": 38.933,
-    "indicator_values": {
-      "vix": 22.37,
-      "vol_regime": 22.37,
-      "credit_spread": 3.22,
-      "move": null,
-      "yield_curve_2s10s": 0.5500000000000003,
-      "fed_balance": 6646344.0,
-      "global_liquidity": 0.8179290902103313,
-      "usd_index": 27.83970069885254,
-      "hyg": 79.42500305175781,
-      "sp_breadth": 0.2926407253313388,
-      "nasdaq": 22170.87109375
-    },
-    "indicator_risk_scores": {
-      "vix": 1.79,
-      "vol_regime": 1.31,
-      "credit_spread": 0.132,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.697,
-      "usd_index": 0.411,
-      "hyg": 1.832,
-      "sp_breadth": 0.331,
-      "nasdaq": 2.07
-    },
-    "stage_label": "ELEVATED RISK"
-  },
-  {
     "timestamp": "2026-03-19T07:55:24.273948+00:00",
     "total_score": 10.8183,
     "crash_probability_pct": 49.651,
@@ -15996,6 +15964,38 @@
       "hyg": 2.028,
       "sp_breadth": 2.092,
       "nasdaq": 0.222
+    },
+    "stage_label": "NORMAL"
+  },
+  {
+    "timestamp": "2026-09-14T18:38:00.248696+00:00",
+    "total_score": 7.0593,
+    "crash_probability_pct": 22.784,
+    "indicator_values": {
+      "vix": 15.84,
+      "vol_regime": 15.84,
+      "credit_spread": 2.65,
+      "move": 82.20999908447266,
+      "yield_curve_2s10s": 0.39000000000000057,
+      "fed_balance": 6740619.0,
+      "global_liquidity": 0.8426277473172443,
+      "usd_index": 99.41799926757812,
+      "hyg": 78.625,
+      "sp_breadth": 0.28200789080264044,
+      "nasdaq": 26296.986328125
+    },
+    "indicator_risk_scores": {
+      "vix": 0.512,
+      "vol_regime": 0.37,
+      "credit_spread": 0.0,
+      "move": 0.407,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 0.841,
+      "hyg": 1.886,
+      "sp_breadth": 2.385,
+      "nasdaq": 0.0
     },
     "stage_label": "NORMAL"
   }
