@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-21T13:52:13.465470+00:00",
-    "total_score": 14.9992,
-    "crash_probability_pct": 77.726,
-    "indicator_values": {
-      "vix": 24.06,
-      "vol_regime": 24.06,
-      "credit_spread": 3.27,
-      "move": 108.84449768066406,
-      "yield_curve_2s10s": 0.45999999999999996,
-      "fed_balance": 6655939.0,
-      "global_liquidity": 0.588373509624752,
-      "usd_index": 99.50299835205078,
-      "hyg": 78.91999816894531,
-      "sp_breadth": 0.2936922669510965,
-      "nasdaq": 21647.611328125
-    },
-    "indicator_risk_scores": {
-      "vix": 2.182,
-      "vol_regime": 1.857,
-      "credit_spread": 0.162,
-      "move": 1.592,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.697,
-      "usd_index": 1.116,
-      "hyg": 2.39,
-      "sp_breadth": 0.138,
-      "nasdaq": 3.152
-    },
-    "stage_label": "SEVERE RISK"
-  },
-  {
     "timestamp": "2026-03-21T19:35:22.698707+00:00",
     "total_score": 14.9992,
     "crash_probability_pct": 77.726,
@@ -15993,6 +15961,38 @@
       "fed_balance": 0.0,
       "global_liquidity": 0.0,
       "usd_index": 1.323,
+      "hyg": 2.073,
+      "sp_breadth": 2.529,
+      "nasdaq": 0.551
+    },
+    "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-09-17T12:35:09.572128+00:00",
+    "total_score": 8.7234,
+    "crash_probability_pct": 32.928,
+    "indicator_values": {
+      "vix": 17.2,
+      "vol_regime": 17.2,
+      "credit_spread": 2.76,
+      "move": 80.7300033569336,
+      "yield_curve_2s10s": 0.33000000000000007,
+      "fed_balance": 6740619.0,
+      "global_liquidity": 0.8426277473172443,
+      "usd_index": 100.08100128173828,
+      "hyg": 78.41999816894531,
+      "sp_breadth": 0.28151979605572286,
+      "nasdaq": 25978.4296875
+    },
+    "indicator_risk_scores": {
+      "vix": 0.693,
+      "vol_regime": 0.813,
+      "credit_spread": 0.0,
+      "move": 0.358,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.231,
       "hyg": 2.073,
       "sp_breadth": 2.529,
       "nasdaq": 0.551
