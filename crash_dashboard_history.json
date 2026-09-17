@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-21T19:35:22.698707+00:00",
-    "total_score": 14.9992,
-    "crash_probability_pct": 77.726,
-    "indicator_values": {
-      "vix": 24.06,
-      "vol_regime": 24.06,
-      "credit_spread": 3.27,
-      "move": 108.84449768066406,
-      "yield_curve_2s10s": 0.45999999999999996,
-      "fed_balance": 6655939.0,
-      "global_liquidity": 0.588373509624752,
-      "usd_index": 99.50299835205078,
-      "hyg": 78.91999816894531,
-      "sp_breadth": 0.2936922669510965,
-      "nasdaq": 21647.611328125
-    },
-    "indicator_risk_scores": {
-      "vix": 2.182,
-      "vol_regime": 1.857,
-      "credit_spread": 0.162,
-      "move": 1.592,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.697,
-      "usd_index": 1.116,
-      "hyg": 2.39,
-      "sp_breadth": 0.138,
-      "nasdaq": 3.152
-    },
-    "stage_label": "SEVERE RISK"
-  },
-  {
     "timestamp": "2026-03-22T07:50:25.939849+00:00",
     "total_score": 15.0377,
     "crash_probability_pct": 78.067,
@@ -15996,6 +15964,38 @@
       "hyg": 2.073,
       "sp_breadth": 2.529,
       "nasdaq": 0.551
+    },
+    "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-09-17T17:38:24.944312+00:00",
+    "total_score": 8.273,
+    "crash_probability_pct": 30.573,
+    "indicator_values": {
+      "vix": 17.71,
+      "vol_regime": 17.71,
+      "credit_spread": 2.7,
+      "move": 80.7300033569336,
+      "yield_curve_2s10s": 0.33000000000000007,
+      "fed_balance": 6740619.0,
+      "global_liquidity": 0.8426277473172443,
+      "usd_index": 100.24500274658203,
+      "hyg": 78.69000244140625,
+      "sp_breadth": 0.28028704275375543,
+      "nasdaq": 26391.2109375
+    },
+    "indicator_risk_scores": {
+      "vix": 0.761,
+      "vol_regime": 0.92,
+      "credit_spread": 0.0,
+      "move": 0.358,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.297,
+      "hyg": 1.707,
+      "sp_breadth": 2.99,
+      "nasdaq": 0.0
     },
     "stage_label": "ELEVATED RISK"
   }
