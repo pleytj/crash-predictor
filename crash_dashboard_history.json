@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-22T19:36:56.239820+00:00",
-    "total_score": 15.0377,
-    "crash_probability_pct": 77.933,
-    "indicator_values": {
-      "vix": 24.06,
-      "vol_regime": 24.06,
-      "credit_spread": 3.27,
-      "move": 108.84449768066406,
-      "yield_curve_2s10s": 0.45999999999999996,
-      "fed_balance": 6655939.0,
-      "global_liquidity": 0.588373509624752,
-      "usd_index": 99.6500015258789,
-      "hyg": 78.91999816894531,
-      "sp_breadth": 0.2936922669510965,
-      "nasdaq": 21647.611328125
-    },
-    "indicator_risk_scores": {
-      "vix": 2.182,
-      "vol_regime": 1.857,
-      "credit_spread": 0.162,
-      "move": 1.592,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.697,
-      "usd_index": 1.171,
-      "hyg": 2.39,
-      "sp_breadth": 0.138,
-      "nasdaq": 3.152
-    },
-    "stage_label": "SEVERE RISK"
-  },
-  {
     "timestamp": "2026-03-23T08:09:00.739877+00:00",
     "total_score": 15.086,
     "crash_probability_pct": 78.329,
@@ -15995,6 +15963,38 @@
       "usd_index": 1.404,
       "hyg": 1.67,
       "sp_breadth": 3.152,
+      "nasdaq": 0.0
+    },
+    "stage_label": "NORMAL"
+  },
+  {
+    "timestamp": "2026-09-18T17:04:30.982385+00:00",
+    "total_score": 7.4499,
+    "crash_probability_pct": 25.069,
+    "indicator_values": {
+      "vix": 15.44,
+      "vol_regime": 15.44,
+      "credit_spread": 2.7,
+      "move": 76.22000122070312,
+      "yield_curve_2s10s": 0.2699999999999996,
+      "fed_balance": 6746548.0,
+      "global_liquidity": 0.94222452104501,
+      "usd_index": 100.28700256347656,
+      "hyg": 78.49500274658203,
+      "sp_breadth": 0.2796169130787533,
+      "nasdaq": 26393.21875
+    },
+    "indicator_risk_scores": {
+      "vix": 0.459,
+      "vol_regime": 0.201,
+      "credit_spread": 0.0,
+      "move": 0.207,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.314,
+      "hyg": 1.923,
+      "sp_breadth": 3.141,
       "nasdaq": 0.0
     },
     "stage_label": "NORMAL"
