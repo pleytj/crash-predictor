@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-03-30T20:00:03.009783+00:00",
-    "total_score": 17.7951,
-    "crash_probability_pct": 99.766,
-    "indicator_values": {
-      "vix": 31.05,
-      "vol_regime": 31.05,
-      "credit_spread": 3.42,
-      "move": 111.94560241699219,
-      "yield_curve_2s10s": 0.45999999999999996,
-      "fed_balance": 6657161.0,
-      "global_liquidity": 1.185730300034744,
-      "usd_index": 100.53399658203125,
-      "hyg": 78.81500244140625,
-      "sp_breadth": 0.29756836581270496,
-      "nasdaq": 20796.1328125
-    },
-    "indicator_risk_scores": {
-      "vix": 3.518,
-      "vol_regime": 2.977,
-      "credit_spread": 0.252,
-      "move": 1.597,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 1.499,
-      "hyg": 2.293,
-      "sp_breadth": 0.0,
-      "nasdaq": 4.0
-    },
-    "stage_label": "CRASH WARNING"
-  },
-  {
     "timestamp": "2026-03-31T08:16:16.023341+00:00",
     "total_score": 17.5073,
     "crash_probability_pct": 98.551,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-09-25T22:16:10.968563+00:00",
+    "total_score": 10.2094,
+    "crash_probability_pct": 43.855,
+    "indicator_values": {
+      "vix": 14.21,
+      "vol_regime": 14.21,
+      "credit_spread": 2.8,
+      "move": 96.00250244140625,
+      "yield_curve_2s10s": 0.3099999999999996,
+      "fed_balance": 6747704.0,
+      "global_liquidity": 0.9988608369070839,
+      "usd_index": 101.03500366210938,
+      "hyg": 77.86000061035156,
+      "sp_breadth": 0.2736889962950824,
+      "nasdaq": 27068.716796875
+    },
+    "indicator_risk_scores": {
+      "vix": 0.295,
+      "vol_regime": 0.129,
+      "credit_spread": 0.0,
+      "move": 1.017,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.598,
+      "hyg": 2.519,
+      "sp_breadth": 4.0,
+      "nasdaq": 0.0
+    },
+    "stage_label": "ELEVATED RISK"
   }
 ]
