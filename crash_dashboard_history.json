@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-03T19:51:36.480049+00:00",
-    "total_score": 9.8233,
-    "crash_probability_pct": 41.168,
-    "indicator_values": {
-      "vix": 24.54,
-      "vol_regime": 24.54,
-      "credit_spread": 3.17,
-      "move": 84.41449737548828,
-      "yield_curve_2s10s": 0.52,
-      "fed_balance": 6675344.0,
-      "global_liquidity": 2.4843478490391773,
-      "usd_index": 100.22100067138672,
-      "hyg": 79.55999755859375,
-      "sp_breadth": 0.2944207970149051,
-      "nasdaq": 21879.1796875
-    },
-    "indicator_risk_scores": {
-      "vix": 2.264,
-      "vol_regime": 1.591,
-      "credit_spread": 0.102,
-      "move": 0.48,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 1.377,
-      "hyg": 1.198,
-      "sp_breadth": 0.0,
-      "nasdaq": 2.302
-    },
-    "stage_label": "ELEVATED RISK"
-  },
-  {
     "timestamp": "2026-04-04T07:55:36.211675+00:00",
     "total_score": 9.6837,
     "crash_probability_pct": 39.859,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-09-29T18:38:19.725233+00:00",
+    "total_score": 13.0419,
+    "crash_probability_pct": 66.723,
+    "indicator_values": {
+      "vix": 16.07,
+      "vol_regime": 16.07,
+      "credit_spread": 3.02,
+      "move": 107.57649993896484,
+      "yield_curve_2s10s": 0.3600000000000003,
+      "fed_balance": 6747704.0,
+      "global_liquidity": 0.9988608369070839,
+      "usd_index": 101.40599822998047,
+      "hyg": 77.29000091552734,
+      "sp_breadth": 0.27346959843294805,
+      "nasdaq": 26800.06640625
+    },
+    "indicator_risk_scores": {
+      "vix": 0.543,
+      "vol_regime": 0.537,
+      "credit_spread": 0.012,
+      "move": 1.879,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.736,
+      "hyg": 2.94,
+      "sp_breadth": 4.0,
+      "nasdaq": 0.0
+    },
+    "stage_label": "SEVERE RISK"
   }
 ]
