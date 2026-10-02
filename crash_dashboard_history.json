@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-07T14:49:26.384875+00:00",
-    "total_score": 9.686,
-    "crash_probability_pct": 40.793,
-    "indicator_values": {
-      "vix": 24.17,
-      "vol_regime": 24.17,
-      "credit_spread": 3.05,
-      "move": 81.68000030517578,
-      "yield_curve_2s10s": 0.5099999999999998,
-      "fed_balance": 6675344.0,
-      "global_liquidity": 2.4843478490391773,
-      "usd_index": 99.8280029296875,
-      "hyg": 79.44999694824219,
-      "sp_breadth": 0.29562863697769276,
-      "nasdaq": 21730.611328125
-    },
-    "indicator_risk_scores": {
-      "vix": 2.201,
-      "vol_regime": 1.499,
-      "credit_spread": 0.03,
-      "move": 0.389,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 1.228,
-      "hyg": 1.297,
-      "sp_breadth": 0.0,
-      "nasdaq": 2.634
-    },
-    "stage_label": "ELEVATED RISK"
-  },
-  {
     "timestamp": "2026-04-08T08:19:46.660725+00:00",
     "total_score": 8.1462,
     "crash_probability_pct": 29.219,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-02T18:24:40.218448+00:00",
+    "total_score": 13.2064,
+    "crash_probability_pct": 67.32,
+    "indicator_values": {
+      "vix": 16.39,
+      "vol_regime": 16.39,
+      "credit_spread": 3.24,
+      "move": 107.63610076904297,
+      "yield_curve_2s10s": 0.41000000000000014,
+      "fed_balance": 6743031.0,
+      "global_liquidity": 0.7649397895544285,
+      "usd_index": 101.93099975585938,
+      "hyg": 76.875,
+      "sp_breadth": 0.27264506808763334,
+      "nasdaq": 27155.361328125
+    },
+    "indicator_risk_scores": {
+      "vix": 0.585,
+      "vol_regime": 0.605,
+      "credit_spread": 0.144,
+      "move": 1.382,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.93,
+      "hyg": 3.186,
+      "sp_breadth": 4.0,
+      "nasdaq": 0.0
+    },
+    "stage_label": "SEVERE RISK"
   }
 ]
