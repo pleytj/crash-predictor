@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-07T08:20:13.916259+00:00",
-    "total_score": 8.5582,
-    "crash_probability_pct": 31.925,
-    "indicator_values": {
-      "vix": 23.87,
-      "vol_regime": 23.87,
-      "credit_spread": 3.13,
-      "move": 81.68000030517578,
-      "yield_curve_2s10s": 0.5099999999999998,
-      "fed_balance": 6675344.0,
-      "global_liquidity": 2.4843478490391773,
-      "usd_index": 99.9540023803711,
-      "hyg": 79.69999694824219,
-      "sp_breadth": 0.29429529741312194,
-      "nasdaq": 21996.33984375
-    },
-    "indicator_risk_scores": {
-      "vix": 2.149,
-      "vol_regime": 1.45,
-      "credit_spread": 0.078,
-      "move": 0.389,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 1.275,
-      "hyg": 1.016,
-      "sp_breadth": 0.0,
-      "nasdaq": 1.694
-    },
-    "stage_label": "ELEVATED RISK"
-  },
-  {
     "timestamp": "2026-04-07T14:49:26.384875+00:00",
     "total_score": 9.686,
     "crash_probability_pct": 40.793,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-10-02T13:51:26.439205+00:00",
+    "total_score": 12.4803,
+    "crash_probability_pct": 61.607,
+    "indicator_values": {
+      "vix": 16.39,
+      "vol_regime": 16.39,
+      "credit_spread": 3.12,
+      "move": 105.73490142822266,
+      "yield_curve_2s10s": 0.41000000000000014,
+      "fed_balance": 6743031.0,
+      "global_liquidity": 0.7649397895544285,
+      "usd_index": 101.91699981689453,
+      "hyg": 77.18000030517578,
+      "sp_breadth": 0.2728086048488917,
+      "nasdaq": 27257.115234375
+    },
+    "indicator_risk_scores": {
+      "vix": 0.585,
+      "vol_regime": 0.605,
+      "credit_spread": 0.072,
+      "move": 1.287,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.925,
+      "hyg": 2.921,
+      "sp_breadth": 4.0,
+      "nasdaq": 0.0
+    },
+    "stage_label": "HIGH RISK"
   }
 ]
