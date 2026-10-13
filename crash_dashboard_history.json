@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-20T14:58:40.730657+00:00",
-    "total_score": 2.6735,
-    "crash_probability_pct": 6.901,
-    "indicator_values": {
-      "vix": 17.48,
-      "vol_regime": 17.48,
-      "credit_spread": 2.83,
-      "move": 65.69999694824219,
-      "yield_curve_2s10s": 0.5400000000000005,
-      "fed_balance": 6705696.0,
-      "global_liquidity": 2.7760003090242753,
-      "usd_index": 98.14399719238281,
-      "hyg": 80.5250015258789,
-      "sp_breadth": 0.2878356697754103,
-      "nasdaq": 24286.12109375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.731,
-      "vol_regime": 0.32,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.472,
-      "hyg": 0.0,
-      "sp_breadth": 1.637,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-04-20T20:06:28.359400+00:00",
     "total_score": 2.8933,
     "crash_probability_pct": 7.556,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-10-13T23:15:44.773729+00:00",
+    "total_score": 10.9667,
+    "crash_probability_pct": 50.139,
+    "indicator_values": {
+      "vix": 15.21,
+      "vol_regime": 15.21,
+      "credit_spread": 3.11,
+      "move": 101.091796875,
+      "yield_curve_2s10s": 0.4400000000000004,
+      "fed_balance": 6747560.0,
+      "global_liquidity": 0.7219594692616085,
+      "usd_index": 102.58000183105469,
+      "hyg": 77.08999633789062,
+      "sp_breadth": 0.27416100098251217,
+      "nasdaq": 27204.380859375
+    },
+    "indicator_risk_scores": {
+      "vix": 0.428,
+      "vol_regime": 0.187,
+      "credit_spread": 0.066,
+      "move": 1.055,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 2.134,
+      "hyg": 2.759,
+      "sp_breadth": 3.401,
+      "nasdaq": 0.0
+    },
+    "stage_label": "HIGH RISK"
   }
 ]
