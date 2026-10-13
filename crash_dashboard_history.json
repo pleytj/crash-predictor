@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-20T09:18:37.606938+00:00",
-    "total_score": 3.48,
-    "crash_probability_pct": 8.834,
-    "indicator_values": {
-      "vix": 17.94,
-      "vol_regime": 17.94,
-      "credit_spread": 2.86,
-      "move": 65.69999694824219,
-      "yield_curve_2s10s": 0.5400000000000005,
-      "fed_balance": 6705696.0,
-      "global_liquidity": 2.7760003090242753,
-      "usd_index": 98.3030014038086,
-      "hyg": 80.6500015258789,
-      "sp_breadth": 0.2860844333109238,
-      "nasdaq": 24468.48046875
-    },
-    "indicator_risk_scores": {
-      "vix": 0.792,
-      "vol_regime": 0.347,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.495,
-      "hyg": 0.0,
-      "sp_breadth": 2.623,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-04-20T14:58:40.730657+00:00",
     "total_score": 2.6735,
     "crash_probability_pct": 6.901,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.0
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-13T19:51:30.329722+00:00",
+    "total_score": 10.8561,
+    "crash_probability_pct": 49.002,
+    "indicator_values": {
+      "vix": 15.21,
+      "vol_regime": 15.21,
+      "credit_spread": 3.11,
+      "move": 100.92310333251953,
+      "yield_curve_2s10s": 0.46999999999999975,
+      "fed_balance": 6747560.0,
+      "global_liquidity": 0.7219594692616085,
+      "usd_index": 102.19200134277344,
+      "hyg": 77.09410095214844,
+      "sp_breadth": 0.27416058024198614,
+      "nasdaq": 27202.826171875
+    },
+    "indicator_risk_scores": {
+      "vix": 0.428,
+      "vol_regime": 0.187,
+      "credit_spread": 0.066,
+      "move": 1.046,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 2.005,
+      "hyg": 2.755,
+      "sp_breadth": 3.401,
+      "nasdaq": 0.0
+    },
+    "stage_label": "ELEVATED RISK"
   }
 ]
