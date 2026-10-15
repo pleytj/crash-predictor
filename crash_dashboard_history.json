@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-22T08:57:26.619143+00:00",
-    "total_score": 3.4299,
-    "crash_probability_pct": 8.717,
-    "indicator_values": {
-      "vix": 18.87,
-      "vol_regime": 18.87,
-      "credit_spread": 2.87,
-      "move": 70.77999877929688,
-      "yield_curve_2s10s": 0.5399999999999996,
-      "fed_balance": 6705696.0,
-      "global_liquidity": 2.7760003090242753,
-      "usd_index": 98.29000091552734,
-      "hyg": 80.37000274658203,
-      "sp_breadth": 0.28768037458150375,
-      "nasdaq": 24259.9609375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.887,
-      "vol_regime": 0.502,
-      "credit_spread": 0.0,
-      "move": 0.026,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.494,
-      "hyg": 0.197,
-      "sp_breadth": 1.634,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-04-22T20:13:24.282808+00:00",
     "total_score": 4.4817,
     "crash_probability_pct": 12.431,
@@ -15996,6 +15964,38 @@
       "hyg": 2.632,
       "sp_breadth": 2.123,
       "nasdaq": 0.389
+    },
+    "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-15T22:12:45.443557+00:00",
+    "total_score": 11.0072,
+    "crash_probability_pct": 50.187,
+    "indicator_values": {
+      "vix": 16.87,
+      "vol_regime": 16.87,
+      "credit_spread": 3.25,
+      "move": 102.48709869384766,
+      "yield_curve_2s10s": 0.3700000000000001,
+      "fed_balance": 6755639.0,
+      "global_liquidity": 0.7771820513961861,
+      "usd_index": 102.00299835205078,
+      "hyg": 77.12999725341797,
+      "sp_breadth": 0.27857319493773314,
+      "nasdaq": 26713.025390625
+    },
+    "indicator_risk_scores": {
+      "vix": 0.649,
+      "vol_regime": 0.812,
+      "credit_spread": 0.15,
+      "move": 1.124,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.938,
+      "hyg": 2.65,
+      "sp_breadth": 1.92,
+      "nasdaq": 0.364
     },
     "stage_label": "HIGH RISK"
   }
