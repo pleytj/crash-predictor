@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-24T19:58:56.993501+00:00",
-    "total_score": 4.605,
-    "crash_probability_pct": 12.128,
-    "indicator_values": {
-      "vix": 19.31,
-      "vol_regime": 19.31,
-      "credit_spread": 2.86,
-      "move": 67.69619750976562,
-      "yield_curve_2s10s": 0.5099999999999998,
-      "fed_balance": 6707419.0,
-      "global_liquidity": 2.755963158363054,
-      "usd_index": 98.53500366210938,
-      "hyg": 80.5,
-      "sp_breadth": 0.28295111444878135,
-      "nasdaq": 24839.408203125
-    },
-    "indicator_risk_scores": {
-      "vix": 0.931,
-      "vol_regime": 0.579,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.531,
-      "hyg": 0.113,
-      "sp_breadth": 3.35,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-04-25T08:11:53.432605+00:00",
     "total_score": 4.6201,
     "crash_probability_pct": 12.114,
@@ -15969,6 +15937,38 @@
   },
   {
     "timestamp": "2026-10-17T21:25:26.858020+00:00",
+    "total_score": 11.3333,
+    "crash_probability_pct": 52.602,
+    "indicator_values": {
+      "vix": 16.46,
+      "vol_regime": 16.46,
+      "credit_spread": 3.23,
+      "move": 101.0999984741211,
+      "yield_curve_2s10s": 0.33000000000000007,
+      "fed_balance": 6755639.0,
+      "global_liquidity": 0.7771820513961861,
+      "usd_index": 101.83999633789062,
+      "hyg": 76.86000061035156,
+      "sp_breadth": 0.28049786614856287,
+      "nasdaq": 26140.029296875
+    },
+    "indicator_risk_scores": {
+      "vix": 0.595,
+      "vol_regime": 0.7,
+      "credit_spread": 0.138,
+      "move": 1.055,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.875,
+      "hyg": 2.851,
+      "sp_breadth": 1.283,
+      "nasdaq": 1.473
+    },
+    "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-18T12:02:58.099745+00:00",
     "total_score": 11.3333,
     "crash_probability_pct": 52.602,
     "indicator_values": {
