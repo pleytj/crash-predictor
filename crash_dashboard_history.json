@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-25T19:52:24.216096+00:00",
-    "total_score": 4.6201,
-    "crash_probability_pct": 11.986,
-    "indicator_values": {
-      "vix": 19.31,
-      "vol_regime": 19.31,
-      "credit_spread": 2.86,
-      "move": 66.97000122070312,
-      "yield_curve_2s10s": 0.5099999999999998,
-      "fed_balance": 6707419.0,
-      "global_liquidity": 2.755963158363054,
-      "usd_index": 98.51000213623047,
-      "hyg": 80.4800033569336,
-      "sp_breadth": 0.28297895914002613,
-      "nasdaq": 24836.599609375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.931,
-      "vol_regime": 0.579,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.527,
-      "hyg": 0.126,
-      "sp_breadth": 3.344,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-04-26T08:37:57.350853+00:00",
     "total_score": 4.6201,
     "crash_probability_pct": 11.986,
@@ -15998,5 +15966,37 @@
       "nasdaq": 1.473
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-19T14:39:52.764777+00:00",
+    "total_score": 13.171,
+    "crash_probability_pct": 67.881,
+    "indicator_values": {
+      "vix": 19.99,
+      "vol_regime": 19.99,
+      "credit_spread": 3.31,
+      "move": 102.86990356445312,
+      "yield_curve_2s10s": 0.33000000000000007,
+      "fed_balance": 6755639.0,
+      "global_liquidity": 0.7771820513961861,
+      "usd_index": 101.9469985961914,
+      "hyg": 76.88500213623047,
+      "sp_breadth": 0.2780876952792499,
+      "nasdaq": 26453.74609375
+    },
+    "indicator_risk_scores": {
+      "vix": 1.299,
+      "vol_regime": 1.428,
+      "credit_spread": 0.186,
+      "move": 1.143,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.913,
+      "hyg": 2.789,
+      "sp_breadth": 2.04,
+      "nasdaq": 0.895
+    },
+    "stage_label": "SEVERE RISK"
   }
 ]
