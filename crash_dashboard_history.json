@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-04-28T15:37:39.032287+00:00",
-    "total_score": 4.3337,
-    "crash_probability_pct": 11.26,
-    "indicator_values": {
-      "vix": 18.02,
-      "vol_regime": 18.02,
-      "credit_spread": 2.86,
-      "move": 68.41999816894531,
-      "yield_curve_2s10s": 0.5299999999999998,
-      "fed_balance": 6707419.0,
-      "global_liquidity": 2.755963158363054,
-      "usd_index": 98.6520004272461,
-      "hyg": 80.34500122070312,
-      "sp_breadth": 0.28286400006467255,
-      "nasdaq": 24538.8828125
-    },
-    "indicator_risk_scores": {
-      "vix": 0.802,
-      "vol_regime": 0.353,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.554,
-      "hyg": 0.219,
-      "sp_breadth": 3.226,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-04-29T09:24:02.393400+00:00",
     "total_score": 4.4118,
     "crash_probability_pct": 11.605,
@@ -15998,5 +15966,37 @@
       "nasdaq": 0.918
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-22T12:57:52.977269+00:00",
+    "total_score": 10.1079,
+    "crash_probability_pct": 43.524,
+    "indicator_values": {
+      "vix": 17.31,
+      "vol_regime": 17.31,
+      "credit_spread": 3.33,
+      "move": 95.94000244140625,
+      "yield_curve_2s10s": 0.33000000000000007,
+      "fed_balance": 6755639.0,
+      "global_liquidity": 0.7771820513961861,
+      "usd_index": 101.7750015258789,
+      "hyg": 76.9800033569336,
+      "sp_breadth": 0.2802260951041215,
+      "nasdaq": 26702.859375
+    },
+    "indicator_risk_scores": {
+      "vix": 0.708,
+      "vol_regime": 0.822,
+      "credit_spread": 0.198,
+      "move": 0.865,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.693,
+      "hyg": 2.63,
+      "sp_breadth": 1.315,
+      "nasdaq": 0.294
+    },
+    "stage_label": "ELEVATED RISK"
   }
 ]
