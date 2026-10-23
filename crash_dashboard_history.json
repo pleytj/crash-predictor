@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-01T09:08:10.341463+00:00",
-    "total_score": 4.4288,
-    "crash_probability_pct": 11.37,
-    "indicator_values": {
-      "vix": 18.81,
-      "vol_regime": 18.81,
-      "credit_spread": 2.82,
-      "move": 72.06999969482422,
-      "yield_curve_2s10s": 0.5,
-      "fed_balance": 6699950.0,
-      "global_liquidity": 3.9791367607977572,
-      "usd_index": 98.02100372314453,
-      "hyg": 80.37999725341797,
-      "sp_breadth": 0.2830824173374297,
-      "nasdaq": 24892.310546875
-    },
-    "indicator_risk_scores": {
-      "vix": 0.881,
-      "vol_regime": 0.492,
-      "credit_spread": 0.0,
-      "move": 0.069,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.453,
-      "hyg": 0.198,
-      "sp_breadth": 3.032,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-01T20:11:15.453831+00:00",
     "total_score": 4.8587,
     "crash_probability_pct": 13.475,
@@ -15996,6 +15964,38 @@
       "hyg": 2.563,
       "sp_breadth": 0.194,
       "nasdaq": 1.552
+    },
+    "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-10-23T22:05:18.459655+00:00",
+    "total_score": 11.4011,
+    "crash_probability_pct": 53.419,
+    "indicator_values": {
+      "vix": 19.03,
+      "vol_regime": 19.03,
+      "credit_spread": 3.4,
+      "move": 103.31230163574219,
+      "yield_curve_2s10s": 0.3099999999999996,
+      "fed_balance": 6753604.0,
+      "global_liquidity": 0.8835051013617283,
+      "usd_index": 101.75199890136719,
+      "hyg": 77.05000305175781,
+      "sp_breadth": 0.28493230210897647,
+      "nasdaq": 25955.341796875
+    },
+    "indicator_risk_scores": {
+      "vix": 1.053,
+      "vol_regime": 1.26,
+      "credit_spread": 0.24,
+      "move": 1.166,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 1.682,
+      "hyg": 2.507,
+      "sp_breadth": 0.181,
+      "nasdaq": 1.615
     },
     "stage_label": "HIGH RISK"
   }
