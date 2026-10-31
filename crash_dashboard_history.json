@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-10T20:03:18.893664+00:00",
-    "total_score": 5.0549,
-    "crash_probability_pct": 13.495,
-    "indicator_values": {
-      "vix": 17.08,
-      "vol_regime": 17.08,
-      "credit_spread": 2.79,
-      "move": 67.25,
-      "yield_curve_2s10s": 0.4900000000000002,
-      "fed_balance": 6709505.0,
-      "global_liquidity": 3.871131698099075,
-      "usd_index": 97.83999633789062,
-      "hyg": 80.13999938964844,
-      "sp_breadth": 0.2767007503248197,
-      "nasdaq": 26247.080078125
-    },
-    "indicator_risk_scores": {
-      "vix": 0.677,
-      "vol_regime": 0.296,
-      "credit_spread": 0.0,
-      "move": 0.0,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.426,
-      "hyg": 0.499,
-      "sp_breadth": 4.0,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-11T10:44:15.454495+00:00",
     "total_score": 5.071,
     "crash_probability_pct": 13.68,
@@ -15993,6 +15961,38 @@
       "fed_balance": 0.017,
       "global_liquidity": 0.193,
       "usd_index": 1.749,
+      "hyg": 1.872,
+      "sp_breadth": 0.0,
+      "nasdaq": 2.206
+    },
+    "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-10-31T13:38:54.445361+00:00",
+    "total_score": 9.4354,
+    "crash_probability_pct": 38.014,
+    "indicator_values": {
+      "vix": 17.2,
+      "vol_regime": 17.2,
+      "credit_spread": 3.26,
+      "move": 100.19999694824219,
+      "yield_curve_2s10s": 0.3700000000000001,
+      "fed_balance": 6745635.0,
+      "global_liquidity": 1.1720176436923249,
+      "usd_index": 101.87999725341797,
+      "hyg": 77.43000030517578,
+      "sp_breadth": 0.28887684065762775,
+      "nasdaq": 25437.0
+    },
+    "indicator_risk_scores": {
+      "vix": 0.693,
+      "vol_regime": 0.679,
+      "credit_spread": 0.156,
+      "move": 1.01,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.017,
+      "global_liquidity": 0.193,
+      "usd_index": 1.718,
       "hyg": 1.872,
       "sp_breadth": 0.0,
       "nasdaq": 2.206
