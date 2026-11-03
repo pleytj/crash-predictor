@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-14T09:40:36.230851+00:00",
-    "total_score": 5.6678,
-    "crash_probability_pct": 16.013,
-    "indicator_values": {
-      "vix": 17.99,
-      "vol_regime": 17.99,
-      "credit_spread": 2.82,
-      "move": 70.23999786376953,
-      "yield_curve_2s10s": 0.45999999999999996,
-      "fed_balance": 6709505.0,
-      "global_liquidity": 3.871131698099075,
-      "usd_index": 98.50700378417969,
-      "hyg": 79.91000366210938,
-      "sp_breadth": 0.2733628791695318,
-      "nasdaq": 26402.33984375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.799,
-      "vol_regime": 0.349,
-      "credit_spread": 0.0,
-      "move": 0.008,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.526,
-      "hyg": 0.694,
-      "sp_breadth": 4.0,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-14T15:32:39.794919+00:00",
     "total_score": 5.5797,
     "crash_probability_pct": 15.684,
@@ -15998,5 +15966,37 @@
       "nasdaq": 2.479
     },
     "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-11-03T15:05:54.592561+00:00",
+    "total_score": 12.5955,
+    "crash_probability_pct": 63.294,
+    "indicator_values": {
+      "vix": 21.15,
+      "vol_regime": 21.15,
+      "credit_spread": 3.44,
+      "move": 99.79239654541016,
+      "yield_curve_2s10s": 0.3800000000000008,
+      "fed_balance": 6745635.0,
+      "global_liquidity": 1.1720176436923249,
+      "usd_index": 101.76499938964844,
+      "hyg": 76.88500213623047,
+      "sp_breadth": 0.29053156918792544,
+      "nasdaq": 25317.341796875
+    },
+    "indicator_risk_scores": {
+      "vix": 1.533,
+      "vol_regime": 1.591,
+      "credit_spread": 0.264,
+      "move": 0.993,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.017,
+      "global_liquidity": 0.193,
+      "usd_index": 1.67,
+      "hyg": 2.512,
+      "sp_breadth": 0.0,
+      "nasdaq": 2.23
+    },
+    "stage_label": "HIGH RISK"
   }
 ]
