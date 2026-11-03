@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-13T20:53:35.166308+00:00",
-    "total_score": 5.665,
-    "crash_probability_pct": 15.88,
-    "indicator_values": {
-      "vix": 17.99,
-      "vol_regime": 17.99,
-      "credit_spread": 2.82,
-      "move": 70.23600006103516,
-      "yield_curve_2s10s": 0.45999999999999996,
-      "fed_balance": 6709505.0,
-      "global_liquidity": 3.871131698099075,
-      "usd_index": 98.4800033569336,
-      "hyg": 79.91000366210938,
-      "sp_breadth": 0.2733628791695318,
-      "nasdaq": 26402.34375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.799,
-      "vol_regime": 0.349,
-      "credit_spread": 0.0,
-      "move": 0.008,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.522,
-      "hyg": 0.694,
-      "sp_breadth": 4.0,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-14T09:40:36.230851+00:00",
     "total_score": 5.6678,
     "crash_probability_pct": 16.013,
@@ -15998,5 +15966,37 @@
       "nasdaq": 2.479
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-11-03T01:31:47.281403+00:00",
+    "total_score": 10.7593,
+    "crash_probability_pct": 48.243,
+    "indicator_values": {
+      "vix": 19.42,
+      "vol_regime": 19.42,
+      "credit_spread": 3.44,
+      "move": 100.36150360107422,
+      "yield_curve_2s10s": 0.3800000000000008,
+      "fed_balance": 6745635.0,
+      "global_liquidity": 1.1720176436923249,
+      "usd_index": 101.8010025024414,
+      "hyg": 77.43000030517578,
+      "sp_breadth": 0.28887684065762775,
+      "nasdaq": 25164.36328125
+    },
+    "indicator_risk_scores": {
+      "vix": 0.942,
+      "vol_regime": 1.329,
+      "credit_spread": 0.264,
+      "move": 1.018,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.017,
+      "global_liquidity": 0.193,
+      "usd_index": 1.686,
+      "hyg": 1.872,
+      "sp_breadth": 0.0,
+      "nasdaq": 2.479
+    },
+    "stage_label": "ELEVATED RISK"
   }
 ]
