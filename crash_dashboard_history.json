@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-20T21:08:26.153324+00:00",
-    "total_score": 6.7733,
-    "crash_probability_pct": 21.313,
-    "indicator_values": {
-      "vix": 18.06,
-      "vol_regime": 18.06,
-      "credit_spread": 2.86,
-      "move": 81.53479766845703,
-      "yield_curve_2s10s": 0.54,
-      "fed_balance": 6728502.0,
-      "global_liquidity": 4.296060672351775,
-      "usd_index": 99.13500213623047,
-      "hyg": 79.86000061035156,
-      "sp_breadth": 0.27498145272317664,
-      "nasdaq": 26270.359375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.806,
-      "vol_regime": 0.473,
-      "credit_spread": 0.0,
-      "move": 0.534,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.931,
-      "hyg": 0.666,
-      "sp_breadth": 3.926,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-21T10:48:58.719524+00:00",
     "total_score": 6.8195,
     "crash_probability_pct": 21.445,
@@ -15998,5 +15966,37 @@
       "nasdaq": 2.023
     },
     "stage_label": "HIGH RISK"
+  },
+  {
+    "timestamp": "2026-11-10T02:01:23.783168+00:00",
+    "total_score": 12.9302,
+    "crash_probability_pct": 65.067,
+    "indicator_values": {
+      "vix": 25.64,
+      "vol_regime": 25.64,
+      "credit_spread": 3.42,
+      "move": 85.98380279541016,
+      "yield_curve_2s10s": 0.35000000000000053,
+      "fed_balance": 6748145.0,
+      "global_liquidity": 1.0407585992186221,
+      "usd_index": 101.7030029296875,
+      "hyg": 77.2300033569336,
+      "sp_breadth": 0.29382965837693414,
+      "nasdaq": 25253.138671875
+    },
+    "indicator_risk_scores": {
+      "vix": 2.753,
+      "vol_regime": 2.22,
+      "credit_spread": 0.252,
+      "move": 0.533,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.07,
+      "global_liquidity": 0.325,
+      "usd_index": 1.637,
+      "hyg": 1.905,
+      "sp_breadth": 0.0,
+      "nasdaq": 2.023
+    },
+    "stage_label": "SEVERE RISK"
   }
 ]
