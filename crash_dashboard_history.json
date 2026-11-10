@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-21T10:48:58.719524+00:00",
-    "total_score": 6.8195,
-    "crash_probability_pct": 21.445,
-    "indicator_values": {
-      "vix": 18.06,
-      "vol_regime": 18.06,
-      "credit_spread": 2.86,
-      "move": 81.52999877929688,
-      "yield_curve_2s10s": 0.54,
-      "fed_balance": 6728502.0,
-      "global_liquidity": 4.296060672351775,
-      "usd_index": 99.30000305175781,
-      "hyg": 79.86000061035156,
-      "sp_breadth": 0.27498145272317664,
-      "nasdaq": 26270.359375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.806,
-      "vol_regime": 0.473,
-      "credit_spread": 0.0,
-      "move": 0.534,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.997,
-      "hyg": 0.666,
-      "sp_breadth": 3.926,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-21T16:23:06.583636+00:00",
     "total_score": 7.1104,
     "crash_probability_pct": 23.319,
@@ -15998,5 +15966,37 @@
       "nasdaq": 2.023
     },
     "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-11-10T15:34:54.227100+00:00",
+    "total_score": 10.3095,
+    "crash_probability_pct": 45.179,
+    "indicator_values": {
+      "vix": 19.92,
+      "vol_regime": 19.92,
+      "credit_spread": 3.42,
+      "move": 92.23560333251953,
+      "yield_curve_2s10s": 0.35000000000000053,
+      "fed_balance": 6748145.0,
+      "global_liquidity": 1.0407585992186221,
+      "usd_index": 102.10900115966797,
+      "hyg": 77.19999694824219,
+      "sp_breadth": 0.29287798721077535,
+      "nasdaq": 25166.0390625
+    },
+    "indicator_risk_scores": {
+      "vix": 0.992,
+      "vol_regime": 1.221,
+      "credit_spread": 0.252,
+      "move": 0.741,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.07,
+      "global_liquidity": 0.325,
+      "usd_index": 1.931,
+      "hyg": 1.871,
+      "sp_breadth": 0.0,
+      "nasdaq": 2.068
+    },
+    "stage_label": "ELEVATED RISK"
   }
 ]
