@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-05-22T10:29:22.316699+00:00",
-    "total_score": 6.0104,
-    "crash_probability_pct": 17.503,
-    "indicator_values": {
-      "vix": 17.44,
-      "vol_regime": 17.44,
-      "credit_spread": 2.8,
-      "move": 79.72000122070312,
-      "yield_curve_2s10s": 0.5300000000000002,
-      "fed_balance": 6713643.0,
-      "global_liquidity": 4.065209969460875,
-      "usd_index": 99.28099822998047,
-      "hyg": 79.9000015258789,
-      "sp_breadth": 0.27562205782627663,
-      "nasdaq": 26293.099609375
-    },
-    "indicator_risk_scores": {
-      "vix": 0.725,
-      "vol_regime": 0.317,
-      "credit_spread": 0.0,
-      "move": 0.324,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 0.989,
-      "hyg": 0.619,
-      "sp_breadth": 3.704,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-05-22T15:54:12.566088+00:00",
     "total_score": 5.7028,
     "crash_probability_pct": 16.162,
@@ -15996,6 +15964,38 @@
       "hyg": 1.891,
       "sp_breadth": 0.0,
       "nasdaq": 2.492
+    },
+    "stage_label": "ELEVATED RISK"
+  },
+  {
+    "timestamp": "2026-11-11T15:10:14.047128+00:00",
+    "total_score": 9.8249,
+    "crash_probability_pct": 41.098,
+    "indicator_values": {
+      "vix": 19.46,
+      "vol_regime": 19.46,
+      "credit_spread": 3.34,
+      "move": 92.43000030517578,
+      "yield_curve_2s10s": 0.3200000000000003,
+      "fed_balance": 6748145.0,
+      "global_liquidity": 1.0407585992186221,
+      "usd_index": 102.947998046875,
+      "hyg": 77.25,
+      "sp_breadth": 0.29280845952515094,
+      "nasdaq": 25364.73828125
+    },
+    "indicator_risk_scores": {
+      "vix": 0.946,
+      "vol_regime": 1.04,
+      "credit_spread": 0.204,
+      "move": 0.748,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.07,
+      "global_liquidity": 0.325,
+      "usd_index": 2.199,
+      "hyg": 1.793,
+      "sp_breadth": 0.0,
+      "nasdaq": 1.743
     },
     "stage_label": "ELEVATED RISK"
   }
