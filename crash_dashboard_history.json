@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-06-03T22:04:04.722751+00:00",
-    "total_score": 5.4042,
-    "crash_probability_pct": 15.107,
-    "indicator_values": {
-      "vix": 15.77,
-      "vol_regime": 15.77,
-      "credit_spread": 2.71,
-      "move": 73.57730102539062,
-      "yield_curve_2s10s": 0.41000000000000014,
-      "fed_balance": 6704383.0,
-      "global_liquidity": 1.5160960775906598,
-      "usd_index": 99.51699829101562,
-      "hyg": 79.68000030517578,
-      "sp_breadth": 0.2774315903549174,
-      "nasdaq": 26853.9765625
-    },
-    "indicator_risk_scores": {
-      "vix": 0.503,
-      "vol_regime": 0.22,
-      "credit_spread": 0.0,
-      "move": 0.119,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 1.085,
-      "hyg": 1.04,
-      "sp_breadth": 2.678,
-      "nasdaq": 0.0
-    },
-    "stage_label": "NORMAL"
-  },
-  {
     "timestamp": "2026-06-04T10:44:08.362180+00:00",
     "total_score": 5.3447,
     "crash_probability_pct": 14.588,
@@ -15998,5 +15966,37 @@
       "nasdaq": 3.194
     },
     "stage_label": "SEVERE RISK"
+  },
+  {
+    "timestamp": "2026-11-19T21:31:36.526820+00:00",
+    "total_score": 16.0611,
+    "crash_probability_pct": 83.734,
+    "indicator_values": {
+      "vix": 24.56,
+      "vol_regime": 24.56,
+      "credit_spread": 3.47,
+      "move": 96.0031967163086,
+      "yield_curve_2s10s": 0.27000000000000046,
+      "fed_balance": 6758867.0,
+      "global_liquidity": 1.410669767975492,
+      "usd_index": 103.93699645996094,
+      "hyg": 76.52999877929688,
+      "sp_breadth": 0.2956263097019017,
+      "nasdaq": 23879.19921875
+    },
+    "indicator_risk_scores": {
+      "vix": 2.767,
+      "vol_regime": 2.068,
+      "credit_spread": 0.282,
+      "move": 0.867,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 2.491,
+      "hyg": 2.566,
+      "sp_breadth": 0.0,
+      "nasdaq": 3.941
+    },
+    "stage_label": "CRASH WARNING"
   }
 ]
