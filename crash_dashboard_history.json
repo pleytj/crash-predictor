@@ -1,37 +1,5 @@
 [
   {
-    "timestamp": "2026-06-08T21:16:49.254225+00:00",
-    "total_score": 8.7336,
-    "crash_probability_pct": 33.418,
-    "indicator_values": {
-      "vix": 21.51,
-      "vol_regime": 21.51,
-      "credit_spread": 2.76,
-      "move": 76.9802017211914,
-      "yield_curve_2s10s": 0.3799999999999999,
-      "fed_balance": 6711495.0,
-      "global_liquidity": 1.3575620267508859,
-      "usd_index": 99.9739990234375,
-      "hyg": 79.54000091552734,
-      "sp_breadth": 0.28085009718132864,
-      "nasdaq": 25929.662109375
-    },
-    "indicator_risk_scores": {
-      "vix": 2.003,
-      "vol_regime": 1.641,
-      "credit_spread": 0.0,
-      "move": 0.233,
-      "yield_curve_2s10s": 0.0,
-      "fed_balance": 0.0,
-      "global_liquidity": 0.0,
-      "usd_index": 1.26,
-      "hyg": 1.235,
-      "sp_breadth": 1.438,
-      "nasdaq": 0.502
-    },
-    "stage_label": "ELEVATED RISK"
-  },
-  {
     "timestamp": "2026-06-09T10:41:51.101389+00:00",
     "total_score": 8.6804,
     "crash_probability_pct": 32.632,
@@ -15996,6 +15964,38 @@
       "hyg": 2.582,
       "sp_breadth": 0.0,
       "nasdaq": 4.0
+    },
+    "stage_label": "CRASH WARNING"
+  },
+  {
+    "timestamp": "2026-11-25T03:00:52.766201+00:00",
+    "total_score": 16.6731,
+    "crash_probability_pct": 85.608,
+    "indicator_values": {
+      "vix": 26.62,
+      "vol_regime": 26.62,
+      "credit_spread": 3.63,
+      "move": 98.83779907226562,
+      "yield_curve_2s10s": 0.29000000000000004,
+      "fed_balance": 6741452.0,
+      "global_liquidity": 1.1124635202527342,
+      "usd_index": 103.89199829101562,
+      "hyg": 76.43000030517578,
+      "sp_breadth": 0.29767105093774954,
+      "nasdaq": 23733.53515625
+    },
+    "indicator_risk_scores": {
+      "vix": 2.771,
+      "vol_regime": 2.357,
+      "credit_spread": 0.378,
+      "move": 0.961,
+      "yield_curve_2s10s": 0.0,
+      "fed_balance": 0.0,
+      "global_liquidity": 0.0,
+      "usd_index": 2.466,
+      "hyg": 2.569,
+      "sp_breadth": 0.0,
+      "nasdaq": 3.965
     },
     "stage_label": "CRASH WARNING"
   }
